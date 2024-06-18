@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Insulina y Glucosa</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="assets/css/formulariostyle.css">
+</head>
+<body>
+    <div id="particles-js" class="particulas"></div>
+    
+    <div class="container">
+        <div class="form-container">
+            <form id="registroForm">
+                <h1 class="titulo">Registo de Insulina y Glucosa</h1>
+                <label for="tipoInsulina">Tipo de insulina:</label>
+                <select id="tipoInsulina" name="tipoInsulina" required>
+                    <option value="" disabled selected>Seleccione</option>
+                    <option value="accion rapida">Acción Rápida</option>
+                    <option value="accion corta">Acción Corta</option>
+                    <option value="accion intermedia">Acción Intermedia</option>
+                    <option value="accion prolongada">Acción Prolongada</option>
+                    <option value="accion ultra prolongada">Acción Ultra Prolongada</option>
+                    <option value="preprandial">Preprandial</option>
+                    <option value="NPH">NPH</option>
+                </select>
+                <label for="dosis">Dosis:</label>
+                <input type="number" id="dosis" name="dosis" required>
+                <select id="unidad" name="unidad" required>
+                    <option value="" disabled selected>Seleccione</option>
+                    <option value="comprimidos">comprimidos</option>
+                    <option value="tabletas">tabletas</option>
+                    <option value="litros">litros</option>
+                    <option value="unidades">unidades</option>
+                    <option value="miligramos">miligramos</option>
+                    <option value="mililitros">mililitros</option>
+                    <option value="milimoles">milimoles</option>
+                </select>
+                <label for="fechaHora">Fecha y hora de administración:</label>
+                <input type="datetime-local" id="fechaHora" name="fechaHora" required>
+                <label for="viaAdministracion">Vía de administración:</label>
+                <select id="viaAdministracion" name="viaAdministracion" required>
+                    <option value="" disabled selected>Seleccione</option>
+                    <option value="subcutanea">Subcutánea</option>
+                    <option value="intravenosa">Intravenosa</option>
+                    <option value="intramuscular">Intramuscular</option>
+                </select>
+                <label for="glucosa">Nivel de Glucosa (mg/dL o mmol/L):</label>
+                <input type="number" id="glucosa" name="glucosa" step="0.1" required>
+                <label for="comida-hora">Hora de la comida:</label>
+                <input type="time" id="comida-hora" name="comida-hora" required>
+                <label for="comida-cantidad">Cantidad de Carbohidratos (g):</label>
+                <input type="number" id="comida-cantidad" name="comida-cantidad" step="0.1" required>
+                <label for="actividad">Actividad Física (Tipo y Duración):</label>
+                <input type="text" id="actividad" name="actividad" required>
+                <label for="notas">Notas adicionales:</label>
+                <textarea id="notas" name="notas"></textarea>
+                <input type="submit" value="Guardar">
+            </form>
+        </div>
+    </div>
+    <script src="assets/js/Formulario.js"></script>
+</body>
+</html>
