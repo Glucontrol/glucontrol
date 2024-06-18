@@ -1,0 +1,85 @@
+*{
+    font-family: 'Manrope';
+    margin: 0;
+    padding:0;
+}
+body{
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image:  radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0,10px 10px;
+}
+
+.header {
+    background-color: #343a40;
+    padding: 0.5rem 0;
+}
+
+.header .nav-link {
+    color: white !important;
+}
+
+.header .nav-link:hover {
+    color: #adb5bd !important;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.navbar {
+    background-color: #292A2E; 
+    color: white; 
+}
+footer{
+    background-color: #111725;
+}
+.btn-footer{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+}
+
+/* Main content styles */
+main {
+    margin-top: 100px; /* Adjust as needed */
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    border-radius: 0.5rem 0.5rem 0 0;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #111725;
+    color: #ffffff;
+    padding: 1.5rem 0;
+}
+
+
+.footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
