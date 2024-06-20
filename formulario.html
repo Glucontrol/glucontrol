@@ -1,16 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Insulina y Glucosa</title>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <title>LandingPage</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="assets/css/formulariostyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div id="particles-js" class="particulas"></div>
-    
-    <div class="container">
+<header class="header" id="header">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand nav-logo">Logo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Estilo de vida</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Controla tu salud</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary me-2 btn-inicio">Registrarse</button>
+                <button class="btn btn-secondary btn-signup">Iniciar Sesión</button>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container d-flex align-items-center justify-content-center">
         <div class="form-container">
             <form id="registroForm">
                 <h1 class="titulo">Registo de Insulina y Glucosa</h1>
@@ -60,6 +93,10 @@
             </form>
         </div>
     </div>
-    <script src="assets/js/Formulario.js"></script>
+</main>
+
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzOg+pPFx1zLfX91ZCkX7r24r80P7FxT5pEnYCH6D9a7" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-ant7F5pA5IOoszfdSI+70Bc6IY5mC9k5V5qGtA8zN6B3HpS0F1H2etGJvBtb2HTy" crossorigin="anonymous"></script>
 </body>
 </html>
