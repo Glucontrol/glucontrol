@@ -1,56 +1,19 @@
-* {
+*{
     font-family: 'Manrope';
     margin: 0;
-    padding: 0;
+    padding:0;
 }
-
-body {
+body{
     background-color: #e5e5f7;
     opacity: 0.8;
-    background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-image:  radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
     background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-.btn-inicio {
-    background-color:#292A2E; 
-    color: white;
-    border: none; 
-    text-align: center; 
-    text-decoration: none; 
-    display: inline-block; 
-    font-size: 16px; 
-    transition-duration: 0.4s;
-    cursor: pointer; 
-    border-radius: 12px; 
-
-}
-
-.btn-inicio:hover {
-    background-color: #111725; 
-    color: white; 
-}
-
-
-.btn-inicio{
-    background-color: #FFF;
-    color: #111725;
-    border-radius: 5px;
-}
-.btn-inicio:hover{
-    background-color: #888888;
-}
-.btn-signup:hover{
-    background-color: #FFF;
-    color: #111725;
+    background-position: 0 0,10px 10px;
 }
 
 #header {
     background-color: #343a40; 
     color: white;
-    width: 100%;
 }
 
 .navbar-brand {
@@ -68,6 +31,13 @@ body {
     background-color: #292A2E; 
     color: white; 
 }
+.nav-link {
+    color: white; 
+}
+
+.nav-link:hover {
+    color: #ddd; 
+}
 
 @media (max-width: 991.98px) {
     .nav__toggle {
@@ -78,130 +48,113 @@ body {
         justify-content: flex-start;
     }
 }
-
-.navbar-container {
+.navbar-container{
     background-color: #111725;
     color: #FFF;
 }
-
-.btn-navbar {
+.btn-navbar{
     background: #292A2E;
     color: #FFF;
     border: 1px solid #FFF;
     border-radius: 5px;
 }
 
-footer {
+footer{
     background-color: #111725;
-    color: white;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: auto; /* Ensure the footer is at the bottom of the page */
 }
-
-.btn-footer {
+.btn-form{
     background: #292A2E;
     color: #FFF;
     border: 1px solid #FFF;
     border-radius: 5px;
-}
-
-@media(max-width: 767px) {
-    .carousel-item {
-        height: 70vh;
-    }
-    .w-100 {
-        height: 70vh;
-    }
-    .carousel-caption {
-        bottom: 125px;
-    }
-    .carousel-caption h5 {
-        font-size: 17px;
-    }
-    .carousel-caption a {
-        padding: 10px 15px;
-        font-size: 15px;
-    }
-    .carousel-caption p {
-        width: 100%;
-        line-height: 1.5;
-        font-size: 12px;
-    }
-    .about-text {
-        padding-top: 50px;
-    }
-    .card {
-        margin-bottom: 30px;
-    }
-    .section-padding {
-        padding: 50px 0;
-    }
-}
-
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    padding: 20px;
-}
-
-.container {
-    background: #e8e0e0;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 600px;
-    width: 100%;
-    margin: 100px;
-}
-
-.form-container {
-    width: 100%;
-}
-
-form {
-    width: 100%;
-}
-
-h1.titulo {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-top: 10px;
-}
-
-input[type="number"],
-input[type="datetime-local"],
-input[type="time"],
-input[type="text"],
-textarea,
-select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-input[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #444cf7;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+    transition: 0.3s ease;
+    border: none;
 }
 
-input[type="submit"]:hover {
+
+.btn-footer{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+}
+.btn-form:hover{
     background-color: #343a40;
+    border: none;
+}
+.btn-footer:hover{
+    background-color: #343a40;
+}
+.section-padding {
+    padding-top: 100px; /* Adjust top padding for spacing from the fixed navbar */
+    padding-bottom: 50px; /* Bottom padding */
+}
+
+/* Form styling */
+.form-container {
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px; /* Padding inside the form */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Form headers */
+.form-container > h2 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Form labels */
+.form-container > .form-label {
+    font-weight: 600;
+    color: #343a40;
+}
+
+
+
+
+/* Footer customization */
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Customizing input fields */
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+/* Adjusting textarea */
+textarea.form-control {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .navbar-brand, .nav-link {
+        font-size: 14px;
+    }
+
+    .section-padding {
+        padding-top: 70px;
+        padding-bottom: 30px;
+    }
 }
