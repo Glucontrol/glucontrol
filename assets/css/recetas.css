@@ -51,3 +51,15 @@ footer{
     border: 1px solid #FFF;
     border-radius: 5px;
 }
+.btn-inicio{
+    background-color: #FFF;
+    color: #111725;
+    border-radius: 5px;
+}
+.btn-inicio:hover{
+    background-color: #888888;
+}
+.btn-signup:hover{
+    background-color: #FFF;
+    color: #111725;
+}
