@@ -16,12 +16,12 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="assets/css/landingPage.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/home.css">
-     
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     </head>
 
     <body>
@@ -44,7 +44,7 @@
                             <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
                         <li>
-                          <a class="nav-link text-center" href="">Controla tu salud</a>
+                          <a class="nav-link text-center" href="formulario.html">Controla tu salud</a>
                         
                         </li> 
                     </ul>
@@ -115,6 +115,7 @@
             </button>
             
         </div>
+
         <section class="section services-section" id="services">
             <div class="container">
                 <div class="row">
@@ -130,7 +131,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="feature-box-1">
                             <div class="icon">
-                                <i class="bi bi-clipboard2-check"></i>
+                                <i class="bi bi-book"></i>
                             </div>
                             <div class="feature-content">
                                 <h5>Unique design</h5>
@@ -143,7 +144,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="feature-box-1">
                             <div class="icon">
-                                <i class="fa fa-user"></i>
+                                <i class="bi bi-clipboard-check"></i>
                             </div>
                             <div class="feature-content">
                                 <h5>Different Layout</h5>
@@ -155,7 +156,7 @@
             <div class="col-sm-6 col-lg-4">
                 <div class="feature-box-1">
                     <div class="icon">
-                        <i class="fa fa-th"></i>
+                        <i class="bi bi-cup-hot-fill"></i>
                     </div>
                     <div class="feature-content">
                         <h5>Testing for Perfection</h5>
@@ -164,6 +165,100 @@
                 </div>
             </div>
         </section>
+        <section class="section blog-section" id="blog">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">
+                  <h2>Artículos Recientes</h2>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="blog-post">
+                  <img src="ruta/a/imagen.jpg" alt="Artículo 1" class="img-fluid">
+                  <h5><a href="articulo1.html">Cómo gestionar tu diabetes con éxito</a></h5>
+                  <p>Descubre estrategias efectivas para controlar tu diabetes y mejorar tu calidad de vida.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="blog-post">
+                  <img src="ruta/a/imagen.jpg" alt="Artículo 2" class="img-fluid">
+                  <h5><a href="articulo2.html">Beneficios de una dieta balanceada</a></h5>
+                  <p>Explora los beneficios de mantener una dieta equilibrada y cómo puede ayudarte a controlar tu diabetes.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="blog-post">
+                  <img src="ruta/a/imagen.jpg" alt="Artículo 3" class="img-fluid">
+                  <h5><a href="articulo3.html">Ejercicio y diabetes: una combinación ganadora</a></h5>
+                  <p>Conoce los mejores ejercicios para mantener tu diabetes bajo control y mejorar tu bienestar general.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="quiz-section" id="quiz">
+          <div class="container">
+              <h2 class="text-center mb-4">¿Qué sabes sobre la Diabetes?</h2>
+              <div class="quiz-container">
+                  <div class="quiz-question">
+                      <p>1. ¿Cuál es el principal tipo de diabetes?</p>
+                      <div class="quiz-options">
+                          <label><input type="radio" name="q1" value="A"> Tipo 1</label>
+                          <label><input type="radio" name="q1" value="B"> Tipo 2</label>
+                          <label><input type="radio" name="q1" value="C"> Tipo 3</label>
+                          <label><input type="radio" name="q1" value="D"> Gestacional</label>
+                      </div>
+                  </div>
+                  <div class="quiz-question">
+                      <p>2. ¿Cuál de estos es un síntoma común de la diabetes tipo 2?</p>
+                      <div class="quiz-options">
+                          <label><input type="radio" name="q2" value="A"> Aumento de la sed</label>
+                          <label><input type="radio" name="q2" value="B"> Pérdida de peso</label>
+                          <label><input type="radio" name="q2" value="C"> Visión borrosa</label>
+                          <label><input type="radio" name="q2" value="D"> Todos los anteriores</label>
+                      </div>
+                  </div>
+                  <div class="quiz-question">
+                      <p>3. ¿Cuál es un factor de riesgo para la diabetes tipo 2?</p>
+                      <div class="quiz-options">
+                          <label><input type="radio" name="q3" value="A"> Alta presión arterial</label>
+                          <label><input type="radio" name="q3" value="B"> Exceso de peso</label>
+                          <label><input type="radio" name="q3" value="C"> Historia familiar</label>
+                          <label><input type="radio" name="q3" value="D"> Todas las anteriores</label>
+                      </div>
+                  </div>
+                  <button class="btn btn-primary btn-submit" onclick="calculateScore()">Enviar</button>
+                  <div id="result" class="mt-4"></div>
+              </div>
+          </div>
+      </section>
+      
+        <section class="section testimonials-section" id="testimonials">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">
+                  <h2>Lo que dicen nuestros usuarios</h2>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="testimonial-carousel">
+                  <div class="testimonial-item">
+                    <p>"Gracias a esta plataforma, he logrado controlar mejor mi diabetes. ¡Recomiendo a todos probarla!"</p>
+                    <h5>- Juan Pérez</h5>
+                  </div>
+                  <div class="testimonial-item">
+                    <p>"Los artículos y recetas me han ayudado a llevar una vida más saludable. ¡Gracias por esta gran herramienta!"</p>
+                    <h5>- María López</h5>
+                  </div>
+                  <!-- Agrega más testimonios según sea necesario -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         <footer class="footer">
             <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
               <div class="container overflow-hidden">
@@ -283,13 +378,46 @@
             </div>
           
           </footer>
+          
         
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const options = document.querySelectorAll('.quiz-options input[type="radio"]');
+                options.forEach(option => {
+                    option.addEventListener('change', function () {
+                        // Remove 'selected' class from all labels
+                        const labels = document.querySelectorAll('.quiz-options label');
+                        labels.forEach(label => label.classList.remove('selected'));
+                        // Add 'selected' class to the label of the checked input
+                        if (this.checked) {
+                            this.nextElementSibling.classList.add('selected');
+                        }
+                    });
+                });
+            });
+            
+            function calculateScore() {
+                let score = 0;
+                const q1 = document.querySelector('input[name="q1"]:checked');
+                const q2 = document.querySelector('input[name="q2"]:checked');
+                const q3 = document.querySelector('input[name="q3"]:checked');
+                
+                if (q1 && q1.value === 'B') score++;
+                if (q2 && q2.value === 'D') score++;
+                if (q3 && q3.value === 'D') score++;
+                
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `Tu puntuación es ${score} de 3. ¡Gracias por participar!`;
+            }
+            </script>
+            
+          
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"
         ></script>
-
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"

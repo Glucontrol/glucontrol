@@ -1,19 +1,8 @@
-*{
-    font-family: 'Manrope';
-    margin: 0;
-    padding:0;
-}
+
 .card-img {
   width: 100%;
   height: 100%; /* Asegura que la imagen ocupe todo el espacio disponible */
   object-fit: cover; /* Mantiene la proporción de la imagen y rellena el área */
-}
-body{
-    background-color: #e5e5f7;
-    opacity: 0.8;
-    background-image:  radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
-    background-size: 20px 20px;
-    background-position: 0 0,10px 10px;
 }
 .card:hover{
     transform: translateY(-10px);
@@ -22,8 +11,24 @@ body{
     background-color: #929AAB;
     color: #FFF;
 }
+
+*{
+    font-family: 'Manrope';
+    margin: 0;
+    padding:0;
+}
+body{
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image:  radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0,10px 10px;
+}
+.section-padding{
+    padding: 70px 0;
+}
 #header {
-    background-color: #343a40; /* Color de fondo de la barra de navegación */
+    background-color: #343a40; 
     color: white;
 }
 
@@ -42,8 +47,72 @@ body{
     background-color: #292A2E; 
     color: white; 
 }
+.btn-inicio {
+    background-color:#292A2E; 
+    color: white;
+    border: none; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    transition-duration: 0.4s;
+    cursor: pointer; 
+    border-radius: 12px; 
+
+}
+
+.btn-inicio:hover {
+    background-color: #111725; 
+    color: white; 
+}
+
+
+.nav-link {
+    color: white; 
+}
+
+.nav-link:hover {
+    color: #ddd; 
+}
+
+@media (max-width: 991.98px) {
+    .nav__toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        justify-content: flex-start;
+    }
+}
+.navbar-container{
+    background-color: #111725;
+    color: #FFF;
+}
+.btn-navbar{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+}
+
+
 footer{
     background-color: #111725;
+}
+.card-body{
+    background: #888888;
+    border-radius: 5px;
+}
+.btn-card{
+    background-color: #292A2E;
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #FFF;
+    width: 80px;
 }
 .btn-footer{
     background: #292A2E;
@@ -51,15 +120,15 @@ footer{
     border: 1px solid #FFF;
     border-radius: 5px;
 }
-.btn-inicio{
-    background-color: #FFF;
-    color: #111725;
-    border-radius: 5px;
-}
-.btn-inicio:hover{
-    background-color: #888888;
-}
-.btn-signup:hover{
-    background-color: #FFF;
-    color: #111725;
+@media(max-width : 767px){
+    
+    
+    .w-100{
+        height: 70vh;
+    }
+    
+    .card{
+        margin-bottom: 30px ;
+    }
+    
 }
