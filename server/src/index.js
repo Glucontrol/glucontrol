@@ -13,9 +13,11 @@ app.use(express.json()); // express.json para que nuestro servidor pueda reconoc
 
 //Requerimos nuestras rutas.
 app.use(require('./routes/auth.routes'));
-app.use(require('./routes/tareas.routes'));
 
 //Configuramos el puerto al que escuchara nuestro servidor.
 app.listen(3000, () => { 
     console.log('Servidor corriendo en el puerto 3000');
+})
+app.get('/',(req,res)=>{
+    res.sendFile("admin.html",{root:"../client/private"})
 })

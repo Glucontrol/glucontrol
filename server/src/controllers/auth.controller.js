@@ -1,6 +1,7 @@
 const { connectDB } = require("../db/database");
 const bcrypt = require('bcrypt');
 const generarJWT = require("../helpers/generarJWT");
+const { connect } = require("../routes/auth.routes");
 
 // Definimos un objeto vacio con el nombre 'ctrl' (abreviatura de controller).
 const ctrl = {};
@@ -67,6 +68,17 @@ ctrl.login = async (req, res) => {
     })
 
 }
-
+ctrl.selectall = async (req,res) =>{
+    const nConnection = await connectDB();
+    const [todo] = await nConnection.query('SELECT * FROM USUARIOS;');
+    
+    res.json(todo)
+}
+ctrl.eliminar = async (req,res) =>{
+    const nConnection = await connectDB();
+    console.log(req.body.Id)
+    nConnection.query("DELETE FROM USUARIOS WHERE ID_USUARIO = ?;", req.body.Id)
+    res.send("Usuario Eliminado")
+}
 // Exportamos el objeto con los controladores.
 module.exports = ctrl;
