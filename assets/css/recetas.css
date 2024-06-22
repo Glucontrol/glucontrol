@@ -24,6 +24,9 @@ body{
     background-size: 20px 20px;
     background-position: 0 0,10px 10px;
 }
+main{
+    height: 100vh;
+}
 .section-padding{
     padding: 70px 0;
 }
@@ -48,8 +51,8 @@ body{
     color: white; 
 }
 .btn-inicio {
-    background-color:#292A2E; 
-    color: white;
+    background-color:#FFF; 
+    color: #111725;
     border: none; 
     text-align: center; 
     text-decoration: none; 
@@ -57,13 +60,25 @@ body{
     font-size: 16px; 
     transition-duration: 0.4s;
     cursor: pointer; 
-    border-radius: 12px; 
-
+    border-radius: 5px; 
+  
 }
 
+
 .btn-inicio:hover {
-    background-color: #111725; 
-    color: white; 
+    background-color: #888; 
+    color: #FFF; 
+    cursor: pointer;
+    border: 1px solid #FFF;
+}
+.btn-signup:hover{
+    background-color: #343a40; 
+    color: #FFF; 
+    cursor: pointer;
+    border: 1px solid #FFF;
+}
+.btn-footer:hover{
+    background-color: #888888;
 }
 
 
@@ -131,4 +146,35 @@ footer{
         margin-bottom: 30px ;
     }
     
+}
+.card img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.card {
+    overflow: hidden;
+    height: 100%;
+}
+.card-body {
+    height: 100%;
+}
+.card {
+    height: 100%;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-img {
+    width: 100%;
+    height: auto;
+}
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+.card-text {
+    flex: 1;
 }
