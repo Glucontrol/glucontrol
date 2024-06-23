@@ -10,7 +10,9 @@ body{
     background-size: 20px 20px;
     background-position: 0 0,10px 10px;
 }
-
+.btn-footer:hover{
+    background-color: #888888;
+}
 .header {
     background-color: #343a40;
     padding: 0.5rem 0;
@@ -83,15 +85,30 @@ main {
     text-decoration: none;
 }
 
-.btn-inicio{
-    background-color: #FFF;
+.btn-inicio {
+    background-color:#FFF; 
     color: #111725;
-    border-radius: 5px;
+    border: none; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    transition-duration: 0.4s;
+    cursor: pointer; 
+    border-radius: 5px; 
+  
 }
-.btn-inicio:hover{
-    background-color: #888888;
+
+
+.btn-inicio:hover {
+    background-color: #888; 
+    color: #FFF; 
+    cursor: pointer;
+    border: 1px solid #FFF;
 }
 .btn-signup:hover{
-    background-color: #FFF;
-    color: #111725;
+    background-color: #343a40; 
+    color: #FFF; 
+    cursor: pointer;
+    border: 1px solid #FFF;
 }

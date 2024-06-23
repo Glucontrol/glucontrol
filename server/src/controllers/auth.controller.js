@@ -66,7 +66,6 @@ ctrl.login = async (req, res) => {
         msg: 'Inicio de sesión exitoso',
         token
     })
-
 }
 ctrl.selectall = async (req,res) =>{
     const nConnection = await connectDB();
@@ -79,6 +78,14 @@ ctrl.eliminar = async (req,res) =>{
     console.log(req.body.Id)
     nConnection.query("DELETE FROM USUARIOS WHERE ID_USUARIO = ?;", req.body.Id)
     res.send("Usuario Eliminado")
+}
+ctrl.sesion = async (req,res) =>{
+    const {id} = req.headers
+    console.log(id)
+    const nConnection = await connectDB();
+    const [[ query ]] = await nConnection.query("SELECT Nombre,Email FROM USUARIOS WHERE ID_USUARIO = ?;", 25)
+    console.log(query)
+    res.json(query)
 }
 // Exportamos el objeto con los controladores.
 module.exports = ctrl;

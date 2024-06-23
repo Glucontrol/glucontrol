@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Glucontrol</title>
+        <title>Panqueques de Avena con Arándanos y Nueces</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -16,7 +16,8 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="./assets/css/landingPage.css">
+        <link rel="stylesheet" href="receta.css">
+        <link rel="stylesheet" href="articulo1.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -26,20 +27,20 @@
       <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand nav-logo"><img src="assets/img/logoedit.jpg" class="img-fluid" style="height: 40px;" alt=""></a>
+                <a href="#" class="navbar-brand nav-logo">Logo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-white " aria-current="page" href="login.html">Home</a>
+                            <a class="nav-link active text-white " aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="articulos.html">Artículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="listaRecetas.html">Recetas</a>
+                            <a class="nav-link" href="../listaRecetas.html">Recetas</a>
                         </li>
                         <li>
                           <a class="nav-link text-center" href="login.html">Controla tu salud</a>
@@ -54,162 +55,58 @@
             </div>
         </nav>
     </header>
-    <div id="caruselE" class="carousel slide " data-bs-ride="carousel">
-      <div class="carousel-indicators">
-          <button type="button" 
-          data-bs-target="#caruselE"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="slide 1"
-          ></button>
-          <button type="button" 
-          data-bs-target="#caruselE"
-          data-bs-slide-to="1"
-          aria-label="slide 2"
-          ></button>
-          <button type="button" 
-          data-bs-target="#caruselE"
-          data-bs-slide-to="2"
-          aria-label="slide 3"
-          ></button>
-      </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://images.pexels.com/photos/287240/pexels-photo-287240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
-                    <div  class= "carousel-caption">
-                        <h5>Toma el control de tu salud</h5>
-                        <p>Aquí encontrarás el apoyo y las herramientas necesarias para tomar el control de tu salud y alcanzar un estilo de vida más saludable y pleno.</p>
-                        <button class="btn btn-primary btn-inicio">Entrar</button>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://images.pexels.com/photos/15813487/pexels-photo-15813487/free-photo-of-comida-plato-cena-almuerzo.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
-                    <div  class= "carousel-caption" >
-                      <h5>Como gestionar tu diabete con éxito</h5>
-                      <p>Descubre estrategias efectivas para controlar tu diabetes y mejorar tu calidad de vida.</p>
-                        <button class="btn btn-primary btn-inicio">Entrar</button>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
-                    <div  class= "carousel-caption">
-                        <h5>Ejercicio y Diabetes: Salud en Movimiento </h5>
-                        <p> Aprende cómo el ejercicio puede mejorar tu vida con diabetes y mantenerte saludable. ¡Infórmate más aquí!</p>
-                        <button class="btn btn-primary btn-inicio">Entrar</button>
-                       
+    <main class="container">
+        <div class="row justify-content-center container-receta">
+            <div class="col-lg-8">
+                <div class="recipe-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center">Panqueques de Avena con Arándanos y Nueces</h2>
+                            <img src="https://naturespath.com/cdn/shop/articles/Oatmeal-Blueberry-Pancakes.jpg?v=1639086438" class="img-fluid card-img-top">
+                            <h3>Ingredientes:</h3>
+                            <ul id="ingredient-list">
+                                <li><input type="checkbox" id="ingrediente1" /><label for="ingrediente1">1 taza de hojuelas de avena</label></li>
+                                <li><input type="checkbox" id="ingrediente2" /><label for="ingrediente2">1 taza de leche de almendras o leche de soja</label></li>
+                                <li><input type="checkbox" id="ingrediente3" /><label for="ingrediente3">1 huevo</label></li>
+                                <li><input type="checkbox" id="ingrediente4" /><label for="ingrediente4">1 cucharadita de extracto de vainilla</label></li>
+                                <li><input type="checkbox" id="ingrediente5" /><label for="ingrediente5">1/2 cucharadita de canela molida</label></li>
+                                <li><input type="checkbox" id="ingrediente6" /><label for="ingrediente6">1/4 cucharadita de sal</label></li>
+                                <li><input type="checkbox" id="ingrediente7" /><label for="ingrediente7">1/2 taza de arándanos frescos o congelados</label></li>
+                                <li><input type="checkbox" id="ingrediente8" /><label for="ingrediente8">1/4 taza de nueces picadas</label></li>
+                            </ul>
+                            <h3>Preparación:</h3>
+                            <ol>
+                                <li>Licúa los ingredientes secos: En una licuadora, combina las hojuelas de avena, la canela y la sal. Licúa hasta que quede una mezcla fina.</li>
+                                <li>Agrega los ingredientes húmedos: Agrega la leche de almendras o leche de soja, el huevo y el extracto de vainilla a la licuadora. Licúa hasta que esté bien combinado.</li>
+                                <li>Calienta la sartén: Calienta una sartén antiadherente a fuego medio.</li>
+                                <li>Cocina los panqueques: Vierte 1/4 de taza de la masa en la sartén para cada panqueque. Cocina durante 2-3 minutos por lado, o hasta que estén dorados.</li>
+                                <li>Agrega los arándanos y las nueces: Cuando los panqueques estén casi dorados, agrega los arándanos y las nueces a la sartén. Cocina durante 1 minuto más, o hasta que los arándanos se calienten.</li>
+                                <li>Sirve: Sirve los panqueques calientes con tu fruta favorita o jarabe de arce sin azúcar.</li>
+                            </ol>
+                            <h3>Consejos:</h3>
+                            <ul>
+                                <li>Puedes usar harina de avena en lugar de hojuelas de avena.</li>
+                                <li>Si la masa está demasiado espesa, agrega un poco más de leche de almendras o leche de soja. Si la masa está demasiado líquida, agrega un poco más de hojuelas de avena.</li>
+                                <li>Puedes usar otros tipos de frutas, como fresas, plátanos o frambuesas.</li>
+                                <li>También puedes agregar otras nueces, como nueces pecanas o almendras.</li>
+                            </ul>
+                            <h3>Información nutricional:</h3>
+                            <p>Esta receta es una buena fuente de fibra, proteínas y vitaminas. Una porción de panqueques de avena con arándanos y nueces contiene aproximadamente:</p>
+                            <ul>
+                                <li>Calorías: 300</li>
+                                <li>Proteínas: 10 g</li>
+                                <li>Grasas: 10 g</li>
+                                <li>Carbohidratos: 40 g</li>
+                                <li>Fibra: 5 g</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#caruselE"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#caruselE"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-            </button>
-            
         </div>
-        <section class="about section-padding">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5"> 
-                      <div class="about-text">
-                          <h2>Controle su salud con facilidad</h2>
-                          <p>Nuestra plataforma le permite tomar el control de su bienestar al proporcionarle una manera conveniente y completa de rastrear sus niveles de insulina y glucosa</p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-12">
-                      <div class="about-img">
-                          <img src="https://images.pexels.com/photos/6823617/pexels-photo-6823617.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="img-fluid">
+    </main>
 
-                      </div>
-                  </div>
-              </div>
 
-          </div>
-
-      </section>
-        <section class="about section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-12">
-                        <div class="about-img">
-                            <img src="https://images.pexels.com/photos/8472567/pexels-photo-8472567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="img-fluid about-img">
-
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5"> 
-                        <div class="about-text">
-                            <h2>Artículos</h2>
-                            <p>Sumérgete en un mundo de información actualizada sobre la diabetes. Explora artículos que abordan desde las últimas investigaciones científicas y tecnologías de vanguardia hasta consejos prácticos para el día a día y el manejo efectivo de la condición.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-        <section class="about section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5"> 
-                        <div class="about-text">
-                            <h2>Recetas</h2>
-                            <p>Descubra una colección de recetas especialmente seleccionadas para personas con diabetes, asegurando que pueda disfrutar de comidas sabrosas y saludables sin comprometer sus necesidades dietéticas. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-12">
-                        <div class="about-img">
-                            <img src="https://images.pexels.com/photos/8357679/pexels-photo-8357679.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="img-fluid">
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-        <section class="quiz-section" id="quiz">
-          <div class="container">
-              <h2 class="text-center mb-4">¿Qué sabes sobre la Diabetes?</h2>
-              <div class="quiz-container">
-                  <div class="quiz-question">
-                      <p>1. ¿Cuál es el principal tipo de diabetes?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q1" value="A"> Tipo 1</label>
-                          <label><input type="radio" name="q1" value="B"> Tipo 2</label>
-                          <label><input type="radio" name="q1" value="C"> Tipo 3</label>
-                          <label><input type="radio" name="q1" value="D"> Gestacional</label>
-                      </div>
-                  </div>
-                  <div class="quiz-question">
-                      <p>2. ¿Cuál de estos es un síntoma común de la diabetes tipo 2?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q2" value="A"> Aumento de la sed</label>
-                          <label><input type="radio" name="q2" value="B"> Pérdida de peso</label>
-                          <label><input type="radio" name="q2" value="C"> Visión borrosa</label>
-                          <label><input type="radio" name="q2" value="D"> Todos los anteriores</label>
-                      </div>
-                  </div>
-                  <div class="quiz-question">
-                      <p>3. ¿Cuál es un factor de riesgo para la diabetes tipo 2?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q3" value="A"> Alta presión arterial</label>
-                          <label><input type="radio" name="q3" value="B"> Exceso de peso</label>
-                          <label><input type="radio" name="q3" value="C"> Historia familiar</label>
-                          <label><input type="radio" name="q3" value="D"> Todas las anteriores</label>
-                      </div>
-                  </div>
-                  <button class="btn btn-submit" onclick="calculateScore()">Enviar</button>
-                  <div id="result" class="mt-4"></div>
-              </div>
-          </div>
-      </section>
-        
         <footer class="footer">
             <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
               <div class="container overflow-hidden">
@@ -223,13 +120,13 @@
                   </div>
                   <div class="col-12 col-md-4 col-lg-3 col-xl-2 text-primary text-white">
                     <div class="widget">
-                      <h4 class="widget-title mb-4 ">Encontranos</h4>
-                      <address class="mb-4 text-white" >Instituto Politécnico Formosa</address>
+                      <h4 class="widget-title mb-4 ">encontranos</h4>
+                      <address class="mb-4 text-white" >plaza san martin </address>
                       <p class="mb-1">
-                        <a class="link-secondary text-decoration-none text-white">+54 937040000</a>
+                        <a class="link-secondary text-decoration-none text-white" href="tel:+15057922430">12345678</a>
                       </p>
                       <p class="mb-0">
-                        <a class="link-secondary text-decoration-none text-white" >glucontrol@gmail.com</a>
+                        <a class="link-secondary text-decoration-none text-white" href="mailto:demo@yourdomain.com">diabetes@gmail.com</a>
                       </p>
                     </div>
                   </div>
@@ -238,13 +135,13 @@
                       <h4 class="widget-title mb-4 ">Leer más</h4>
                       <ul class="list-unstyled text-primary text-white">
                         <li class="mb-2">
-                          <a href="login.html" class="link-secondary text-decoration-none text-white">Home</a>
+                          <a href="#!" class="link-secondary text-decoration-none text-white">Home</a>
                         </li>
                         <li class="mb-2">
                           <a href="articulos.html" class="link-secondary text-decoration-none text-white">Articulos</a>
                         </li>
                         <li class="mb-2">
-                          <a href="listaRecetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
+                          <a href="recetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
                         </li>
                         <li class="mb-2">
                           <a href="login.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
@@ -255,7 +152,7 @@
                   <div class="col-12 col-lg-3 col-xl-4">
                     <div class="widget text-white">
                       <h4 class="widget-title mb-4">Contactanos</h4>
-                      <p class="mb-4">Suscríbite y enterate de lo último</p>
+                      <p class="mb-4">Suscribiti y enterate de lo último</p>
                       <form action="#!">
                         <div class="row gy-4">
                           <div class="col-12">
@@ -270,7 +167,7 @@
                           </div>
                           <div class="col-12">
                             <div class="d-grid">
-                              <button class="btn-footer" type="submit">Suscribirse</button>
+                              <button class="btn-footer" type="submit">Subscribe</button>
                             </div>
                           </div>
                         </div>
@@ -329,39 +226,7 @@
             </div>
           
           </footer>
-          <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const options = document.querySelectorAll('.quiz-options input[type="radio"]');
-                options.forEach(option => {
-                    option.addEventListener('change', function () {
-                        // Remove 'selected' class from all labels
-                        const labels = document.querySelectorAll('.quiz-options label');
-                        labels.forEach(label => label.classList.remove('selected'));
-                        // Add 'selected' class to the label of the checked input
-                        if (this.checked) {
-                            this.nextElementSibling.classList.add('selected');
-                        }
-                    });
-                });
-            });
-            
-            function calculateScore() {
-                let score = 0;
-                const q1 = document.querySelector('input[name="q1"]:checked');
-                const q2 = document.querySelector('input[name="q2"]:checked');
-                const q3 = document.querySelector('input[name="q3"]:checked');
-                
-                if (q1 && q1.value === 'B') score++;
-                if (q2 && q2.value === 'D') score++;
-                if (q3 && q3.value === 'D') score++;
-                
-                const resultDiv = document.getElementById('result');
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `Tu puntuación es ${score} de 3. ¡Gracias por participar!`;
-            }
-            </script>
-            
-          
+        <script></script>
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

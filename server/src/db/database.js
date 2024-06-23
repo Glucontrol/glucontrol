@@ -9,8 +9,6 @@ const connectDB = async ()=> {
         password: '1234',
         database: 'Glucontrol'
     })
-
-    
 }
 
 // Exportamos la funcion para realizar la conexion desde cualquier archivo.
