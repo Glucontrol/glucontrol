@@ -36,6 +36,6 @@ const eliminarUsuario = async (req,res) =>{
             'Content-Type': 'application/json;charset=utf-8'
           },
         body:JSON.stringify(obj)
-    })
+    });
 }
 obtenerUsuarios();

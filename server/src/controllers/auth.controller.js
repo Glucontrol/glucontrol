@@ -10,19 +10,19 @@ const ctrl = {};
 ctrl.register = async (req, res) =>{
 
     // Desestructuramos los datos que vienen del cuerpo de la peticion.
-    const { nombre, apellido, usuario, correo, contrasenia } = req.body;
+    const { Nombre, Email, Contraseña } = req.body;
 
     //Hacemos la conexion a la base de datos.
     const connection = await connectDB();
 
     // Creamos la consulta.
-    const sql = 'INSERT INTO USUARIOS (nombre,email) VALUES (?,?,?,?,?)';
+    const sql = 'INSERT INTO USUARIOS (Nombre,Email,Contrasenia) VALUES (?,?,?)';
 
     // Encriptamos la contraseña utilizando la libreria bcrypt.
-    const hashContrasenia = bcrypt.hashSync(contrasenia, 10); // El segundo parametro es el numero de veces que se ejecuta el algoritmo de encriptación.
+    const hashContrasenia = bcrypt.hashSync(Contraseña, 10); // El segundo parametro es el numero de veces que se ejecuta el algoritmo de encriptación.
 
     // Ejecutamos la consulta.
-    await connection.query(sql, [nombre, apellido, usuario, correo, hashContrasenia]);
+    await connection.query(sql, [Nombre, Email, hashContrasenia]);
 
     // Respondemos a nuestro cliente
     res.json({
@@ -32,14 +32,14 @@ ctrl.register = async (req, res) =>{
 
 ctrl.login = async (req, res) => {
 
-    const { usuario, contrasenia } = req.body;
+    const { Nombre, Contraseña } = req.body;
 
     const connection = await connectDB();
 
     // Buscamos el usuario en la bd.
-    const sql = 'SELECT * FROM USUARIOS WHERE USUARIO=? LIMIT 1';
+    const sql = 'SELECT * FROM USUARIOS WHERE Nombre =? LIMIT 1';
 
-    const [buscarUsuario] = await connection.query(sql, usuario);
+    const [buscarUsuario] = await connection.query(sql, Nombre);
     
     // En caso de que no se encuentre ningun usuario, retornamos un error.
     if(!buscarUsuario[0]){
@@ -49,7 +49,7 @@ ctrl.login = async (req, res) => {
     }
 
     // Comparamos las contraseñas con el metodo compareSync que nos devolvera un true o false.
-    const validarContrasenia = bcrypt.compareSync(contrasenia, buscarUsuario[0].contrasenia);
+    const validarContrasenia = bcrypt.compareSync(Contraseña, buscarUsuario[0].Contrasenia);
 
     // En caso de que no coincidan, retornamos un error sin dar información especifica de lo que fallo.
     if(!validarContrasenia){
@@ -59,7 +59,7 @@ ctrl.login = async (req, res) => {
     }
 
     // Hacemos uso del helper para generar el token y le pasamos el id.
-    const token = await generarJWT({id: buscarUsuario[0].id});
+    const token = await generarJWT({id: buscarUsuario[0].Id_Usuario});
 
     //Retornamos el token con un mensaje al cliente.
     return res.json({
@@ -70,9 +70,9 @@ ctrl.login = async (req, res) => {
 }
 ctrl.selectall = async (req,res) =>{
     const nConnection = await connectDB();
-    const [todo] = await nConnection.query('SELECT * FROM USUARIOS;');
+    const [usuarios] = await nConnection.query('SELECT * FROM USUARIOS;');
     
-    res.json(todo)
+    res.json(usuarios)
 }
 ctrl.eliminar = async (req,res) =>{
     const nConnection = await connectDB();
