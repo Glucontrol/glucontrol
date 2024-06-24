@@ -19,7 +19,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/home.css">
+        <link rel="stylesheet" href="assets/css/view.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     </head>
@@ -28,7 +28,7 @@
       <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand nav-logo"><img src="assets/img/logoedit.jpg" alt=""></a>
+                <a href="#" class="navbar-brand nav-logo">Logo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -49,181 +49,31 @@
                         </li> 
                     </ul>
                 </div>
-                <div class="d-flex justify-content-end" id="usuarioD">
-                  <a href="login.html"><button class="btn btn-secondary btn-signup" id="usuarioB">Inicia Sesión</button></a>
-                </div>
             </div>
         </nav>
     </header>
-    <div id="caruselE" class="carousel slide " data-bs-ride="carousel">
-      <div class="carousel-indicators">
-          <button type="button" 
-          data-bs-target="#caruselE"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="slide 1"
-          ></button>
-          <button type="button" 
-          data-bs-target="#caruselE"
-          data-bs-slide-to="1"
-          aria-label="slide 2"
-          ></button>
-          <button type="button" 
-          data-bs-target="#caruselE"
-          data-bs-slide-to="2"
-          aria-label="slide 3"
-          ></button>
-      </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://images.pexels.com/photos/1351238/pexels-photo-1351238.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
-                <div  class= "carousel-caption">
-                    <h5>Cocina Saludable</h5>
-                    <p>Explora recetas sabrosas y nutritivas que te ayudarán a mantener un estilo de vida saludable y controlar la diabetes de manera deliciosa y efectiva.</p>
-                    <button class="btn btn-primary btn-inicio"><a href="listaRecetas.html" class="text-decoration-none">Entrar</a></button>
-                   
-                </div>
+    <div class="title-container mt-5 pt-4 justify-content-center">
+        <h1>Panel de Administrador</h1>
+    </div>
+    <main>
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body">
+                       
+                    </tbody>
+                </table>
             </div>
-                <div class="carousel-item">
-                    <img src="https://images.pexels.com/photos/6648585/pexels-photo-6648585.jpeg" class="d-block w-100" alt="">
-                    <div  class= "carousel-caption">
-                        <h5>Como cuidar tu salud mental y física</h5>
-                        <p>Descubre estrategias efectivas para controlar tu diabetes, mejorar tu salud mental y calidad de vida.</p>
-                        <button class="btn btn-primary btn-inicio"><a href="articulos.html" class="text-decoration-none">Entrar</a></button>
-                        
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://images.pexels.com/photos/221210/pexels-photo-221210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
-                    <div  class= "carousel-caption" >
-                        <h5>Ejercicio y Diabetes: Salud en Movimiento </h5>
-                        <p> Aprende cómo el ejercicio puede mejorar tu vida con diabetes y mantenerte saludable. ¡Infórmate más aquí!</p>
-                        <button class="btn btn-primary btn-inicio"><a href="articulos.html" class="text-decoration-none">Entrar</a></button>
-                    </div>
-                </div>
-               
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#caruselE"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#caruselE"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-            </button>
-            
         </div>
 
-        <section class="section services-section" id="services">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="section-title">
-                            <h2>¿Qué hago?</h2>
-                            <p>Empoderamos a personas con diabetes para llevar una vida saludable y equilibrada mediante:</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- feaure box -->
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="feature-box-1 h-100">
-                            <div class="icon">
-                                <i class="bi bi-book"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h5>Lee articulos</h5>
-                                <p>Explora nuestros artículos sobre diabetes para mantenerte informado y empoderado.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- / -->
-                    <!-- feaure box -->
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="feature-box-1 h-100">
-                            <div class="icon">
-                                <i class="bi bi-clipboard-check"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h5>Registra tu insulina</h5>
-                                <p>Controla tu diabetes registrando tus dosis diarias de insulina para un manejo efectivo.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- feaure box -->
-            <div class="col-sm-6 col-lg-4">
-                <div class="feature-box-1 h-100">
-                    <div class="icon">
-                        <i class="bi bi-cup-hot-fill"></i>
-                    </div>
-                    <div class="feature-content">
-                        <h5>Haz recetas</h5>
-                        <p>Descubre recetas nutritivas diseñadas para ayudarte a controlar tu diabetes y disfrutar del buen comer.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section blog-section" id="blog">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <div class="section-title">
-                  <h2>Artículos Recientes</h2>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="blog-post">
-                  <img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artículo 1" class="img-fluid">
-                  <h5><a href="articulos/articulo1.html">Cómo gestionar tu diabetes con éxito</a></h5>
-                  <p>Descubre estrategias efectivas para controlar tu diabetes y mejorar tu calidad de vida.</p>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="blog-post">
-                  <img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artículo 2" class="img-fluid">
-                  <h5><a href="articulos/articulo2.html">Beneficios de una dieta balanceada</a></h5>
-                  <p>Explora los beneficios de mantener una dieta equilibrada y cómo puede ayudarte a controlar tu diabetes.</p>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="blog-post">
-                  <img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Artículo 3" class="img-fluid">
-                  <h5><a href="articulos/articulo3.html">Ejercicio y diabetes: una combinación ganadora</a></h5>
-                  <p>Conoce los mejores ejercicios para mantener tu diabetes bajo control y mejorar tu bienestar general.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      
-        <section class="section testimonials-section" id="testimonials">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <div class="section-title">
-                  <h2>Lo que dicen nuestros usuarios</h2>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="testimonial-carousel">
-                  <div class="testimonial-item">
-                    <p>"Gracias a esta plataforma, he logrado controlar mejor mi diabetes. ¡Recomiendo a todos probarla!"</p>
-                    <h5>- Juan Pérez</h5>
-                  </div>
-                  <div class="testimonial-item">
-                    <p>"Los artículos y recetas me han ayudado a llevar una vida más saludable. ¡Gracias por esta gran herramienta!"</p>
-                    <h5>- María López</h5>
-                  </div>
-                 
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        
+    </main>
         <footer class="footer">
             <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
               <div class="container overflow-hidden">
@@ -231,13 +81,13 @@
                   <div class="col-12 col-md-4 col-lg-3 col-xl-2">
                     <div class="widget">
                       <a href="#!">
-                        <img src="assets/img/logoedit.jpg" alt="" width="175" height="57">
+                        <img src="./assets/img/bsb-logo.svg" alt="" width="175" height="57">
                       </a>
                     </div>
                   </div>
                   <div class="col-12 col-md-4 col-lg-3 col-xl-2 text-primary text-white">
                     <div class="widget">
-                      <h4 class="widget-title mb-4 ">encontranos</h4>
+                      <h4 class="widget-title mb-4 ">Encontranos</h4>
                       <address class="mb-4 text-white" >plaza san martin </address>
                       <p class="mb-1">
                         <a class="link-secondary text-decoration-none text-white" >+54 937040000</a>
@@ -358,6 +208,5 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
-        <script src="assets/js/usuario.js"></script>
     </body>
 </html>
