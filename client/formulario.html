@@ -57,11 +57,11 @@
                     <form class="form-container">
                         <div class="mb-3">
                             <label for="tipoInsulina" class="form-label">Tipo de Insulina</label>
-                            <input type="text" class="form-control" id="tipoInsulina" placeholder="Ingrese el tipo de insulina">
+                            <input type="text" class="form-control" id="tipoInput" placeholder="Ingrese el tipo de insulina">
                         </div>
                         <div class="mb-3">
                             <label for="tipoAccion" class="form-label">Tipo de Acción</label>
-                            <select class="form-select" id="tipoAccion">
+                            <select class="form-select" id="accionInput">
                                 <option selected>Seleccione</option>
                                 <option value="prolongada">Prolongada</option>
                                 <option value="rapida">Rápida</option>
@@ -71,43 +71,21 @@
                         </div>
                         <div class="mb-3">
                             <label for="dosis" class="form-label">Dosis Colocada</label>
-                            <input type="number" class="form-control" id="dosis" placeholder="Ingrese la dosis">
+                            <input type="number" class="form-control" id="dosisInput" placeholder="Ingrese la dosis">
                         </div>
                         <div class="mb-3">
                             <label for="fechaHora" class="form-label">Fecha y Hora</label>
-                            <input type="datetime-local" class="form-control" id="fechaHora">
+                            <input type="datetime-local" class="form-control" id="fechaInput">
                         </div>
                         <div class="mb-3">
                             <label for="viaAdministracion" class="form-label">Vía de Administración</label>
-                            <input type="text" class="form-control" id="viaAdministracion" placeholder="Ingrese la vía de administración">
-                        </div>
-                        <div class="mb-3">
-                            <label for="nivelGlucosa" class="form-label">Nivel de Glucosa</label>
-                            <input type="number" class="form-control" id="nivelGlucosa" placeholder="Ingrese el nivel de glucosa">
-                        </div>
-                        <div class="mb-3">
-                            <label for="comida" class="form-label">Después de qué comida</label>
-                            <select class="form-select" id="comida">
-                                <option selected>Seleccione</option>
-                                <option value="desayuno">Desayuno</option>
-                                <option value="almuerzo">Almuerzo</option>
-                                <option value="cena">Cena</option>
-                                <option value="merienda">Merienda</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="carbohidratos" class="form-label">Cantidad de Carbohidratos</label>
-                            <input type="number" class="form-control" id="carbohidratos" placeholder="Ingrese la cantidad de carbohidratos">
-                        </div>
-                        <div class="mb-3">
-                            <label for="actividadFisica" class="form-label">Actividad Física</label>
-                            <input type="text" class="form-control" id="actividadFisica" placeholder="Describa la actividad física realizada">
+                            <input type="text" class="form-control" id="viaInput" placeholder="Ingrese la vía de administración">
                         </div>
                         <div class="mb-3">
                             <label for="notasAdicionales" class="form-label">Notas Adicionales</label>
-                            <textarea class="form-control" id="notasAdicionales" rows="3" placeholder="Ingrese cualquier nota adicional"></textarea>
+                            <textarea class="form-control" id="adicionalInput" rows="3" placeholder="Ingrese cualquier nota adicional"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-form">Guardar</button>
+                        <button type="button" onclick="guardarRegistro()" class="btn btn-primary btn-form">Guardar</button>
                     </form>
                 </div>
             </div>
@@ -232,7 +210,7 @@
           </div>
         
         </footer>
-      
+      <script src="assets/js/formInsulina.js"></script>
       <script
           src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
           integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

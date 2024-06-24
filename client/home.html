@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>LandingPage</title>
+        <title>Home</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -16,24 +16,26 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="assets/css/landingPage.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/home.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     </head>
 
     <body>
       <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand nav-logo"><img src="assets/img/logoedit.jpg" class="img-fluid" style="height: 40px;" alt=""></a>
+                <a href="#" class="navbar-brand nav-logo"><img src="assets/img/logoedit.jpg" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-white " aria-current="page" href="login.html">Home</a>
+                            <a class="nav-link active text-white " aria-current="page" href="home.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="articulos.html">Artículos</a>
@@ -42,13 +44,13 @@
                             <a class="nav-link" href="listaRecetas.html">Recetas</a>
                         </li>
                         <li>
-                          <a class="nav-link text-center" href="login.html">Controla tu salud</a>
-                        </li>
+                          <a class="nav-link text-center" href="formulario.html">Controla tu salud</a>
                         
+                        </li> 
                     </ul>
                 </div>
                 <div class="d-flex justify-content-end" id="usuarioD">
-                  <button class="btn btn-secondary btn-signup" id="usuarioB">Iniciar Sesión</button>
+                  <a href="login.html"><button class="btn btn-secondary btn-signup" id="usuarioB">Inicia Sesión</button></a>
                 </div>
             </div>
         </nav>
@@ -74,31 +76,33 @@
           ></button>
       </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://images.pexels.com/photos/287240/pexels-photo-287240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
+              <div class="carousel-item active">
+                <img src="https://images.pexels.com/photos/1351238/pexels-photo-1351238.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
+                <div  class= "carousel-caption">
+                    <h5>Cocina Saludable</h5>
+                    <p>Explora recetas sabrosas y nutritivas que te ayudarán a mantener un estilo de vida saludable y controlar la diabetes de manera deliciosa y efectiva.</p>
+                    <button class="btn btn-primary btn-inicio"><a href="listaRecetas.html" class="text-decoration-none">Entrar</a></button>
+                   
+                </div>
+            </div>
+                <div class="carousel-item">
+                    <img src="https://images.pexels.com/photos/6648585/pexels-photo-6648585.jpeg" class="d-block w-100" alt="">
                     <div  class= "carousel-caption">
-                        <h5>Toma el control de tu salud</h5>
-                        <p>Aquí encontrarás el apoyo y las herramientas necesarias para tomar el control de tu salud y alcanzar un estilo de vida más saludable y pleno.</p>
-                        <button class="btn btn-primary btn-inicio">Entrar</button>
+                        <h5>Como cuidar tu salud mental y física</h5>
+                        <p>Descubre estrategias efectivas para controlar tu diabetes, mejorar tu salud mental y calidad de vida.</p>
+                        <button class="btn btn-primary btn-inicio"><a href="articulos.html" class="text-decoration-none">Entrar</a></button>
+                        
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://images.pexels.com/photos/15813487/pexels-photo-15813487/free-photo-of-comida-plato-cena-almuerzo.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
+                    <img src="https://images.pexels.com/photos/221210/pexels-photo-221210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
                     <div  class= "carousel-caption" >
-                      <h5>Como gestionar tu diabete con éxito</h5>
-                      <p>Descubre estrategias efectivas para controlar tu diabetes y mejorar tu calidad de vida.</p>
-                        <button class="btn btn-primary btn-inicio">Entrar</button>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="">
-                    <div  class= "carousel-caption">
                         <h5>Ejercicio y Diabetes: Salud en Movimiento </h5>
                         <p> Aprende cómo el ejercicio puede mejorar tu vida con diabetes y mantenerte saludable. ¡Infórmate más aquí!</p>
-                        <button class="btn btn-primary btn-inicio">Entrar</button>
-                       
+                        <button class="btn btn-primary btn-inicio"><a href="articulos.html" class="text-decoration-none">Entrar</a></button>
                     </div>
                 </div>
+               
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#caruselE"
             data-bs-slide="prev">
@@ -112,102 +116,113 @@
             </button>
             
         </div>
-        <section class="about section-padding">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5"> 
-                      <div class="about-text">
-                          <h2>Controle su salud con facilidad</h2>
-                          <p>Nuestra plataforma le permite tomar el control de su bienestar al proporcionarle una manera conveniente y completa de rastrear sus niveles de insulina y glucosa</p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-12">
-                      <div class="about-img">
-                          <img src="https://images.pexels.com/photos/6823617/pexels-photo-6823617.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="img-fluid">
 
-                      </div>
-                  </div>
-              </div>
-
-          </div>
-
-      </section>
-        <section class="about section-padding">
+        <section class="section services-section" id="services">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-12">
-                        <div class="about-img">
-                            <img src="https://images.pexels.com/photos/8472567/pexels-photo-8472567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="img-fluid about-img">
-
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5"> 
-                        <div class="about-text">
-                            <h2>Artículos</h2>
-                            <p>Sumérgete en un mundo de información actualizada sobre la diabetes. Explora artículos que abordan desde las últimas investigaciones científicas y tecnologías de vanguardia hasta consejos prácticos para el día a día y el manejo efectivo de la condición.</p>
+                    <div class="col-lg-6">
+                        <div class="section-title">
+                            <h2>¿Qué hago?</h2>
+                            <p>Empoderamos a personas con diabetes para llevar una vida saludable y equilibrada mediante:</p>
                         </div>
                     </div>
                 </div>
-
-            </div>
-
-        </section>
-        <section class="about section-padding">
-            <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5"> 
-                        <div class="about-text">
-                            <h2>Recetas</h2>
-                            <p>Descubra una colección de recetas especialmente seleccionadas para personas con diabetes, asegurando que pueda disfrutar de comidas sabrosas y saludables sin comprometer sus necesidades dietéticas. </p>
+                    <!-- feaure box -->
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="feature-box-1 h-100">
+                            <div class="icon">
+                                <i class="bi bi-book"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>Lee articulos</h5>
+                                <p>Explora nuestros artículos sobre diabetes para mantenerte informado y empoderado.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-12">
-                        <div class="about-img">
-                            <img src="https://images.pexels.com/photos/8357679/pexels-photo-8357679.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="img-fluid">
-
+                    <!-- / -->
+                    <!-- feaure box -->
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="feature-box-1 h-100">
+                            <div class="icon">
+                                <i class="bi bi-clipboard-check"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>Registra tu insulina</h5>
+                                <p>Controla tu diabetes registrando tus dosis diarias de insulina para un manejo efectivo.</p>
+                            </div>
                         </div>
+                    </div>
+                    <!-- feaure box -->
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-box-1 h-100">
+                    <div class="icon">
+                        <i class="bi bi-cup-hot-fill"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Haz recetas</h5>
+                        <p>Descubre recetas nutritivas diseñadas para ayudarte a controlar tu diabetes y disfrutar del buen comer.</p>
                     </div>
                 </div>
-
             </div>
-
         </section>
-        <section class="quiz-section" id="quiz">
+        <section class="section blog-section" id="blog">
           <div class="container">
-              <h2 class="text-center mb-4">¿Qué sabes sobre la Diabetes?</h2>
-              <div class="quiz-container">
-                  <div class="quiz-question">
-                      <p>1. ¿Cuál es el principal tipo de diabetes?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q1" value="A"> Tipo 1</label>
-                          <label><input type="radio" name="q1" value="B"> Tipo 2</label>
-                          <label><input type="radio" name="q1" value="C"> Tipo 3</label>
-                          <label><input type="radio" name="q1" value="D"> Gestacional</label>
-                      </div>
-                  </div>
-                  <div class="quiz-question">
-                      <p>2. ¿Cuál de estos es un síntoma común de la diabetes tipo 2?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q2" value="A"> Aumento de la sed</label>
-                          <label><input type="radio" name="q2" value="B"> Pérdida de peso</label>
-                          <label><input type="radio" name="q2" value="C"> Visión borrosa</label>
-                          <label><input type="radio" name="q2" value="D"> Todos los anteriores</label>
-                      </div>
-                  </div>
-                  <div class="quiz-question">
-                      <p>3. ¿Cuál es un factor de riesgo para la diabetes tipo 2?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q3" value="A"> Alta presión arterial</label>
-                          <label><input type="radio" name="q3" value="B"> Exceso de peso</label>
-                          <label><input type="radio" name="q3" value="C"> Historia familiar</label>
-                          <label><input type="radio" name="q3" value="D"> Todas las anteriores</label>
-                      </div>
-                  </div>
-                  <button class="btn btn-submit" onclick="calculateScore()">Enviar</button>
-                  <div id="result" class="mt-4"></div>
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">
+                  <h2>Artículos Recientes</h2>
+                </div>
               </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="blog-post">
+                  <img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artículo 1" class="img-fluid">
+                  <h5><a href="articulos/articulo1.html">Cómo gestionar tu diabetes con éxito</a></h5>
+                  <p>Descubre estrategias efectivas para controlar tu diabetes y mejorar tu calidad de vida.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="blog-post">
+                  <img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artículo 2" class="img-fluid">
+                  <h5><a href="articulos/articulo2.html">Beneficios de una dieta balanceada</a></h5>
+                  <p>Explora los beneficios de mantener una dieta equilibrada y cómo puede ayudarte a controlar tu diabetes.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="blog-post">
+                  <img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Artículo 3" class="img-fluid">
+                  <h5><a href="articulos/articulo3.html">Ejercicio y diabetes: una combinación ganadora</a></h5>
+                  <p>Conoce los mejores ejercicios para mantener tu diabetes bajo control y mejorar tu bienestar general.</p>
+                </div>
+              </div>
+            </div>
           </div>
-      </section>
+        </section>
+      
+        <section class="section testimonials-section" id="testimonials">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">
+                  <h2>Lo que dicen nuestros usuarios</h2>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="testimonial-carousel">
+                  <div class="testimonial-item">
+                    <p>"Gracias a esta plataforma, he logrado controlar mejor mi diabetes. ¡Recomiendo a todos probarla!"</p>
+                    <h5>- Juan Pérez</h5>
+                  </div>
+                  <div class="testimonial-item">
+                    <p>"Los artículos y recetas me han ayudado a llevar una vida más saludable. ¡Gracias por esta gran herramienta!"</p>
+                    <h5>- María López</h5>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         
         <footer class="footer">
             <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
@@ -222,10 +237,10 @@
                   </div>
                   <div class="col-12 col-md-4 col-lg-3 col-xl-2 text-primary text-white">
                     <div class="widget">
-                      <h4 class="widget-title mb-4 ">Encontranos</h4>
-                      <address class="mb-4 text-white" >Instituto Politécnico Formosa</address>
+                      <h4 class="widget-title mb-4 ">encontranos</h4>
+                      <address class="mb-4 text-white" >plaza san martin </address>
                       <p class="mb-1">
-                        <a class="link-secondary text-decoration-none text-white">+54 937040000</a>
+                        <a class="link-secondary text-decoration-none text-white" >+54 937040000</a>
                       </p>
                       <p class="mb-0">
                         <a class="link-secondary text-decoration-none text-white" >glucontrol@gmail.com</a>
@@ -237,7 +252,7 @@
                       <h4 class="widget-title mb-4 ">Leer más</h4>
                       <ul class="list-unstyled text-primary text-white">
                         <li class="mb-2">
-                          <a href="login.html" class="link-secondary text-decoration-none text-white">Home</a>
+                          <a href="home.html" class="link-secondary text-decoration-none text-white">Home</a>
                         </li>
                         <li class="mb-2">
                           <a href="articulos.html" class="link-secondary text-decoration-none text-white">Articulos</a>
@@ -246,7 +261,7 @@
                           <a href="listaRecetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
                         </li>
                         <li class="mb-2">
-                          <a href="login.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
+                          <a href="formulario.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
                         </li>
                       </ul>
                     </div>
@@ -254,7 +269,7 @@
                   <div class="col-12 col-lg-3 col-xl-4">
                     <div class="widget text-white">
                       <h4 class="widget-title mb-4">Contactanos</h4>
-                      <p class="mb-4">Suscríbite y enterate de lo último</p>
+                      <p class="mb-4">Suscribite y enterate de lo último</p>
                       <form action="#!">
                         <div class="row gy-4">
                           <div class="col-12">
@@ -328,37 +343,9 @@
             </div>
           
           </footer>
-          <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const options = document.querySelectorAll('.quiz-options input[type="radio"]');
-                options.forEach(option => {
-                    option.addEventListener('change', function () {
-                        // Remove 'selected' class from all labels
-                        const labels = document.querySelectorAll('.quiz-options label');
-                        labels.forEach(label => label.classList.remove('selected'));
-                        // Add 'selected' class to the label of the checked input
-                        if (this.checked) {
-                            this.nextElementSibling.classList.add('selected');
-                        }
-                    });
-                });
-            });
-            
-            function calculateScore() {
-                let score = 0;
-                const q1 = document.querySelector('input[name="q1"]:checked');
-                const q2 = document.querySelector('input[name="q2"]:checked');
-                const q3 = document.querySelector('input[name="q3"]:checked');
-                
-                if (q1 && q1.value === 'B') score++;
-                if (q2 && q2.value === 'D') score++;
-                if (q3 && q3.value === 'D') score++;
-                
-                const resultDiv = document.getElementById('result');
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `Tu puntuación es ${score} de 3. ¡Gracias por participar!`;
-            }
-            </script>
+          
+        
+          
             
           
         <script
@@ -366,11 +353,11 @@
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"
         ></script>
-
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script src="assets/js/usuario.js"></script>
     </body>
 </html>
