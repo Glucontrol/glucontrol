@@ -1,6 +1,7 @@
 const { connectDB } = require("../db/database");
 const bcrypt = require('bcrypt');
 const generarJWT = require("../helpers/generarJWT");
+const verifyJWT = require("../helpers/validarJWT")
 const { connect } = require("../routes/auth.routes");
 
 // Definimos un objeto vacio con el nombre 'ctrl' (abreviatura de controller).
@@ -80,12 +81,11 @@ ctrl.eliminar = async (req,res) =>{
     res.send("Usuario Eliminado")
 }
 ctrl.sesion = async (req,res) =>{
-    const {id} = req.headers
-    console.log(id)
+    const { token } = req.headers
+    const {Id_Usuario} = await verifyJWT(token)
     const nConnection = await connectDB();
-    const [[ query ]] = await nConnection.query("SELECT Nombre,Email FROM USUARIOS WHERE ID_USUARIO = ?;", 25)
-    console.log(query)
-    res.json(query)
+    const  [[query]]  = await nConnection.query("SELECT Nombre,Email FROM USUARIOS WHERE ID_USUARIO = ?;", Id_Usuario)
+    res.send(query)
 }
 // Exportamos el objeto con los controladores.
 module.exports = ctrl;

@@ -6,7 +6,7 @@ const connectDB = async ()=> {
     return await mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '1234',
+        password: '',
         database: 'Glucontrol'
     })
 }

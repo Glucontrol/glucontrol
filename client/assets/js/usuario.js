@@ -5,19 +5,19 @@ const cerrarSesion = async (req,res) =>{
 }
 
 const buscarUsuario = async (req,res) =>{
-    const {token} = localStorage.getItem("token")
+    const token = localStorage.getItem("token")
     const peticion = await fetch("http://localhost:3000/sesion",{
         method:"post",
         headers:{
-            id:`${token}`
+            token:`${token}`
         }
     })
-    const userData = await peticion.json()
+    const userData = peticion.json();
     return userData;
 }
 const mostrarNombre = async (req,res) =>{
     const info = await req
-    usuarioD.innerHTML = `<div class="dropdown">
+    usuarioB.innerHTML = `<div class="dropdown">
   <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
     ${info.Nombre}
   </button>
@@ -26,7 +26,9 @@ const mostrarNombre = async (req,res) =>{
   </ul>
 </div>`
 }
-if (localStorage.getItem("token") != null || undefined){
-    mostrarNombre(buscarUsuario());
-    console.log("Usuario Iniciado")
+console.log(localStorage.getItem("token"))
+if (localStorage.getItem("token") == 'null'){
+  console.log("no hay token")
+}else{
+  mostrarNombre(buscarUsuario());
 }

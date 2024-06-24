@@ -13,5 +13,5 @@ const iniciarSesion = async (req,res) =>{
     })
     const { token } = await peticion.json()
     localStorage.setItem("token",token)
-    window.location.replace = '/home.html'
+    window.location.href = "http://127.0.0.1:5501/client/home.html"
 }
