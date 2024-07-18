@@ -1,56 +1,37 @@
-const { connectDB } = require("../db/database");
+const cliente = require("../db/database");
 const bcrypt = require('bcrypt');
 const generarJWT = require("../helpers/generarJWT");
 const verifyJWT = require("../helpers/validarJWT")
-const { connect } = require("../routes/auth.routes");
+const { ObjectId } = require("mongodb");
 
 // Definimos un objeto vacio con el nombre 'ctrl' (abreviatura de controller).
 const ctrl = {};
 
 //Empezamos a ir agrengando los controladores a dicho objeto.
 ctrl.register = async (req, res) =>{
-
-    // Desestructuramos los datos que vienen del cuerpo de la peticion.
     const { Nombre, Email, Contraseña } = req.body;
-
-    //Hacemos la conexion a la base de datos.
-    const connection = await connectDB();
-
-    // Creamos la consulta.
-    const sql = 'INSERT INTO USUARIOS (Nombre,Email,Contrasenia) VALUES (?,?,?)';
-
-    // Encriptamos la contraseña utilizando la libreria bcrypt.
-    const hashContrasenia = bcrypt.hashSync(Contraseña, 10); // El segundo parametro es el numero de veces que se ejecuta el algoritmo de encriptación.
-
-    // Ejecutamos la consulta.
-    await connection.query(sql, [Nombre, Email, hashContrasenia]);
-
-    // Respondemos a nuestro cliente
+    const client = cliente()
+    client.connect()
+    const hashContrasenia = bcrypt.hashSync(Contraseña, 10);
+    client.db('glucontrol').collection('usuarios').insertOne({Nombre:Nombre,Email:Email,Contrasenia:hashContrasenia})
     res.json({
         msg: 'Registrado correctamente'
     });
 }
 
 ctrl.login = async (req, res) => {
-
     const { Nombre, Contraseña } = req.body;
-
-    const connection = await connectDB();
-
-    // Buscamos el usuario en la bd.
-    const sql = 'SELECT * FROM USUARIOS WHERE Nombre =? LIMIT 1';
-
-    const [buscarUsuario] = await connection.query(sql, Nombre);
-    
+    const client = cliente();
+    const buscarUsuario = await client.db('glucontrol').collection('usuarios').findOne({Nombre:Nombre})
     // En caso de que no se encuentre ningun usuario, retornamos un error.
-    if(!buscarUsuario[0]){
+    if(buscarUsuario == null){
         return res.status(400).json({
             msg: 'El usuario no existe'
         })
     }
 
     // Comparamos las contraseñas con el metodo compareSync que nos devolvera un true o false.
-    const validarContrasenia = bcrypt.compareSync(Contraseña, buscarUsuario[0].Contrasenia);
+    const validarContrasenia = bcrypt.compareSync(Contraseña, buscarUsuario.Contrasenia);
 
     // En caso de que no coincidan, retornamos un error sin dar información especifica de lo que fallo.
     if(!validarContrasenia){
@@ -60,7 +41,7 @@ ctrl.login = async (req, res) => {
     }
 
     // Hacemos uso del helper para generar el token y le pasamos el id.
-    const token = await generarJWT({id: buscarUsuario[0].Id_Usuario});
+    const token = await generarJWT({id: buscarUsuario._id});
 
     //Retornamos el token con un mensaje al cliente.
     return res.json({
@@ -69,23 +50,31 @@ ctrl.login = async (req, res) => {
     })
 }
 ctrl.selectall = async (req,res) =>{
-    const nConnection = await connectDB();
-    const [usuarios] = await nConnection.query('SELECT * FROM USUARIOS;');
-    
-    res.json(usuarios)
+    const client = cliente()
+    client.connect()
+    const usuarios = client.db('glucontrol').collection('usuarios').find({})
+    res.send(await usuarios.toArray())
 }
 ctrl.eliminar = async (req,res) =>{
-    const nConnection = await connectDB();
-    console.log(req.body.Id)
-    nConnection.query("DELETE FROM USUARIOS WHERE ID_USUARIO = ?;", req.body.Id)
-    res.send("Usuario Eliminado")
+    const {id} = req.body
+    console.log(req.body)
+    const client = cliente()
+    client.connect()
+    const o_id = BSON.ObjectId(id)
+    console.log(id)
+    console.log(o_id)
+    const r = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
+    console.log(await r)
+    res.send('Eliminado');
 }
 ctrl.sesion = async (req,res) =>{
     const { token } = req.headers
     const {Id_Usuario} = await verifyJWT(token)
-    const nConnection = await connectDB();
-    const  [[query]]  = await nConnection.query("SELECT Nombre,Email FROM USUARIOS WHERE ID_USUARIO = ?;", Id_Usuario)
-    res.send(query)
-}
+    const client = cliente()
+    client.connect()
+    const o_id = BSON.ObjectId(Id_Usuario)
+    const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id": o_id})
+    console.log(usuario)
+} 
 // Exportamos el objeto con los controladores.
 module.exports = ctrl;
