@@ -2,7 +2,7 @@
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
         const peticion = await fetch('http://localhost:3000/admin');
-    
+        console.log(peticion)
         const response = await peticion.json();
         console.log({response});
         pintarUsuarios(response)
@@ -19,7 +19,7 @@ const lista = document.getElementById("lista")
                      <p class="card-text">${usuario.Email}</p>
                      </div>
                      <div class="btn d-flex justify-content-end">
-                     <button onclick="eliminarUsuario('${usuario.Id_Usuario}')"><img src="../assets/img/ximg.svg" class="icon"></button>
+                     <button onclick="eliminarUsuario('${usuario._id}')"><img src="../assets/img/ximg.svg" class="icon"></button>
                      </div>
                 </div>
             </div>
@@ -29,13 +29,16 @@ const lista = document.getElementById("lista")
 
 const eliminarUsuario = async (req,res) =>{
     const obj = {Id:`${req}`}
-    console.log("Req:",req)
-    const peticion = await fetch('http://localhost:3000/admin',{
+    await fetch('http://localhost:3000/admin',{
         method:"POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
           },
         body:JSON.stringify(obj)
     });
+    setTimeout(() => {
+        alert("holiwis")
+        obtenerUsuarios()
+    }, 1000);
 }
 obtenerUsuarios();

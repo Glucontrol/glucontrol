@@ -1,24 +1,20 @@
 const jwt = require('jsonwebtoken');
-const { connectDB } = require('../db/database');
+const cliente = require('../db/database');
+const { ObjectId } = require('mongodb');
 
 const validarJWT = async (token) => {
-
     try {
-        // Usamos el metodo verify para verificar el token.
-        // El primer parametro es el token que recibimos por el header, y el segun el secret con el que firmamos el token.
         const { id } = jwt.verify(token, 'mysecret');
-
-        const connection = await connectDB();
-
-        // Buscamos el usuario por id.
-        const [usuario] = await connection.query('SELECT * FROM USUARIOS WHERE Id_Usuario=? LIMIT 1', id);
-
+        const client = cliente()
+        client.connect()
+        const o_id = new ObjectId(id)
+        const usuario = client.db('glucontrol').collection('usuarios').findOne({_id:o_id})
         // En caso de que no exista retornamos false.
-        if(!usuario){
+        if(usuario == null){
             return false;
         } else {
             //Caso contrario retornamos el usuario.
-            return usuario[0];
+            return usuario;
         }
         
     } catch (error) {
