@@ -42,47 +42,25 @@
         </nav>
     </header>
     <main class="container my-5 pt-5">
-      <div class="container-fluid">
-        <a href="crearArticulo.html" class="btn btn-primary mb-2">Crear artículo</a>
-       </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 g-4">
-            <div class="col">
-              <div class="card h-100">
-                <a href="articulos/articulo1.html"><img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                  <h5 class="card-title">Una guía para un control exitoso</h5>
-                  <p class="card-text">Consejos prácticos para manejar efectivamente la diabetes y mejorar tu salud.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <a href="articulos/articulo2.html"><img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                  <h5 class="card-title">Los beneficios de una dieta balanceada</h5>
-                  <p class="card-text">Descubre cómo una dieta equilibrada puede mejorar tu energía y bienestar general.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <a href="articulos/articulo3.html"><img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                  <h5 class="card-title">Ejercicio y Diabetes: Salud en Movimiento </h5>
-                  <p class="card-text">Cómo integrar rutinas de ejercicio para gestionar mejor la diabetes y mejorar la salud cardiovascular.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
+    </div> <section class="add-article">
+        <h2>Agregar Artículo</h2>
+        <form action="/" method="post"> <div class="form-group">
+            <label for="article-title">Título del Artículo</label>
+            <input type="text" class="form-control" id="article-title" placeholder="Ingrese el título del artículo" required>
           </div>
+          <div class="form-group">
+            <label for="article-content">Contenido del Artículo</label>
+            <textarea class="form-control" id="article-content" rows="10" placeholder="Escriba el contenido del artículo" required></textarea>
+          </div>
+          <div class.form-group>
+            <label for="article-image">Imagen del Artículo</label>
+            <input type="file" id="article-image" accept="image/*" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar Artículo</button>
+        </form>
+      </section>
+      
+          
     </main>
     <footer class="footer">
       <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
@@ -91,7 +69,7 @@
             <div class="col-12 col-md-4 col-lg-3 col-xl-2">
               <div class="widget">
                 <a href="#!">
-                  <img src="./assets/img/bsb-logo.svg" alt="" width="175" height="57">
+                  <img src="assets/img/logoedit.jpg" alt="" width="175" height="57">
                 </a>
               </div>
             </div>
@@ -126,6 +104,7 @@
                 </ul>
               </div>
             </div>
+            
             <div class="col-12 col-lg-3 col-xl-4">
               <div class="widget text-white">
                 <h4 class="widget-title mb-4">Contactanos</h4>

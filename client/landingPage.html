@@ -36,10 +36,10 @@
                             <a class="nav-link active text-white " aria-current="page" href="login.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="articulos.html">Artículos</a>
+                            <a class="nav-link" href="login.html">Artículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="listaRecetas.html">Recetas</a>
+                            <a class="nav-link" href="login.html">Recetas</a>
                         </li>
                         <li>
                           <a class="nav-link text-center" href="login.html">Controla tu salud</a>
@@ -48,7 +48,7 @@
                     </ul>
                 </div>
                 <div class="d-flex justify-content-end" id="usuarioD">
-                  <button class="btn btn-secondary btn-signup" id="usuarioB">Iniciar Sesión</button>
+                  <a href="login.html" class="btn btn-secondary btn-signup" id="usuarioB">Iniciar Sesión</a>
                 </div>
             </div>
         </nav>
@@ -172,42 +172,6 @@
             </div>
 
         </section>
-        <section class="quiz-section" id="quiz">
-          <div class="container">
-              <h2 class="text-center mb-4">¿Qué sabes sobre la Diabetes?</h2>
-              <div class="quiz-container">
-                  <div class="quiz-question">
-                      <p>1. ¿Cuál es el principal tipo de diabetes?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q1" value="A"> Tipo 1</label>
-                          <label><input type="radio" name="q1" value="B"> Tipo 2</label>
-                          <label><input type="radio" name="q1" value="C"> Tipo 3</label>
-                          <label><input type="radio" name="q1" value="D"> Gestacional</label>
-                      </div>
-                  </div>
-                  <div class="quiz-question">
-                      <p>2. ¿Cuál de estos es un síntoma común de la diabetes tipo 2?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q2" value="A"> Aumento de la sed</label>
-                          <label><input type="radio" name="q2" value="B"> Pérdida de peso</label>
-                          <label><input type="radio" name="q2" value="C"> Visión borrosa</label>
-                          <label><input type="radio" name="q2" value="D"> Todos los anteriores</label>
-                      </div>
-                  </div>
-                  <div class="quiz-question">
-                      <p>3. ¿Cuál es un factor de riesgo para la diabetes tipo 2?</p>
-                      <div class="quiz-options">
-                          <label><input type="radio" name="q3" value="A"> Alta presión arterial</label>
-                          <label><input type="radio" name="q3" value="B"> Exceso de peso</label>
-                          <label><input type="radio" name="q3" value="C"> Historia familiar</label>
-                          <label><input type="radio" name="q3" value="D"> Todas las anteriores</label>
-                      </div>
-                  </div>
-                  <button class="btn btn-submit" onclick="calculateScore()">Enviar</button>
-                  <div id="result" class="mt-4"></div>
-              </div>
-          </div>
-      </section>
         
         <footer class="footer">
             <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
@@ -237,13 +201,13 @@
                       <h4 class="widget-title mb-4 ">Leer más</h4>
                       <ul class="list-unstyled text-primary text-white">
                         <li class="mb-2">
-                          <a href="login.html" class="link-secondary text-decoration-none text-white">Home</a>
+                          <a href="login.html" class="link-secondary text-decoration-none text-white">Iniciar Sesión</a>
                         </li>
                         <li class="mb-2">
-                          <a href="articulos.html" class="link-secondary text-decoration-none text-white">Articulos</a>
+                          <a href="login.html" class="link-secondary text-decoration-none text-white">Articulos</a>
                         </li>
                         <li class="mb-2">
-                          <a href="listaRecetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
+                          <a href="login.html" class="link-secondary text-decoration-none text-white">Recetas</a>
                         </li>
                         <li class="mb-2">
                           <a href="login.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
@@ -328,37 +292,7 @@
             </div>
           
           </footer>
-          <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const options = document.querySelectorAll('.quiz-options input[type="radio"]');
-                options.forEach(option => {
-                    option.addEventListener('change', function () {
-                        // Remove 'selected' class from all labels
-                        const labels = document.querySelectorAll('.quiz-options label');
-                        labels.forEach(label => label.classList.remove('selected'));
-                        // Add 'selected' class to the label of the checked input
-                        if (this.checked) {
-                            this.nextElementSibling.classList.add('selected');
-                        }
-                    });
-                });
-            });
-            
-            function calculateScore() {
-                let score = 0;
-                const q1 = document.querySelector('input[name="q1"]:checked');
-                const q2 = document.querySelector('input[name="q2"]:checked');
-                const q3 = document.querySelector('input[name="q3"]:checked');
-                
-                if (q1 && q1.value === 'B') score++;
-                if (q2 && q2.value === 'D') score++;
-                if (q3 && q3.value === 'D') score++;
-                
-                const resultDiv = document.getElementById('result');
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `Tu puntuación es ${score} de 3. ¡Gracias por participar!`;
-            }
-            </script>
+         
             
           
         <script
@@ -372,5 +306,6 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script src="assets/js/usuario.js"></script>
     </body>
 </html>
