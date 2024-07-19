@@ -10,10 +10,13 @@ function cliente(){
     })
 }
 async function run() {
+    const client = cliente()
     await client.connect();
-    await client.db("admin").command({ping: 1})
-    console.log('Conectao'); 
+    const resposta = await client.db("admin").command({ping: 1})
+    console.log(resposta); 
 };
+//Esto es para testear si funca la base de datos
+run();
 // Exportamos la funcion para realizar la conexion desde cualquier archivo.
 module.exports = cliente
 

@@ -56,25 +56,24 @@ ctrl.selectall = async (req,res) =>{
     res.send(await usuarios.toArray())
 }
 ctrl.eliminar = async (req,res) =>{
-    const {id} = req.body
-    console.log(req.body)
+    const {Id} = req.body
     const client = cliente()
-    client.connect()
-    const o_id = BSON.ObjectId(id)
-    console.log(id)
-    console.log(o_id)
-    const r = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
-    console.log(await r)
-    res.send('Eliminado');
+    console.log(ObjectId.isValid(Id))
+    const o_id = ObjectId.createFromHexString(Id)
+    const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
+    if (!usuario){
+        res.status(404).send("No se encontró el usuario")
+    }else{
+        await client.db('glucontrol').collection('usuarios').deleteOne({"_id":o_id})
+        res.status(200).send('Usuario Eliminado');
+    }
+
 }
 ctrl.sesion = async (req,res) =>{
     const { token } = req.headers
-    const {Id_Usuario} = await verifyJWT(token)
     const client = cliente()
     client.connect()
-    const o_id = BSON.ObjectId(Id_Usuario)
-    const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id": o_id})
-    console.log(usuario)
+    res.send(await verifyJWT(token))
 } 
 // Exportamos el objeto con los controladores.
 module.exports = ctrl;

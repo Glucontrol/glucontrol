@@ -45,18 +45,14 @@
     </div> <section class="add-article">
         <h2>Agregar Artículo</h2>
         <form action="/" method="post"> <div class="form-group">
-            <label for="article-title">Título del Artículo</label>
-            <input type="text" class="form-control" id="article-title" placeholder="Ingrese el título del artículo" required>
+            <label for="tituloInput">Título del Artículo</label>
+            <input type="text" class="form-control" id="tituloInput" placeholder="Ingrese el título del artículo" required>
           </div>
           <div class="form-group">
-            <label for="article-content">Contenido del Artículo</label>
-            <textarea class="form-control" id="article-content" rows="10" placeholder="Escriba el contenido del artículo" required></textarea>
+            <label for="contenidoInput">Contenido del Artículo</label>
+            <textarea class="form-control" id="contenidoInput" rows="10" placeholder="Escriba el contenido del artículo" required></textarea>
           </div>
-          <div class.form-group>
-            <label for="article-image">Imagen del Artículo</label>
-            <input type="file" id="article-image" accept="image/*" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Enviar Artículo</button>
+          <button type="button" class="btn btn-primary" onclick="crearArt()">Enviar Artículo</button>
         </form>
       </section>
       
@@ -187,6 +183,6 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-b/g0y3N5/t8+Zh0FukcGcVxZMFG5gN95y8U+Y9Qb5m38E4S9z4vexGtf6dD1MkjI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-Mw+HoS+qu4FeXmN2zL1Nde7ZEbyEzjRUwK7FFtJEw6F6FJ4GQ5Tkmu5j/rGvB/Sc" crossorigin="anonymous"></script>
-    <script src="assets/js/articulos.js"></script>
+    <script src="assets/js/crearArticulo.js"></script>
 </body>
 </html>

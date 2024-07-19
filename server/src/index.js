@@ -14,6 +14,8 @@ app.use(express.json()); // express.json para que nuestro servidor pueda reconoc
 //Requerimos nuestras rutas.
 app.use(require('./routes/auth.routes'));
 app.use(require('./routes/form.routes'));
+app.use(require('./routes/art.routes'));
+
 
 //Configuramos el puerto al que escuchara nuestro servidor.
 app.listen(3000, () => { 

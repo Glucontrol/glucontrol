@@ -12,7 +12,8 @@ const buscarUsuario = async (req,res) =>{
             token:`${token}`
         }
     })
-    const userData = peticion.json();
+    const userData = await peticion.json();
+    console.log(userData)
     return userData;
 }
 const mostrarNombre = async (req,res) =>{

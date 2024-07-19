@@ -7,7 +7,7 @@ const validarJWT = async (token) => {
         const { id } = jwt.verify(token, 'mysecret');
         const client = cliente()
         client.connect()
-        const o_id = new ObjectId(id)
+        const o_id = ObjectId.createFromHexString(id.toString())
         const usuario = client.db('glucontrol').collection('usuarios').findOne({_id:o_id})
         // En caso de que no exista retornamos false.
         if(usuario == null){

@@ -12,7 +12,7 @@ const lista = document.getElementById("lista")
         req.forEach( usuario => {
             console.log(usuario)
             lista.innerHTML += `
-            <div class="card col-md-8 mt-4">
+            <div class="card h-100 col-md-8">
                 <div class="card-body d-flex flex-row ">
                     <div class="w-100">
                      <h4 class="card-title">${usuario.Nombre}</h4>
