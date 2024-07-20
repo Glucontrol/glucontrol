@@ -10,5 +10,9 @@ const crearArt = async (req,res) =>{
             'Content-Type': 'application/json'},
         body: JSON.stringify(Info)
     })
-    console.log(peticion)
+    if (peticion.ok){
+        console.log(peticion)
+        console.log(window.location.origin)
+        window.location.href = "articulos.html"
+    }
 }
