@@ -1,7 +1,7 @@
 const lista = document.getElementById("formularios")
 const pintarLista = async (req,res) => {
     const token = localStorage.getItem("token")
-    const peticion = await fetch("http://localhost:3000/registrosI",{
+    const peticion = await fetch(`${process.env.URL}/registrosI`,{
         method:"POST",
         headers:{
             'token':`${token}`

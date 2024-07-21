@@ -5,7 +5,7 @@ const Contraseña = document.getElementById("passwordInput");
 
 const iniciarSesion = async (req,res) =>{
     const data = {Nombre:`${Nombre.value}`, Contraseña:`${Contraseña.value}`}
-    const peticion = await fetch("http://localhost:3000/login",{
+    const peticion = await fetch(`${process.env.URL}/login`,{
         method:"POST",
         headers:{
         'Content-Type': 'application/json;charset=utf-8'},
