@@ -1,3 +1,4 @@
+const Host = window.location.origin
 const usuarioB = document.getElementById("usuarioD");
 
 const cerrarSesion = async (req,res) =>{
@@ -6,7 +7,7 @@ const cerrarSesion = async (req,res) =>{
 
 const buscarUsuario = async (req,res) =>{
     const token = localStorage.getItem("token")
-    const peticion = await fetch(`${process.env.URL}/sesion`,{
+    const peticion = await fetch(`${Host}/sesion`,{
         method:"post",
         headers:{
             token:`${token}`

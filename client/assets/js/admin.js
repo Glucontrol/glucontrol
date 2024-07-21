@@ -1,7 +1,9 @@
-
+const Host = window.location.origin
+console.log(Host)
+console.log(port)
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
-        const peticion = await fetch(`${process.env.URL}/admin`);
+        const peticion = await fetch(`${Host}/admin`);
         console.log(peticion)
         const response = await peticion.json();
         console.log({response});
@@ -29,7 +31,7 @@ const lista = document.getElementById("lista")
 
 const eliminarUsuario = async (req,res) =>{
     const obj = {Id:`${req}`}
-    await fetch(`${process.env.URL}/admin`,{
+    await fetch(`${Host}/admin`,{
         method:"POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

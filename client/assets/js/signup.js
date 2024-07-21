@@ -1,3 +1,4 @@
+const Host = window.location.origin
 const registrarse = async (req,res) =>{
     let Nombre = document.getElementById("nameInput")
     let Contrasenia = document.getElementById("passwordInput")
@@ -5,7 +6,7 @@ const registrarse = async (req,res) =>{
     const Info = {Nombre:`${Nombre.value}`,Contraseña:`${Contrasenia.value}`,Email:`${Email.value}`}
     console.log(Info)
 
-    const peticion = await fetch(`${process.env.URL}/register`,{
+    const peticion = await fetch(`${Host}/register`,{
         method: "POST",
         headers:{
             'Content-Type': 'application/json;charset=utf-8'

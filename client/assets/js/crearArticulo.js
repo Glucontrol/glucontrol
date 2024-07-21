@@ -1,3 +1,4 @@
+const Host = window.location.origin
 const crearArt = async (req,res) =>{
     const Titulo = document.getElementById("tituloInput")
     const Contenido = document.getElementById("contenidoInput")
@@ -7,7 +8,7 @@ const crearArt = async (req,res) =>{
     if (!Titulo.value || !Contenido.value){ //Detectamos que el input tenga algo
         console.log('Error')
     }else{
-        const peticion = await fetch(`${process.env.URL}/articulo`,{method:"POST",
+        const peticion = await fetch(`${Host}/articulo`,{method:"POST",
             headers: {
                 token,
                 'Content-Type': 'application/json'},

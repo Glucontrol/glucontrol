@@ -1,8 +1,8 @@
-
+const Host = window.location.origin
 const lista = document.getElementById("lista")
 console.log('hola')
 const listaArticulos = async () => {
-    const peticion = await fetch(`${process.env.URL}/articulos`);
+    const peticion = await fetch(`${Host}/articulos`);
     console.log(peticion)
     const response = await peticion.json();
     console.log({ response });
@@ -28,7 +28,7 @@ const pintarArticulos = async (req, res) => {
 }
 const mostrarArticulo = async (req,res) =>{
   const id = (window.location.search.substring(1))
-  const peticion = await fetch(`${process.env.URL}/articulo/${id}`,);
+  const peticion = await fetch(`${Host}/articulo/${id}`,);
   const Info = await peticion.json()
   console.log(Info)
   document.getElementById('titulo').innerText = `${Info.Titulo}`
@@ -37,7 +37,7 @@ const mostrarArticulo = async (req,res) =>{
 async function busqueda(req,res){
   console.log(req)
   const Info = {"Input":req}
-  const peticion = await fetch(`${process.env.URL}/articulos`,{
+  const peticion = await fetch(`${Host}/articulos`,{
     method: "POST",
     headers:{
       'Content-Type': 'application/json;charset=utf-8'
