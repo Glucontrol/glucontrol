@@ -11,7 +11,6 @@ const listaArticulos = async () => {
 const pintarArticulos = async (req, res) => {
     lista.innerHTML = "";
     req.forEach(articulo => {
-        console.log(articulo)
         lista.innerHTML += `
             <div class="col">
               <a href="articulo1.html?${articulo._id}" style="text-decoration: none">
@@ -35,3 +34,24 @@ const mostrarArticulo = async (req,res) =>{
   document.getElementById('titulo').innerText = `${Info.Titulo}`
   document.getElementById('contenido').innerText = `${Info.Contenido}`
 }
+async function busqueda(req,res){
+  console.log(req)
+  const Info = {"Input":req}
+  const peticion = await fetch("http://localhost:3000/articulos",{
+    method: "POST",
+    headers:{
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body:JSON.stringify(Info)
+    })
+    return peticion.json()
+}
+document.getElementById('buscador').addEventListener('keydown', async function (e) {
+  const Input = document.getElementById('buscador').value
+  console.log(Input)
+  const bsqd = await busqueda(Input)
+  pintarArticulos(bsqd)
+  if (!Input){
+    listaArticulos();
+  }
+}, false);

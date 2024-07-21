@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-
+const port = process.env.URL || 8080
 //Inicializamos express.
 const app = express();
 
@@ -18,6 +18,6 @@ app.use(require('./routes/art.routes'));
 
 
 //Configuramos el puerto al que escuchara nuestro servidor.
-app.listen(3000, () => { 
-    console.log('Servidor corriendo en el puerto 3000');
+app.listen(port, () => { 
+    console.log(`Servidor corriendo en el puerto ${port}`);
 })
