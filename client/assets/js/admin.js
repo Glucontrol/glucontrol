@@ -3,7 +3,7 @@ console.log(Host)
 console.log(port)
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
-        const peticion = await fetch(`${Host}/admin`);
+        const peticion = await fetch(`/admin`);
         console.log(peticion)
         const response = await peticion.json();
         console.log({response});
