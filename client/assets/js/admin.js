@@ -1,9 +1,8 @@
 const Host = window.location.origin
 console.log(Host)
-console.log(port)
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
-        const peticion = await fetch(`/admin`);
+        const peticion = await fetch(`/.netlify/functions/index/admin`);
         console.log(peticion)
         const response = await peticion.json();
         console.log({response});
