@@ -16,7 +16,7 @@ const guardarRegistro = async(req,res) =>{
     const token = await localStorage.getItem("token")
     const data = {Tipo:`${Tipo.value}`, Dosis:`${Dosis.value}`,Fecha:`${Fecha.value}`,Via:`${Via.value}`,Accion:`${Accion.value}`,Adicional:`${Adicional.value}`}
     console.log(JSON.stringify(data) )
-    const peticion = await fetch("http://localhost:3000/insulina",{method:"POST",
+    const peticion = await fetch(`${process.env.URL}/insulina`,{method:"POST",
         headers: {
             'Content-Type': 'application/json',
             token:`${token}`},

@@ -1,7 +1,7 @@
 
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
-        const peticion = await fetch('http://localhost:3000/admin');
+        const peticion = await fetch(`${process.env.URL}/admin`);
         console.log(peticion)
         const response = await peticion.json();
         console.log({response});
@@ -29,7 +29,7 @@ const lista = document.getElementById("lista")
 
 const eliminarUsuario = async (req,res) =>{
     const obj = {Id:`${req}`}
-    await fetch('http://localhost:3000/admin',{
+    await fetch(`${process.env.URL}/admin`,{
         method:"POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

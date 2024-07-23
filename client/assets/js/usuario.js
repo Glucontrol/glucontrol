@@ -6,7 +6,7 @@ const cerrarSesion = async (req,res) =>{
 
 const buscarUsuario = async (req,res) =>{
     const token = localStorage.getItem("token")
-    const peticion = await fetch("http://localhost:3000/sesion",{
+    const peticion = await fetch(`${process.env.URL}/sesion`,{
         method:"post",
         headers:{
             token:`${token}`

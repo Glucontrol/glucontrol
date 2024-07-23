@@ -12,10 +12,10 @@ ctrl.agregar = async (req,res) =>{
     client.connect();
     res.send(await client.db('glucontrol').collection('articulos').insertOne(doc))
 }
-
 ctrl.listar = async (req,res) =>{
     client.connect()
     const articulos = client.db('glucontrol').collection('articulos').find({})
+    console.log(articulos)
     res.send(await articulos.toArray())
 }
 
@@ -31,6 +31,25 @@ ctrl.leer = async (req,res) =>{
         }
     }else{
         res.send({'Titulo':'Error:ID no valido',"Contenido":""})
+    }
+}
+ctrl.buscar = async (req,res) =>{
+    const {Input} = req.body
+    console.log(req.body)
+    if (Input){
+        console.log('hola')
+        const lista = client.db('glucontrol').collection('articulos').aggregate([
+            {
+              $search: {
+                index: "default",
+                text: {
+                  query: Input,
+                  path: "Titulo",
+                },
+              },
+            },
+          ])
+        res.send(await lista.toArray())
     }
 }
 module.exports = ctrl
