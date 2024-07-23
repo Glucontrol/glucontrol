@@ -31,7 +31,7 @@
                             <a class="nav-link" href="articulos.html">Artículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="listaRecetas.html">Recetas</a>
+                            <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login">Controla tu vida</a>
@@ -42,19 +42,28 @@
         </nav>
     </header>
     <main class="container my-5 pt-5">
-    </div> <section class="add-article">
-        <h2>Agregar Artículo</h2>
-        <form action="/" method="post"> <div class="form-group">
-            <label for="tituloInput">Título del Artículo</label>
-            <input type="text" class="form-control" id="tituloInput" placeholder="Ingrese el título del artículo" required>
-          </div>
-          <div class="form-group">
-            <label for="contenidoInput">Contenido del Artículo</label>
-            <textarea class="form-control" id="contenidoInput" rows="10" placeholder="Escriba el contenido del artículo" required></textarea>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="crearArt()">Enviar Artículo</button>
-        </form>
-      </section>
+      <div class="row justify-content-center container-articulo">
+        <div class="col-lg-8">
+            <div class="recipe-card">
+                <div class="card" style="transition: none;">
+                    <div class="card-body">
+                        <h2 class="card-title">Crear Nuevo Artículo</h2>
+                        <form id="recipe-form" enctype="multipart/form-data">
+                            <div class="mb-3">
+                              <label for="tituloInput">Título del Artículo</label>
+                              <input type="text" class="form-control" id="tituloInput" placeholder="Ingrese el título del artículo" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="contenidoInput">Contenido del Artículo</label>
+                              <textarea class="form-control" id="contenidoInput" rows="10" placeholder="Escriba el contenido del artículo" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-crear" onclick="crearArt()">Crear Receta</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
       
           
     </main>
