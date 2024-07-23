@@ -1,0 +1,7 @@
+[build]
+    functions = "/server/.netlify/functions"
+    publish = "/client"
+[[redirects]]
+  from = "/*"
+  to = "/home.html"
+  status = 200

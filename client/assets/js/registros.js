@@ -2,7 +2,7 @@ const Host = window.location.origin
 const lista = document.getElementById("formularios")
 const pintarLista = async (req,res) => {
     const token = localStorage.getItem("token")
-    const peticion = await fetch(`${Host}/registrosI`,{
+    const peticion = await fetch(`/.netlify/functions/index/registrosI`,{
         method:"POST",
         headers:{
             'token':`${token}`

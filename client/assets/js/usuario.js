@@ -1,4 +1,3 @@
-const Host = window.location.origin
 const usuarioB = document.getElementById("usuarioD");
 
 const cerrarSesion = async (req,res) =>{
@@ -7,7 +6,7 @@ const cerrarSesion = async (req,res) =>{
 
 const buscarUsuario = async (req,res) =>{
     const token = localStorage.getItem("token")
-    const peticion = await fetch(`${Host}/sesion`,{
+    const peticion = await fetch(`/.netlify/functions/index/sesion`,{
         method:"post",
         headers:{
             token:`${token}`

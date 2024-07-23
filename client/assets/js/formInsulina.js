@@ -1,4 +1,3 @@
-const Host = window.location.origin
 const Tipo = document.getElementById("tipoInput");
 const Dosis = document.getElementById("dosisInput");
 const Fecha = document.getElementById("fechaInput");
@@ -8,7 +7,7 @@ const Adicional = document.getElementById("adicionalInput");
 
 
 const verRegistros = async(req,res) =>{
-    const response = await fetch(`${Host}/insulina`)
+    const response = await fetch(`/.netlify/functions/index/insulina`)
     console.log(response)
 }
 const guardarRegistro = async(req,res) =>{
@@ -16,7 +15,7 @@ const guardarRegistro = async(req,res) =>{
     const token = await localStorage.getItem("token")
     const data = {Tipo:`${Tipo.value}`, Dosis:`${Dosis.value}`,Fecha:`${Fecha.value}`,Via:`${Via.value}`,Accion:`${Accion.value}`,Adicional:`${Adicional.value}`}
     console.log(JSON.stringify(data) )
-    const peticion = await fetch(`${Host}/insulina`,{method:"POST",
+    const peticion = await fetch(`/.netlify/functions/index/insulina`,{method:"POST",
         headers: {
             'Content-Type': 'application/json',
             token:`${token}`},

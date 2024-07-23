@@ -1,4 +1,3 @@
-const Host = window.location.origin
 console.log(Host)
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
@@ -30,7 +29,7 @@ const lista = document.getElementById("lista")
 
 const eliminarUsuario = async (req,res) =>{
     const obj = {Id:`${req}`}
-    await fetch(`${Host}/admin`,{
+    await fetch(`/.netlify/functions/index/admin`,{
         method:"POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

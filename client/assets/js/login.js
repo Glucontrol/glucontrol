@@ -4,7 +4,7 @@ const Contraseña = document.getElementById("passwordInput");
 
 const iniciarSesion = async (req,res) =>{
     const data = {Nombre:`${Nombre.value}`, Contraseña:`${Contraseña.value}`}
-    const peticion = await fetch(`${process.env.URL}/login`,{
+    const peticion = await fetch(`/.netlify/functions/index/login`,{
         method:"POST",
         headers:{
         'Content-Type': 'application/json;charset=utf-8'},
@@ -12,5 +12,5 @@ const iniciarSesion = async (req,res) =>{
     })
     const { token } = await peticion.json()
     localStorage.setItem("token",token)
-    window.location.href = `${Host}/client/home.html`
+    window.location.href = `./home`
 }

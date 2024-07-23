@@ -5,14 +5,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "n": "node --watch ./src/index.js",
-    "start": "node ./.netlify/functions/index.js",
+    "start": "node /.netlify/functions/index.js",
     "build": "netlify deploy --prod"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
