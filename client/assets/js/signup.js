@@ -3,8 +3,6 @@ const registrarse = async (req,res) =>{
     let Contrasenia = document.getElementById("passwordInput");
     let Email = document.getElementById("emailInput")
     const Info = {Nombre:`${Nombre.value}`,Contraseña:`${Contrasenia.value}`,Email:`${Email.value}`}
-    console.log(Info)
-
     const peticion = await fetch(`/.netlify/functions/index/register`,{
         method: "POST",
         headers:{

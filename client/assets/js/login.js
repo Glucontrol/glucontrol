@@ -10,7 +10,8 @@ const iniciarSesion = async (req,res) =>{
         'Content-Type': 'application/json;charset=utf-8'},
         body:JSON.stringify(data)
     })
-    if (peticion){
+    if (peticion.status == 200){
+        console.log(peticion)
         const { token } = await peticion.json()
         localStorage.setItem("token",token)
         window.location.href = `./home`
