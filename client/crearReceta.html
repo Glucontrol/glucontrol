@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Artículos</title>
+    <title>Glucontrol - Artículos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="assets/css/recetas.css">
+    
+    <link rel="stylesheet" href="recetas/receta.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -18,20 +19,20 @@
     <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand nav-logo"><img src="assets/img/logoedit.jpg" alt=""></a>
+                <a href="#" class="navbar-brand nav-logo">Logo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="Home.html">Home</a>
+                            <a class="nav-link active text-white" aria-current="page" href="home.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="articulos.html">Artículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="listaRecetas.html">Recetas</a>
+                            <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="formulario.html">Controla tu vida</a>
@@ -41,35 +42,35 @@
             </div>
         </nav>
     </header>
-    <main class="container my-5 pt-5">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 g-4">
-            <div class="col">
-              <div class="card h-100">
-                <a href="articulos/articulo1.html"><img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                  <h5 class="card-title">Una guía para un control exitoso</h5>
-                  <p class="card-text">Consejos prácticos para manejar efectivamente la diabetes y mejorar tu salud.</p>
+    <main class="container">
+        <div class="row justify-content-center container-receta">
+            <div class="col-lg-8">
+                <div class="recipe-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Crear Nueva Receta</h2>
+                            <form id="recipe-form" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Título de la Receta</label>
+                                    <input type="text" class="form-control" id="tituloInput" name="title" required>
+                                    
+                                </div>
+                               
+                                <div class="mb-3">
+                                    <label for="ingredients" class="form-label">Ingredientes</label>
+                                    <textarea class="form-control" id="ingredienteInput" name="ingredients" rows="5" placeholder="1 taza de hojuelas de avena" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="instructions" class="form-label">Instrucciones</label>
+                                    <textarea class="form-control" id="InstrucionInput" name="instructions" rows="10" placeholder="Precalienta el horno a 200°C (400°F)" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-crear">Crear Receta</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col">
-              <div class="card h-100">
-                <a href="articulos/articulo2.html"><img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                  <h5 class="card-title">Los beneficios de una dieta balanceada</h5>
-                  <p class="card-text">Descubre cómo una dieta equilibrada puede mejorar tu energía y bienestar general.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <a href="articulos/articulo3.html"><img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                  <h5 class="card-title">Ejercicio y Diabetes: Salud en Movimiento </h5>
-                  <p class="card-text">Cómo integrar rutinas de ejercicio para gestionar mejor la diabetes y mejorar la salud cardiovascular.</p>
-                </div>
-              </div>
-            </div>
+        </div>
     </main>
     <footer class="footer">
       <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
@@ -113,6 +114,7 @@
                 </ul>
               </div>
             </div>
+            
             <div class="col-12 col-lg-3 col-xl-4">
               <div class="widget text-white">
                 <h4 class="widget-title mb-4">Contactanos</h4>
@@ -195,6 +197,6 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-b/g0y3N5/t8+Zh0FukcGcVxZMFG5gN95y8U+Y9Qb5m38E4S9z4vexGtf6dD1MkjI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-Mw+HoS+qu4FeXmN2zL1Nde7ZEbyEzjRUwK7FFtJEw6F6FJ4GQ5Tkmu5j/rGvB/Sc" crossorigin="anonymous"></script>
-    <script src="assets/js/articulos.js"></script>
+    <script src="assets/js/crearArticulo.js"></script>
 </body>
 </html>
