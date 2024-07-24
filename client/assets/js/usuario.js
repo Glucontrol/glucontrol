@@ -6,7 +6,7 @@ const cerrarSesion = async (req,res) =>{
 
 const buscarUsuario = async (req,res) =>{
     const token = localStorage.getItem("token")
-    const peticion = await fetch(`${process.env.URL}/sesion`,{
+    const peticion = await fetch(`http://localhost:8080/sesion`,{
         method:"post",
         headers:{
             token:`${token}`
@@ -32,4 +32,13 @@ if (localStorage.getItem("token") == 'null'){
   console.log("no hay token")
 }else{
   mostrarNombre(buscarUsuario());
+}
+const mostrarUsuario = async (req,res) =>{
+  console.log('hola')
+  const id = (window.location.search.substring(1))
+  const peticion = await fetch(`http://localhost:8080/admin/${id}`,{method:"POST"});
+  const Info = await peticion.json()
+  console.log(Info)
+  document.getElementById('Nombre').innerText = `${Info.Nombre}`
+  document.getElementById('contenido').innerHTML = `${Info.Contenido}`
 }

@@ -1,7 +1,7 @@
 
 const lista = document.getElementById("lista")
     const obtenerUsuarios = async () => {
-        const peticion = await fetch(`${process.env.URL}/admin`);
+        const peticion = await fetch(`http://localhost:8080/admin`);
         console.log(peticion)
         const response = await peticion.json();
         console.log({response});
@@ -12,8 +12,8 @@ const lista = document.getElementById("lista")
         req.forEach( usuario => {
             console.log(usuario)
             lista.innerHTML += `
-            <div class="card h-100 col-md-8">
-                <div class="card-body d-flex flex-row ">
+            <div class="card h-100 col-md-8 border-dark rounded-3 mt-3">
+                <div class="card-body bg-dark text-light d-flex flex-row ">
                     <div class="w-100">
                      <h4 class="card-title">${usuario.Nombre}</h4>
                      <p class="card-text">${usuario.Email}</p>
@@ -29,7 +29,7 @@ const lista = document.getElementById("lista")
 
 const eliminarUsuario = async (req,res) =>{
     const obj = {Id:`${req}`}
-    await fetch(`${process.env.URL}/admin`,{
+    await fetch(`http://localhost:8080/admin`,{
         method:"POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -39,6 +39,6 @@ const eliminarUsuario = async (req,res) =>{
     setTimeout(() => {
         alert("holiwis")
         obtenerUsuarios()
-    }, 1000);
+    }, 2000);
 }
 obtenerUsuarios();
