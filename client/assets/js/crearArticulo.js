@@ -7,7 +7,7 @@ const crearArt = async (req,res) =>{
     if (!Titulo.value || !Contenido.value){ //Detectamos que el input tenga algo
         console.log('Error')
     }else{
-        const peticion = await fetch(`${process.env.URL}/articulo`,{method:"POST",
+        const peticion = await fetch(`http://localhost:8080/articulo`,{method:"POST",
             headers: {
                 token,
                 'Content-Type': 'application/json'},

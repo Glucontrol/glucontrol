@@ -2,7 +2,7 @@
 const lista = document.getElementById("lista")
 console.log('hola')
 const listaArticulos = async () => {
-    const peticion = await fetch(`${process.env.URL}/articulos`);
+    const peticion = await fetch(`http://localhost:8080/articulos`);
     console.log(peticion)
     const response = await peticion.json();
     console.log({ response });
@@ -13,7 +13,7 @@ const pintarArticulos = async (req, res) => {
     req.forEach(articulo => {
         lista.innerHTML += `
             <div class="col">
-              <a href="articulo1.html?${articulo._id}" style="text-decoration: none">
+              <a href="articulo.html?${articulo._id}" style="text-decoration: none">
               <div class="card h-100">
                 <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -28,7 +28,7 @@ const pintarArticulos = async (req, res) => {
 }
 const mostrarArticulo = async (req,res) =>{
   const id = (window.location.search.substring(1))
-  const peticion = await fetch(`${process.env.URL}/articulo/${id}`,);
+  const peticion = await fetch(`http://localhost:8080/articulo/${id}`,);
   const Info = await peticion.json()
   console.log(Info)
   document.getElementById('titulo').innerText = `${Info.Titulo}`
