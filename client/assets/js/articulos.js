@@ -37,7 +37,7 @@ const mostrarArticulo = async (req,res) =>{
 async function busqueda(req,res){
   console.log(req)
   const Info = {"Input":req}
-  const peticion = await fetch(`${process.env.URL}/articulos`,{
+  const peticion = await fetch(`http://localhost:8080/articulos`,{
     method: "POST",
     headers:{
       'Content-Type': 'application/json;charset=utf-8'

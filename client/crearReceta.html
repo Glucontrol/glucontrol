@@ -8,7 +8,8 @@
 
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="assets/css/articulos.css">
+    
+    <link rel="stylesheet" href="recetas/receta.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -34,38 +35,42 @@
                             <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login">Controla tu vida</a>
+                            <a class="nav-link" href="formulario.html">Controla tu vida</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <main class="container my-5 pt-5">
-      <div class="row justify-content-center container-articulo">
-        <div class="col-lg-8">
-            <div class="recipe-card">
-                <div class="card" style="transition: none;">
-                    <div class="card-body">
-                        <h2 class="card-title">Crear Nuevo Artículo</h2>
-                        <form id="recipe-form" enctype="multipart/form-data">
-                            <div class="mb-3">
-                              <label for="tituloInput">Título del Artículo</label>
-                              <input type="text" class="form-control" id="tituloInput" placeholder="Ingrese el título del artículo" required>
-                            </div>
-                            <div class="mb-3">
-                              <label for="contenidoInput">Contenido del Artículo</label>
-                              <textarea class="form-control" id="contenidoInput" rows="10" placeholder="Escriba el contenido del artículo" required></textarea>
-                            </div>
-                            <button type="submit" class="btn-crear" onclick="crearArt()">Crear Receta</button>
-                        </form>
+    <main class="container">
+        <div class="row justify-content-center container-receta">
+            <div class="col-lg-8">
+                <div class="recipe-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Crear Nueva Receta</h2>
+                            <form id="recipe-form" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Título de la Receta</label>
+                                    <input type="text" class="form-control" id="tituloInput" name="title" required>
+                                    
+                                </div>
+                               
+                                <div class="mb-3">
+                                    <label for="ingredients" class="form-label">Ingredientes</label>
+                                    <textarea class="form-control" id="ingredienteInput" name="ingredients" rows="5" placeholder="1 taza de hojuelas de avena" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="instructions" class="form-label">Instrucciones</label>
+                                    <textarea class="form-control" id="InstrucionInput" name="instructions" rows="10" placeholder="Precalienta el horno a 200°C (400°F)" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-crear">Crear Receta</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-      
-          
     </main>
     <footer class="footer">
       <section class=" py-4 py-md-5 py-xl-8 border-top border-light">

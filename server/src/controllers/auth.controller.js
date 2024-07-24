@@ -75,5 +75,17 @@ ctrl.sesion = async (req,res) =>{
     client.connect()
     res.send(await verifyJWT(token))
 } 
+ctrl.user = async (req,res) =>{
+    const {id} = req.params
+    const client = cliente()
+    client.connect()
+    const o_id = ObjectId.createFromHexString(id)
+    const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
+    if (!usuario){
+        res.status(404).send("No se encontró el usuario")
+    }else{
+        res.send(usuario);
+    }
+}
 // Exportamos el objeto con los controladores.
 module.exports = ctrl;
