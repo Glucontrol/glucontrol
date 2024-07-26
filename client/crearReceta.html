@@ -53,18 +53,24 @@
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Título de la Receta</label>
                                     <input type="text" class="form-control" id="tituloInput" name="title" required>
-                                    
                                 </div>
-                               
-                                <div class="mb-3">
+                                <div class="mb-3" id="listaIngredientes">
                                     <label for="ingredients" class="form-label">Ingredientes</label>
-                                    <textarea class="form-control" id="ingredienteInput" name="ingredients" rows="5" placeholder="1 taza de hojuelas de avena" required></textarea>
+                                    <textarea class="form-control" id="ingredientesInput" name="ingredientes" rows="1" placeholder="1 taza de hojuelas de avena" required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="instructions" class="form-label">Instrucciones</label>
-                                    <textarea class="form-control" id="InstrucionInput" name="instructions" rows="10" placeholder="Precalienta el horno a 200°C (400°F)" required></textarea>
+                                    <textarea class="form-control" id="instruccionesInput" name="instructions" rows="10" placeholder="Precalienta el horno a 200°C (400°F)" required></textarea>
                                 </div>
-                                <button type="submit" class="btn-crear">Crear Receta</button>
+                                <a
+                                  name=""
+                                  id="crearReceta"
+                                  class="btn btn-primary"
+                                  href="#"
+                                  role="button"
+                                  >Crear receta</a
+                                >
+                                
                             </form>
                         </div>
                     </div>
@@ -197,6 +203,6 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-b/g0y3N5/t8+Zh0FukcGcVxZMFG5gN95y8U+Y9Qb5m38E4S9z4vexGtf6dD1MkjI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-Mw+HoS+qu4FeXmN2zL1Nde7ZEbyEzjRUwK7FFtJEw6F6FJ4GQ5Tkmu5j/rGvB/Sc" crossorigin="anonymous"></script>
-    <script src="assets/js/crearArticulo.js"></script>
+    <script src="assets/js/crearReceta.js"></script>
 </body>
 </html>
