@@ -28,25 +28,23 @@
       <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="home.html" class="navbar-brand nav-logo"><img src="assets/img/logoedit.jpg" alt=""></a>
+              <a href="home.html" class="navbar-brand nav-logo">
+                <img src="assets/img/logoedit.jpg" alt="" class="logo-img">
+              </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white " aria-current="page" href="home.html">Home</a>
-                        </li>
+                <div class="collapse navbar-collapse justify-content-center align" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="articulos.html">Artículos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
-                        <li>
-                          <a class="nav-link text-center" href="formulario.html">Controla tu salud</a>
-                        
-                        </li> 
+                        <li class="nav-item">
+                          <a class="nav-link text-center" href="formulario.html">Registros</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="d-flex justify-content-end" id="usuarioD">
@@ -99,7 +97,7 @@
                     <div  class= "carousel-caption" >
                         <h5>Ejercicio y Diabetes: Salud en Movimiento </h5>
                         <p> Aprende cómo el ejercicio puede mejorar tu vida con diabetes y mantenerte saludable. ¡Infórmate más aquí!</p>
-                        <a class="btn btn-primary btn-inicio" href="articulos.html" class="text-decoration-none">Entrar</a>
+                        <a class="btn btn-primary btn-inicio" href="ejercicio.html" class="text-decoration-none">Entrar</a>
                     </div>
                 </div>
                
@@ -132,19 +130,6 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="feature-box-1 h-100">
                             <div class="icon">
-                                <i class="bi bi-book"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h5>Lee articulos</h5>
-                                <p>Explora nuestros artículos sobre diabetes para mantenerte informado y empoderado.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- / -->
-                    <!-- feaure box -->
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="feature-box-1 h-100">
-                            <div class="icon">
                                 <i class="bi bi-clipboard-check"></i>
                             </div>
                             <div class="feature-content">
@@ -165,6 +150,17 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="feature-box-1 h-100">
+                  <div class="icon">
+                    <i class="bi bi-bicycle"></i>
+                  </div>
+                  <div class="feature-content">
+                      <a href="ejercicio.html" class="text-decoration-none"><h5>Tu plan de ejercicio</h5></a>
+                      <p>Empieza hoy tu camino hacia una vida más activa y saludable.</p>
+                  </div>
+              </div>
+          </div>
         </section>
         <section class="section blog-section" id="blog">
           <div class="container">
@@ -177,21 +173,21 @@
               <div class="col-lg-4 col-md-6">
                 <div class="blog-post">
                   <img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artículo 1" class="img-fluid">
-                  <h5><a href="articulos/articulo1.html">Cómo gestionar tu diabetes con éxito</a></h5>
+                  <h5><a href="articulos.html">Cómo gestionar tu diabetes con éxito</a></h5>
                   <p>Descubre estrategias efectivas para controlar tu diabetes y mejorar tu calidad de vida.</p>
                 </div>
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="blog-post">
                   <img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artículo 2" class="img-fluid">
-                  <h5><a href="articulos/articulo2.html">Beneficios de una dieta balanceada</a></h5>
+                  <h5><a href="articulos.html">Beneficios de una dieta balanceada</a></h5>
                   <p>Explora los beneficios de mantener una dieta equilibrada y cómo puede ayudarte a controlar tu diabetes.</p>
                 </div>
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="blog-post">
                   <img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Artículo 3" class="img-fluid">
-                  <h5><a href="articulos/articulo3.html">Ejercicio y diabetes: una combinación ganadora</a></h5>
+                  <h5><a href="articulos.html">Ejercicio y diabetes: una combinación ganadora</a></h5>
                   <p>Conoce los mejores ejercicios para mantener tu diabetes bajo control y mejorar tu bienestar general.</p>
                 </div>
               </div>
@@ -261,7 +257,7 @@
                           <a href="recetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
                         </li>
                         <li class="mb-2">
-                          <a href="formulario.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
+                          <a href="formulario.html" class="link-secondary text-decoration-none text-white">Registros</a>
                         </li>
                       </ul>
                     </div>

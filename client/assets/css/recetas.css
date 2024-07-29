@@ -60,6 +60,10 @@ main{
     color: white;
     padding: 0.5rem 1rem;
 }
+.nav-logo img {
+    width: 100px;
+    height: auto; 
+}
 
 .navbar {
     background-color: #292A2E; 
