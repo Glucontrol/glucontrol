@@ -1,7 +1,6 @@
 const crearArt = async (req,res) =>{
     const Titulo = document.getElementById("tituloInput")
     const Contenido = document.getElementById("contenidoInput")
-    const Autor = "Yo"
     const Info = {Titulo:`${Titulo.value}`,Contenido:`${Contenido.value}`,Autor:``} //Objeto que pasa toda la informacion del articulo
     const token = localStorage.getItem('token') // Obtenemos el token local
     if (!Titulo.value || !Contenido.value){ //Detectamos que el input tenga algo

@@ -117,6 +117,7 @@ footer{
 
 #ingredient-list li {
     margin-bottom: 5px;
+    list-style-type: circle;
 }
 
 #ingredient-list li label {

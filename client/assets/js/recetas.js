@@ -1,24 +1,22 @@
-
 const lista = document.getElementById("lista")
-console.log('hola')
-const listaArticulos = async () => {
-    const peticion = await fetch(`http://localhost:8080/articulos`);
+const listaRecetas = async () => {
+    const peticion = await fetch(`http://localhost:8080/recetas`);
     console.log(peticion)
     const response = await peticion.json();
     console.log({ response });
-    pintarArticulos(response)
+    pintarRecetas(response)
 }
-const pintarArticulos = async (req, res) => {
+const pintarRecetas = async (req, res) => {
     lista.innerHTML = "";
-    req.forEach(articulo => {
+    req.forEach(receta => {
         lista.innerHTML += `
             <div class="col">
-              <a href="./ver/articulo.html?${articulo._id}" style="text-decoration: none">
+              <a href="ver/receta.html?${receta._id}" style="text-decoration: none">
               <div class="card h-100">
                 <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">${articulo.Titulo}</h5>
-                  <p class="card-text">${articulo.Autor}</p>
+                  <h5 class="card-title">${receta.Titulo}</h5>
+                  <p class="card-text">${receta.Autor}</p>
                 </div>
               </div>
               </a>
@@ -26,18 +24,20 @@ const pintarArticulos = async (req, res) => {
         `
     })
 }
-const mostrarArticulo = async (req,res) =>{
+const mostrarReceta = async (req,res) =>{
   const id = (window.location.search.substring(1))
-  const peticion = await fetch(`http://localhost:8080/articulo/${id}`,);
+  const peticion = await fetch(`http://localhost:8080/receta/${id}`,);
   const Info = await peticion.json()
-  console.log(Info)
+  await (Info.Ingredientes).forEach(ingrediente=>{
+    document.getElementById('ingredientes').innerHTML += `<li>${ingrediente}</li>`
+  })
   document.getElementById('titulo').innerText = `${Info.Titulo}`
-  document.getElementById('contenido').innerText = `${Info.Contenido}`
+  document.getElementById('instrucciones').innerText = `${Info.Instrucciones}`
 }
 async function busqueda(req,res){
   console.log(req)
   const Info = {"Input":req}
-  const peticion = await fetch(`http://localhost:8080/articulos`,{
+  const peticion = await fetch(`http://localhost:8080/recetas`,{
     method: "POST",
     headers:{
       'Content-Type': 'application/json;charset=utf-8'

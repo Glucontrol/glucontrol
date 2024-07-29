@@ -17,7 +17,7 @@ const iniciarSesion = async (req,res) =>{
     if (peticion.status == 200){
         const { token } = await peticion.json()
         localStorage.setItem("token",token)
-        window.location.href = "client/home.html"
+        window.location.href = "home.html"
     }
     else{
         alert('Algo salió mal,intentelo de nuevo.')
