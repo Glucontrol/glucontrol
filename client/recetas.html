@@ -18,15 +18,15 @@
     <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand nav-logo">Logo</a>
+              <a href="home.html" class="navbar-brand nav-logo">
+                <img src="assets/img/logoedit.jpg" alt="" class="logo-img">
+              </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="home.html">Home</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="articulos.html">Artículos</a>
                         </li>
@@ -34,30 +34,32 @@
                             <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="formulario.html">Controla tu vida</a>
+                            <a class="nav-link" href="formulario.html">Registros</a>
                         </li>
                     </ul>
+                </div>
+                <div class="d-flex justify-content-end" id="usuarioD">
+                  <a href="landingPage.html"><button class="btn btn-secondary btn-signup" id="usuarioB">Cerrar Sesión</button></a>
                 </div>
             </div>
         </nav>
     </header>
     <main class="container my-5 pt-5">
-      <div class="container-fluid my-3">
-        <a href="crearArticulo.html" class="btn-crear text-decoration-none">Crear artículo</a>
-      </div>
-      <div class="container-fluid">
-        <a href="../client/crearReceta.html" class="btn btn-primary mb-2">Crear artículo</a>
+
+      <div class="container-fluid my-3" >
+        <a href="crearReceta.html" class="btn btn-crear text-decoration-none">Crear Receta</a>
        </div>
        <input type="text" id="buscador">
        <!-- Lista de artículos -->
        <div id="lista" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 g-4">
+        <h3>hola</h3>
         </div>
         
        </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 g-4">
             <div class="col">
               <div class="card h-100">
-                <a href="articulos/articulo1.html"><img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
+                <a href="recetas.html"><img src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                   <h5 class="card-title">Una guía para un control exitoso</h5>
                   <p class="card-text">Consejos prácticos para manejar efectivamente la diabetes y mejorar tu salud.</p>
@@ -66,7 +68,7 @@
             </div>
             <div class="col">
               <div class="card h-100">
-                <a href="articulos/articulo2.html"><img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
+                <a href="recetas.html"><img src="https://plus.unsplash.com/premium_photo-1663850685051-ef8c3a8524ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                   <h5 class="card-title">Los beneficios de una dieta balanceada</h5>
                   <p class="card-text">Descubre cómo una dieta equilibrada puede mejorar tu energía y bienestar general.</p>
@@ -75,7 +77,7 @@
             </div>
             <div class="col">
               <div class="card h-100">
-                <a href="articulos/articulo3.html"><img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="..."></a>
+                <a href="recetas.html"><img src="https://images.pexels.com/photos/1199590/pexels-photo-1199590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                   <h5 class="card-title">Ejercicio y Diabetes: Salud en Movimiento </h5>
                   <p class="card-text">Cómo integrar rutinas de ejercicio para gestionar mejor la diabetes y mejorar la salud cardiovascular.</p>
@@ -85,75 +87,76 @@
           </div>
     </main>
     <footer class="footer">
-      <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
-        <div class="container overflow-hidden">
-          <div class="row gy-4 gy-lg-0 justify-content-xl-between">
-            <div class="col-12 col-md-4 col-lg-3 col-xl-2">
-              <div class="widget">
-                <a href="#!">
-                  <img src="./assets/img/bsb-logo.svg" alt="" width="175" height="57">
-                </a>
+        <section class=" py-4 py-md-5 py-xl-8 border-top border-light">
+          <div class="container overflow-hidden">
+            <div class="row gy-4 gy-lg-0 justify-content-xl-between">
+              <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+                <div class="widget">
+                  <a href="home.html">
+                    <img src="./assets/img/logoedit.jpg" alt="" width="175" height="57">
+                  </a>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-md-4 col-lg-3 col-xl-2 text-primary text-white">
-              <div class="widget">
-                <h4 class="widget-title mb-4 ">Encontranos</h4>
-                <address class="mb-4 text-white" >Instituto Politécnico Formosa</address>
-                <p class="mb-1">
-                  <a class="link-secondary text-decoration-none text-white" href="tel:+15057922430">+54 937040000</a>
-                </p>
-                <p class="mb-0">
-                  <a class="link-secondary text-decoration-none text-white" href="mailto:demo@yourdomain.com">glucontrol@gmail.com</a>
-                </p>
+              <div class="col-12 col-md-4 col-lg-3 col-xl-2 text-primary text-white">
+                <div class="widget">
+                  <h4 class="widget-title mb-4 ">Encontranos</h4>
+                  <address class="mb-4 text-white" >Instituto Politécnico Formosa </address>
+                  <p class="mb-1">
+                    <a class="link-secondary text-decoration-none text-white" href="tel:+15057922430">+54 9370 40000</a>
+                  </p>
+                  <p class="mb-0">
+                    <a class="link-secondary text-decoration-none text-white" href="mailto:demo@yourdomain.com">glucontrol@gmail.com</a>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-md-4 col-lg-3 col-xl-2">
-              <div class="widget text-primary text-white">
-                <h4 class="widget-title mb-4 ">Leer más</h4>
-                <ul class="list-unstyled text-primary text-white">
-                  <li class="mb-2">
-                    <a href="#!" class="link-secondary text-decoration-none text-white">Home</a>
-                  </li>
-                  <li class="mb-2">
-                    <a href="articulos.html" class="link-secondary text-decoration-none text-white">Articulos</a>
-                  </li>
-                  <li class="mb-2">
-                    <a href="listaRecetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
-                  </li>
-                  <li class="mb-2">
-                    <a href="login.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
-                  </li>
-                </ul>
+              <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+                <div class="widget text-primary text-white">
+                  <h4 class="widget-title mb-4 ">Leer más</h4>
+                  <ul class="list-unstyled text-primary text-white">
+                    <li class="mb-2">
+                      <a href="home.html" class="link-secondary text-decoration-none text-white">Home</a>
+                    </li>
+                    <li class="mb-2">
+                      <a href="articulos.html" class="link-secondary text-decoration-none text-white">Artículos</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="recetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
+                      </li>
+                    <li class="mb-2">
+                      <a href="formulario.html" class="link-secondary text-decoration-none text-white">Registros</a>
+                    </li>
+                    
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-lg-3 col-xl-4">
-              <div class="widget text-white">
-                <h4 class="widget-title mb-4">Contactanos</h4>
-                <p class="mb-4">Suscribite y enterate de lo último</p>
-                <form action="#!">
-                  <div class="row gy-4">
-                    <div class="col-12">
-                      <div class="input-group">
-                        <span class="input-group-text" id="email-newsletter-addon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                          </svg>
-                        </span>
-                        <input type="email" class="form-control" id="email-newsletter" value="" placeholder="Email Address" aria-label="email-newsletter" aria-describedby="email-newsletter-addon" required>
+              <div class="col-12 col-lg-3 col-xl-4">
+                <div class="widget text-white">
+                  <h4 class="widget-title mb-4">Contactanos</h4>
+                  <p class="mb-4">Suscribite y enterate de lo último</p>
+                  <form action="#!">
+                    <div class="row gy-4">
+                      <div class="col-12">
+                        <div class="input-group">
+                          <span class="input-group-text" id="email-newsletter-addon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                            </svg>
+                          </span>
+                          <input type="email" class="form-control" id="email-newsletter" value="" placeholder="Email Address" aria-label="email-newsletter" aria-describedby="email-newsletter-addon" required>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="d-grid">
+                          <button class="btn-footer" type="submit">Suscribite</button>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <div class="d-grid">
-                        <button class="btn-footer" type="submit">Suscribirse</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <div class="py-4 py-md-5 py-xl-8 border-top border-light-subtle">
         <div class="container overflow-hidden">

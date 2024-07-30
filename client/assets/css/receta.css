@@ -22,6 +22,10 @@ body{
     font-size: 1.5rem;
     color: white;
 }
+.nav-logo img {
+    width: 100px;
+    height: auto; 
+}
 
 .nav-link {
     font-size: 1.2rem;

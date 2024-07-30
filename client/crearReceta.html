@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     
-    <link rel="stylesheet" href="recetas/receta.css">
+    <link rel="stylesheet" href="assets/css/receta.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -19,15 +19,14 @@
     <header class="header" id="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand nav-logo">Logo</a>
+                <a href="home.html" class="navbar-brand nav-logo">
+                  <img src="assets/img/logoedit.jpg" class="logo-img">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="home.html">Home</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="articulos.html">Artículos</a>
                         </li>
@@ -35,9 +34,12 @@
                             <a class="nav-link" href="recetas.html">Recetas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="formulario.html">Controla tu vida</a>
+                            <a class="nav-link" href="formulario.html">Registros</a>
                         </li>
                     </ul>
+                </div>
+                <div class="d-flex justify-content-end" id="usuarioD">
+                  <a href="landingPage.html"><button class="btn btn-secondary btn-signup" id="usuarioB">Cerrar Sesión</button></a>
                 </div>
             </div>
         </nav>
@@ -65,7 +67,7 @@
                                 <a
                                   name=""
                                   id="crearReceta"
-                                  class="btn btn-primary"
+                                  class="btn btn-crear"
                                   href="#"
                                   role="button"
                                   >Crear receta</a
@@ -84,7 +86,7 @@
           <div class="row gy-4 gy-lg-0 justify-content-xl-between">
             <div class="col-12 col-md-4 col-lg-3 col-xl-2">
               <div class="widget">
-                <a href="#!">
+                <a href="home.html">
                   <img src="assets/img/logoedit.jpg" alt="" width="175" height="57">
                 </a>
               </div>
@@ -106,16 +108,16 @@
                 <h4 class="widget-title mb-4 ">Leer más</h4>
                 <ul class="list-unstyled text-primary text-white">
                   <li class="mb-2">
-                    <a href="#!" class="link-secondary text-decoration-none text-white">Home</a>
+                    <a href="home.html" class="link-secondary text-decoration-none text-white">Home</a>
                   </li>
                   <li class="mb-2">
                     <a href="articulos.html" class="link-secondary text-decoration-none text-white">Articulos</a>
                   </li>
                   <li class="mb-2">
-                    <a href="listaRecetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
+                    <a href="recetas.html" class="link-secondary text-decoration-none text-white">Recetas</a>
                   </li>
                   <li class="mb-2">
-                    <a href="login.html" class="link-secondary text-decoration-none text-white">Controla tu salud</a>
+                    <a href="formulario.html" class="link-secondary text-decoration-none text-white">Registros</a>
                   </li>
                 </ul>
               </div>
