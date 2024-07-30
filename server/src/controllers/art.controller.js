@@ -52,4 +52,12 @@ ctrl.buscar = async (req,res) =>{
         res.send(await lista.toArray())
     }
 }
+ctrl.buscarUser = async (req,res) =>{
+    const Nombre = req.params.user
+    console.log(Nombre)
+    client.connect()
+    const articulos = client.db('glucontrol').collection('articulos').find({'Autor':`${Nombre}`})
+    console.log(articulos)
+    res.send(await articulos.toArray())
+}
 module.exports = ctrl

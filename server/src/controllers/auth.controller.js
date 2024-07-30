@@ -79,12 +79,18 @@ ctrl.user = async (req,res) =>{
     const {id} = req.params
     const client = cliente()
     client.connect()
-    const o_id = ObjectId.createFromHexString(id)
-    const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
-    if (!usuario){
-        res.status(404).send("No se encontró el usuario")
-    }else{
-        res.send(usuario);
+    try{
+
+        const o_id = ObjectId.createFromHexString(id)
+        const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
+        if (!usuario){
+            res.status(404).send("No se encontró el usuario")
+        }else{
+            res.send(usuario);
+        }
+    }
+    catch(error){
+        console.log(error)
     }
 }
 // Exportamos el objeto con los controladores.
