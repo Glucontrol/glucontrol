@@ -80,16 +80,17 @@ ctrl.user = async (req,res) =>{
     const client = cliente()
     client.connect()
     try{
-
-        const o_id = ObjectId.createFromHexString(id)
-        const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
-        if (!usuario){
-            res.status(404).send("No se encontró el usuario")
-        }else{
-            res.send(usuario);
+        if (ObjectId.isValid(id)){
+            const o_id = ObjectId.createFromHexString(id)
+            const usuario = await client.db('glucontrol').collection('usuarios').findOne({"_id":o_id})
+            if (!usuario){
+                res.status(404).send("No se encontró el usuario")
+            }else{
+                res.send(usuario);
+            }
         }
     }
-    catch(error){
+        catch(error){
         console.log(error)
     }
 }
