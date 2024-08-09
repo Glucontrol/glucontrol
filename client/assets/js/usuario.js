@@ -43,13 +43,25 @@ if (localStorage.getItem("token") == "null") {
   mostrarNombre(buscarUsuario());
 }
 const mostrarUsuario = async (req, res) => {
-  console.log("hola");
-  const id = window.location.search.substring(1);
-  console.log(id);
-  const peticion = await fetch(`http://localhost:8080/admin/${id}`, {
+  const user = window.location.search.substring(1);
+  const peticion = await fetch(`http://localhost:8080/admin/${user}`, {
     method: "POST",
   });
-  console.log("hola2");
-  document.getElementById("Nombre").innerText = `${Info.Nombre}`;
-  document.getElementById("contenido").innerHTML = `${Info.Contenido}`;
+  const peticion2 = await await fetch(
+    `http://localhost:8080/articulos/usuario/${user}`,
+    {
+      method: "POST",
+    }
+  );
+  const info = await peticion.json();
+  const articulos = await peticion2.json();
+  document.getElementById("Nombre").innerText = `${info.Nombre}`;
+  articulos.forEach((element) => {
+    document.getElementById("articulos").innerHTML += `
+            <div class="card">
+          <div class="card-body bg-dark text-danger">
+            <h4 class="card-title">${element.Titulo}</h4>
+          </div>
+    `;
+  });
 };
