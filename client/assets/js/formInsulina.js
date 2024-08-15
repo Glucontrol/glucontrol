@@ -6,7 +6,7 @@ const Accion = document.getElementById("accionInput");
 const Adicional = document.getElementById("adicionalInput");
 
 const verRegistros = async (req, res) => {
-  const response = await fetch("http://localhost:8080/insulina");
+  const response = await fetch("http://localhost:8080/insulina",{headers:''});
   console.log(response);
 };
 const guardarRegistro = async (req, res) => {
@@ -20,7 +20,6 @@ const guardarRegistro = async (req, res) => {
     Accion: `${Accion.value}`,
     Adicional: `${Adicional.value}`,
   };
-  console.log(JSON.stringify(data));
   const peticion = await fetch(`http://localhost:8080/insulina`, {
     method: "POST",
     headers: {
