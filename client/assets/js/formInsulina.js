@@ -6,12 +6,14 @@ const Accion = document.getElementById("accionInput");
 const Adicional = document.getElementById("adicionalInput");
 
 const verRegistros = async (req, res) => {
-  const response = await fetch("http://localhost:8080/insulina",{headers:''});
+  const response = await fetch("http://localhost:8080/insulina", {
+    headers: "",
+  });
   console.log(response);
 };
 const guardarRegistro = async (req, res) => {
   console.log("Se envió el registro");
-  const token = await localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const data = {
     Tipo: `${Tipo.value}`,
     Dosis: `${Dosis.value}`,
@@ -20,14 +22,19 @@ const guardarRegistro = async (req, res) => {
     Accion: `${Accion.value}`,
     Adicional: `${Adicional.value}`,
   };
-  const peticion = await fetch(`http://localhost:8080/insulina`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      token: `${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  const respuesta = await peticion.json();
-  console.log(respuesta);
+  try {
+    const peticion = await fetch(`http://localhost:8080/insulina`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: `${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (peticion.ok) {
+      window.location.href = "registros.html";
+    }
+  } catch (error) {
+    alert("Error");
+  }
 };

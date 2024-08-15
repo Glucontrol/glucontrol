@@ -59,8 +59,12 @@ const mostrarUsuario = async (req, res) => {
   articulos.forEach((element) => {
     document.getElementById("articulos").innerHTML += `
             <div class="card">
+          <a href="/client/ver/articulo.html?${element._id}" class="card-link">Leer</a>
           <div class="card-body bg-dark text-danger">
             <h4 class="card-title">${element.Titulo}</h4>
+            <div class="d-flex justify-content-end">
+            <img src="./assets/img/edit.svg" alt="" >
+            </div>
           </div>
     `;
   });

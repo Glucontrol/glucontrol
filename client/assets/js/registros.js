@@ -10,7 +10,6 @@ const pintarLista = async (req, res) => {
   const data = await peticion.json();
   console.log(data);
   data.forEach((element) => {
-    data.De;
     const fecha = element.Fecha;
     lista.innerHTML += `
         <div class="card mt-3 w-75 mx-auto">
