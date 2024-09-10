@@ -24,6 +24,7 @@ ctrl.listar = async (req, res) => {
 };
 
 ctrl.leer = async (req, res) => {
+  console.log(req.params.id);
   const { id } = req.params;
   if (ObjectId.isValid(id)) {
     const o_id = ObjectId.createFromHexString(id);
