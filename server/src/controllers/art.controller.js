@@ -1,11 +1,9 @@
-const { ObjectId } = require("mongodb");
-const cliente = require("../db/database");
-const verifyJWT = require("../helpers/validarJWT");
-// Definimos un objeto vacio con el nombre 'ctrl' (abreviatura de controller).
-const ctrl = {};
-const client = cliente();
+import { ObjectId } from "mongodb";
+import { client } from "../db/database.js";
+import { validarJWT } from "../helpers/validarJWT.js";
+// Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 
-ctrl.agregar = async (req, res) => {
+export const agregar = async (req, res) => {
   let doc = req.body;
   const { token } = req.headers;
   const Usuario = await verifyJWT(token);
@@ -16,14 +14,14 @@ ctrl.agregar = async (req, res) => {
   );
 };
 
-ctrl.listar = async (req, res) => {
+export const listar = async (req, res) => {
   client.connect();
   const articulos = client.db("glucontrol").collection("articulos").find({});
   console.log(articulos);
   res.send(await articulos.toArray());
 };
 
-ctrl.leer = async (req, res) => {
+export const leer = async (req, res) => {
   console.log(req.params.id);
   const { id } = req.params;
   if (ObjectId.isValid(id)) {
@@ -42,7 +40,7 @@ ctrl.leer = async (req, res) => {
   }
 };
 
-ctrl.buscar = async (req, res) => {
+export const buscar = async (req, res) => {
   const { Input } = req.body;
   console.log(req.body);
   if (Input) {
@@ -65,7 +63,7 @@ ctrl.buscar = async (req, res) => {
   }
 };
 
-ctrl.buscarUser = async (req, res) => {
+export const buscarUser = async (req, res) => {
   const Nombre = req.params.user;
   console.log(Nombre);
   client.connect();
@@ -76,5 +74,3 @@ ctrl.buscarUser = async (req, res) => {
   console.log(articulos);
   res.send(await articulos.toArray());
 };
-
-module.exports = ctrl;

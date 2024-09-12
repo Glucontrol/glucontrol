@@ -1,10 +1,9 @@
-const jwt = require("jsonwebtoken");
-const cliente = require("../db/database");
-const { ObjectId } = require("mongodb");
+import jwt from "jsonwebtoken";
+import { client } from "../db/database.js";
+import { ObjectId } from "mongodb";
 
-const validarJWT = async (token, error) => {
+export const validarJWT = async (token, error) => {
   try {
-    const client = cliente();
     client.connect();
     const { id } = jwt.verify(token, "mysecret");
     if (ObjectId.isValid(id)) {
@@ -28,5 +27,3 @@ const validarJWT = async (token, error) => {
     return false;
   }
 };
-
-module.exports = validarJWT;

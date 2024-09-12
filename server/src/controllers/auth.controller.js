@@ -1,16 +1,12 @@
-const cliente = require("../db/database");
-const bcrypt = require("bcrypt");
-const generarJWT = require("../helpers/generarJWT");
-const verifyJWT = require("../helpers/validarJWT");
-const { ObjectId } = require("mongodb");
-
-// Definimos un objeto vacio con el nombre 'ctrl' (abreviatura de controller).
-const ctrl = {};
-
+import { client } from "../db/database.js";
+import bcrypt from "bcrypt";
+import { generarJWT } from "../helpers/generarJWT.js";
+import { validarJWT } from "../helpers/validarJWT.js";
+import { ObjectId } from "mongodb";
+// Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 //Empezamos a ir agrengando los controladores a dicho objeto.
-ctrl.register = async (req, res) => {
+export const register = async (req, res) => {
   const { Nombre, Email, Contraseña } = req.body;
-  const client = cliente();
   client.connect();
   const hashContrasenia = bcrypt.hashSync(Contraseña, 10);
   client
@@ -22,7 +18,7 @@ ctrl.register = async (req, res) => {
   });
 };
 
-ctrl.login = async (req, res) => {
+export const login = async (req, res) => {
   const { Nombre, Contraseña } = req.body;
   const client = cliente();
   const buscarUsuario = await client
@@ -58,13 +54,13 @@ ctrl.login = async (req, res) => {
     token,
   });
 };
-ctrl.selectall = async (req, res) => {
+export const selectall = async (req, res) => {
   const client = cliente();
   client.connect();
   const usuarios = client.db("glucontrol").collection("usuarios").find({});
   res.send(await usuarios.toArray());
 };
-ctrl.eliminar = async (req, res) => {
+export const eliminar = async (req, res) => {
   const { Id } = req.body;
   const client = cliente();
   console.log(ObjectId.isValid(Id));
@@ -83,13 +79,13 @@ ctrl.eliminar = async (req, res) => {
     res.status(200).send("Usuario Eliminado");
   }
 };
-ctrl.sesion = async (req, res) => {
+export const sesion = async (req, res) => {
   const { token } = req.headers;
   const client = cliente();
   client.connect();
   res.send(await verifyJWT(token));
 };
-ctrl.user = async (req, res) => {
+export const user = async (req, res) => {
   const { user } = req.params;
   console.log(user);
   const client = cliente();
@@ -103,4 +99,3 @@ ctrl.user = async (req, res) => {
 };
 
 // Exportamos el objeto con los controladores.
-module.exports = ctrl;

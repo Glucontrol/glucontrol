@@ -1,14 +1,14 @@
-const {
+import {
   register,
   login,
   selectall,
   eliminar,
   sesion,
   user,
-} = require("../controllers/auth.controller");
+} from "../controllers/auth.controller.js";
 
-//requerimos el metodo router de express y lo inicializamos.
-const router = require("express").Router();
+import { Router } from "express";
+const router = Router();
 
 // Creamos una ruta /register con el metodo 'POST' ya que recibiremos datos desde el cliente a traves de este metodo.
 router.post("/register", register);
@@ -24,4 +24,5 @@ router.post("/admin", eliminar);
 //Ver si está el usuario iniciada
 router.post("/sesion", sesion);
 // Exportamos las rutas
-module.exports = router;
+
+export default router;
