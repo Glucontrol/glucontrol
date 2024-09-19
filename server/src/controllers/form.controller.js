@@ -1,22 +1,31 @@
-const { connectDB } = require("../db/database");
-const verifyJWT = require("../helpers/validarJWT")
+import { validarJWT } from "../helpers/validarJWT.js";
 const form = {};
+import { ObjectId } from "mongodb";
+import { client } from "../db/database.js";
 
-form.Insulina = async (req,res) =>{
-    const nConnection = await connectDB();
-    const { token } = await req.headers;
-    const { Id_Usuario } = await verifyJWT(token)
-    const [query] = await nConnection.query('SELECT * FROM REGISTROS WHERE Id_Usuario = ?', [Id_Usuario])
-    res.json(query);
-}
-form.InsulData = async (req,res) =>{
-    const nConnection = await connectDB();
-    const { Tipo, Dosis, Fecha, Via, Accion, Adicional } = req.body
-    const { token } = req.headers
-    console.log(req.body)
-    const {Id_Usuario} = await verifyJWT(token)
-    console.log(Tipo,Dosis,Fecha,Via,Accion,Adicional)
-    const query = await nConnection.query('INSERT INTO REGISTROS(Tipo,Dosis,Fecha,Via,Accion,Adicional,Id_Usuario) VALUES (?,?,?,?,?,?,?)',	 [Tipo, Dosis, Fecha, Via, Accion, Adicional, Id_Usuario])
-}
-
-module.exports = form;
+export const Insulina = async (req, res) => {
+  client.connect();
+  const { token } = await req.headers;
+  const { _id } = await verifyJWT(token);
+  const query = client
+    .db("glucontrol")
+    .collection("registros")
+    .find({ De: _id });
+  res.send(await query.toArray());
+};
+export const InsulData = async (req, res) => {
+  client.connect();
+  const { Tipo, Dosis, Fecha, Via, Accion, Adicional } = req.body;
+  const { token } = req.headers;
+  const { _id } = await verifyJWT(token);
+  const peticion = client.db("glucontrol").collection("registros").insertOne({
+    Tipo: Tipo,
+    Dosis: Dosis,
+    Fecha: Fecha,
+    Via: Via,
+    Accion,
+    Adicional: Adicional,
+    De: _id,
+  });
+  res.send(peticion);
+};

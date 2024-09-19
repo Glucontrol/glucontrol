@@ -1,9 +1,8 @@
-const { Insulina, InsulData } = require('../controllers/form.controller');
+import { InsulData, Insulina } from "../controllers/form.controller.js";
+import { Router } from "express";
+const router = Router();
+router.post("/registrosI", Insulina);
 
-const router = require('express').Router();
+router.post("/insulina", InsulData);
 
-router.post('/registrosI',Insulina);
-
-router.post('/insulina',InsulData);
-
-module.exports = router
+export default router;
