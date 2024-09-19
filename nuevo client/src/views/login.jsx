@@ -5,17 +5,17 @@ import { MdLockOutline } from "react-icons/md";
 export const Login = () => {
   return (
     <>
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-10 text-center mt-12" >
-        <div
-          className="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full sm:w-4/5 lg:w-2/3 max-w-4xl"
-        >
+      <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-10 text-center mt-12">
+        <div className="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full sm:w-4/5 lg:w-2/3 max-w-4xl">
           <div className="w-full md:w-3/5 p-5">
             <div className="text-left font-bold">
               <span className="text-slate-500">Glucontrol</span>
             </div>
 
-            <div className="py-6 px-4 sm:px-10">
-              <h2 className="text-3xl font-bold text-slate-800 mb-2">Iniciar Sesión</h2>
+            <div className="py-6 px-4 sm:px -10">
+              <h2 className="text-3xl font-bold text-slate-800 mb-2">
+                Iniciar Sesión      
+              </h2>
             </div>
 
             <div className="border-2 w-10 border-slate-400 inline-block mb-2"></div>
@@ -46,7 +46,9 @@ export const Login = () => {
               </div>
 
               <div className="flex justify-center w-full sm:w-64 mb-5 tex">
-                <a href="#" className="text-xs text-slate-400 text-center">Olvidé mi contraseña</a>
+                <a href="#" className="text-xs text-slate-400 text-center">
+                  Olvidé mi contraseña
+                </a>
               </div>
 
               <button className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300">

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Tarjeta } from "../components/Tarjeta.jsx";
-import { Header } from "../components/Header.jsx";
+import { Navbar } from "../components/Navbar.jsx";
 export const Articulos = () => {
   const [data, setData] = useState(["hola", "hola2"]);
   useEffect(() => {
@@ -9,11 +9,15 @@ export const Articulos = () => {
       .then((response) => response.json())
       .then((response) => setData(response));
   }, []);
+  const [navbar, setNavbar] = useState(false);
+  useEffect(() => {
+    console.log(navbar);
+  }, [navbar]);
   const Tarjetas = data.map((el) => <Tarjeta info={el} />);
   return (
     <>
-      <Header />
-      <main className="flex">
+      <Navbar />
+      <main className="flex p-5 w-11/12 absolute right-0">
         <div className="flex justify-center flex-row gap-5 flex-wrap ">
           {Tarjetas}
         </div>
