@@ -16,8 +16,8 @@ export const Articulos = () => {
   const Tarjetas = data.map((el) => <Tarjeta info={el} />);
   return (
     <>
-      <Navbar />
-      <main className="flex p-5 w-11/12 absolute right-0">
+      <main className="flex w-11/12">
+        <Navbar />
         <div className="flex justify-center flex-row gap-5 flex-wrap ">
           {Tarjetas}
         </div>
