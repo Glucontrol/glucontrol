@@ -1,17 +1,29 @@
 import React, { useState } from "react";
-import { MdOutlineMenu, MdLeaderboard } from "react-icons/md";
 export const Navbar = () => {
+  const Menu = [
+    { id: 1, name: "Home", icon: "add", link: "/"},
+
+    { id: 2, name: "Registros", icon: "Fa User", link:"/registros"},
+
+    { id: 3, name: "Articulos",icon: "Fa Phone", gap:true,  link:"/articulos"},
+
+  ]
   const [open, setOpen] = useState(true);
   return (
     <div
-      className={`${open ? "w-28" : "w-60"} h-screen bg-blue-950`}
-      onClick={() => {
-        setOpen(!open);
+      className={`${open ? "w-20" : "w-36"}  bg-gray-100 flex flex-col items-center duration-150`}
+      onMouseEnter={() => {
+        setOpen(false);
+      }}
+      onMouseLeave={()=>{
+        setOpen(!open)
       }}
     >
-      <ul>
-        <li>hola</li>
-      </ul>
+      <div className="flex flex-col content-center fixed">
+        <ul className="">
+          { Menu.map((el)=>(<a href={el.link} ><li className="flex overflow-hidden hover:bg-gray-500"><img src={`../src/assets/icons/${el.icon}.svg`}/><span className={`${open && "scale-0"} ${open ? "scale-0" : "scale-60"} duration-300`}>{el.name}</span></li></a>))}
+        </ul>
+      </div>
     </div>
     // <div className="navbar bg-slate-100 shadow-xl w-10 flex  flex-col h-full fixed z-20 border-r-2">
     //   <div>

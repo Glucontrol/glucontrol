@@ -2,8 +2,7 @@ import {
   listar,
   agregar,
   leer,
-  buscar,
-  buscarUser,
+  buscarPorUsuario,
 } from "../controllers/art.controller.js";
 
 import { Router } from "express";
@@ -11,10 +10,8 @@ const router = Router();
 
 //Ver todos los articulos
 router.get("/articulos", listar);
-//Buscar por Nombre
-router.post("/articulos", buscar);
 //Buscar por usuario
-router.post("/articulos/usuario/:user", buscarUser);
+router.post("/articulos/usuario/:user", buscarPorUsuario);
 //Leer un articulo
 router.get("/articulo/:id", leer);
 //Agregar un articulo

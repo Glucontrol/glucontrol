@@ -2,13 +2,12 @@ import React from "react";
 import { Header } from "../components/Header.jsx";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { link } from "../utilities/functions.js";
 export const Articulo = () => {
-  const link = useLocation();
+  const url = (useLocation()).slice(1);
   const [contenido, setContenido] = useState(22);
   useEffect(() => {
-    console.log(link.search);
-    fetch(`http://localhost:8080/articulo/${link.search.slice(1)}`)
-      .then((response) => response.json())
+    link.articuloId()
       .then((response) => setContenido(response));
   }, []);
   return (
