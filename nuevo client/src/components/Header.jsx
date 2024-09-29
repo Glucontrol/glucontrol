@@ -1,7 +1,7 @@
 import React from "react";
 export const Header = () => {
   return (
-    <header className="sticky top-0 mb-10 z-10">
+    <header className="sticky top-0 mb-10 z-10 h-12">
       <nav>
         <ul className=" grid grid-cols-4 text-center h-12 bg-slate-700 text-gray-200 text-xl">
           <li className="flex justify-center mt-3 hover:scale-110 hover:text-yellow-200">
