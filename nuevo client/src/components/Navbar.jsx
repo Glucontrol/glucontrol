@@ -3,9 +3,9 @@ export const Navbar = () => {
   const Menu = [
     { id: 1, name: "Home", icon: "add", link: "/"},
 
-    { id: 2, name: "Registros", icon: "Fa User", link:"/registros"},
+    { id: 2, name: "Registros", icon: "register", link:"/registros"},
 
-    { id: 3, name: "Articulos",icon: "Fa Phone", gap:true,  link:"/articulos"},
+    { id: 3, name: "Articulos",icon: "article", gap:true,  link:"/articulos"},
 
   ]
   const [open, setOpen] = useState(true);
@@ -19,9 +19,9 @@ export const Navbar = () => {
         setOpen(!open)
       }}
     >
-      <div className="flex flex-col content-center fixed">
+      <div className="flex flex-col fixed">
         <ul className="">
-          { Menu.map((el)=>(<a href={el.link} ><li className="flex overflow-hidden hover:bg-gray-500"><img src={`../src/assets/icons/${el.icon}.svg`}/><span className={`${open && "scale-0"} ${open ? "scale-0" : "scale-60"} duration-300`}>{el.name}</span></li></a>))}
+          { Menu.map((el)=>(<a href={el.link} ><li className={` flex overflow-hidden hover:scale-110 duration-100 w-full `}><img src={`../src/assets/icons/${el.icon}.svg`} /><span className={`${open && "scale-0"} ${open ? "scale-0" : "scale-60"} duration-300`}>{el.name}</span></li></a>))}
         </ul>
       </div>
     </div>

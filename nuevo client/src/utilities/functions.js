@@ -5,4 +5,4 @@ link.articulos = () =>fetch(`http://localhost:${API_URL}/articulos`).then((respo
 
 link.registros = () =>fetch(`http://localhost:${API_URL}/registros`).then((response)=>response.json())
 
-link.articuloId = (id) => fetch(`http://localhost:8080/articulo/id`).then((response) => response.json())
+link.articuloId = (id) => fetch(`http://localhost:${API_URL}/articulo/${id}`).then((response) => response.json())

@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { link } from "../utilities/functions.js";
 export const Articulo = () => {
-  const url = (useLocation()).slice(1);
+  const url = (useLocation().search).slice(1)
   const [contenido, setContenido] = useState(22);
   useEffect(() => {
-    link.articuloId()
+    link.articuloId(url)
       .then((response) => setContenido(response));
   }, []);
   return (
