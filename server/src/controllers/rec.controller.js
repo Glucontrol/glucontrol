@@ -7,11 +7,9 @@ export const agregar = async (req, res) => {
   const { token } = req.headers;
   const Usuario = await verifyJWT(token);
   doc.Autor = Usuario.Nombre;
-  client.connect();
   res.send(await client.db("glucontrol").collection("recetas").insertOne(doc));
 };
 export const listar = async (req, res) => {
-  client.connect();
   const recetas = client.db("glucontrol").collection("recetas").find({});
   res.send(await recetas.toArray());
 };

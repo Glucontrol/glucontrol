@@ -6,7 +6,9 @@ import { link } from "../utilities/functions.js";
 export const Articulos = () => {
   const [data, setData] = useState(["hola", "hola2"]);
   useEffect(() => {
-    link.articulos().then((response)=>{setData(response)})
+    link.articulos().then((response) => {
+      setData(response);
+    });
   }, []);
   const Tarjetas = data.map((el) => <Tarjeta info={el} />);
   return (
@@ -15,7 +17,7 @@ export const Articulos = () => {
         <Navbar />
         <div className="container flex">
           <div className="flex flex-wrap flex-row justify-around gap-4">
-          {Tarjetas}
+            {Tarjetas}
           </div>
         </div>
       </main>

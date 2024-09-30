@@ -5,7 +5,7 @@ import "react-calendar/dist/Calendar.css";
 import { Racha } from "./Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
-
+import { Navbar } from "../components/Navbar.jsx";
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
     <a href="#">
@@ -185,78 +185,80 @@ export const Home = () => {
 
   return (
     <>
-    <main className="flex flex-col mx-4">
-      <div className="grid grid-cols-4 justify-around">
-        <div className="my-10 mx-4 col-span-2 gap-4">
-          <h1 className="text-left font-bold m-4 text-2xl md:text-3xl">
-            ¡Bienvenido!
-          </h1>
-          <p className="text-left text-gray-600 w-full md:w-3/4 mt-4 mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-            accusamus error vel modi explicabo? Minus nihil maxime facilis fugit
-            hic at est, facere temporibus consectetur magnam laudantium beatae
-            officia libero.
-          </p>
-        </div>
-        <div className="my-10 mx-4">
-          <div className="flex flex-col items-center justify-center ">
-            <h4 className="text-center  font-semibold mb-4">Racha</h4>
-            <Racha value={currentStreak} />
+      <main className="flex">
+        <Navbar />
+        <div className="container flex-1">
+          <div className="grid grid-cols-4 justify-around">
+            <div className="my-10 mx-4 col-span-2 gap-4">
+              <h1 className="text-left font-bold m-4 text-2xl md:text-3xl">
+                ¡Bienvenido!
+              </h1>
+              <p className="text-left text-gray-600 w-full md:w-3/4 mt-4 mb-2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+                accusamus error vel modi explicabo? Minus nihil maxime facilis
+                fugit hic at est, facere temporibus consectetur magnam
+                laudantium beatae officia libero.
+              </p>
+            </div>
+            <div className="my-10 mx-4">
+              <div className="flex flex-col items-center justify-center ">
+                <h4 className="text-center  font-semibold mb-4">Racha</h4>
+                <Racha value={currentStreak} />
+              </div>
+            </div>
+            <div className="my-10 mx-4">
+              <div className="flex flex-col items-center  justify-center">
+                <h4 className="mb-4 text-center font-semibold">Tu actividad</h4>
+                <Calendar
+                  onChange={onChange}
+                  value={date}
+                  className={"shadow-2xl shadow-gray-400"}
+                  tileClassName={tileClassName}
+                  onClickDay={handleDateClick}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="my-10 mx-4">
-          <div className="flex flex-col items-center  justify-center">
-            <h4 className="mb-4 text-center font-semibold">Tu actividad</h4>
-            <Calendar
-              onChange={onChange}
-              value={date}
-              className={"shadow-2xl shadow-gray-400"}
-              tileClassName={tileClassName}
-              onClickDay={handleDateClick}
+
+          {/* Separador */}
+          <span className="bg-gray-300 w-full h-0.5 my-5"></span>
+
+          {/* Sección de Cards */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4">
+            <h4 className="text-left font-bold col-span-full mb-4">
+              ¿Qué puedo hacer?
+            </h4>
+            <Card
+              imgSrc="./assets/img/articulos.svg"
+              title="Descubre"
+              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+            />
+            <Card
+              imgSrc="./assets/img/articulos.svg"
+              title="Descubre"
+              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+            />
+            <Card
+              imgSrc="./assets/img/articulos.svg"
+              title="Descubre"
+              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
             />
           </div>
+
+          {/* Separador */}
+          <span className="bg-gray-300 w-full h-0.5 my-5"></span>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
+            <h4 className="text-left font-bold col-span-full mb-1">
+              Ultimos artículos
+            </h4>
+
+            <Articulos />
+          </div>
+          <span className="bg-gray-300 w-full h-0.5 my-5"></span>
         </div>
-      </div>
-
-      {/* Separador */}
-      <span className="bg-gray-300 w-full h-0.5 my-5"></span>
-
-      {/* Sección de Cards */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4">
-        <h4 className="text-left font-bold col-span-full mb-4">
-          ¿Qué puedo hacer?
-        </h4>
-        <Card
-          imgSrc="./assets/img/articulos.svg"
-          title="Descubre"
-          description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
-        />
-        <Card
-          imgSrc="./assets/img/articulos.svg"
-          title="Descubre"
-          description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
-        />
-        <Card
-          imgSrc="./assets/img/articulos.svg"
-          title="Descubre"
-          description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
-        />
-      </div>
-
-      {/* Separador */}
-      <span className="bg-gray-300 w-full h-0.5 my-5"></span>
-
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
-        <h4 className="text-left font-bold col-span-full mb-1">
-          Ultimos artículos
-        </h4>
-
-        <Articulos />
-      </div>
-      <span className="bg-gray-300 w-full h-0.5 my-5"></span>
-    </main>
-    <Footer/>
+      </main>
+      <Footer />
     </>
-
   );
 };

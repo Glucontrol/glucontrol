@@ -27,30 +27,34 @@ export const leer = async (req, res) => {
     client
       .db("glucontrol")
       .collection("articulos")
-      .findOne({ _id: o_id }).then(
-        (doc) => {
-          if (doc) {
-            res.send(doc)
-          }else{
-            res.status(404).send({ Titulo: "Error", Contenido: "No sé encontró el articulo" })
-          }} 
-      )
+      .findOne({ _id: o_id })
+      .then((doc) => {
+        if (doc) {
+          res.send(doc);
+        } else {
+          res
+            .status(404)
+            .send({ Titulo: "Error", Contenido: "No sé encontró el articulo" });
+        }
+      });
   } else {
-    res.send({ Titulo: "Error:ID no valido", Contenido: "ID no Valido" });  
+    res.send({ Titulo: "Error:ID no valido", Contenido: "ID no Valido" });
   }
 };
-
 
 export const buscarPorUsuario = async (req, res) => {
   const Nombre = req.params.user;
   client
     .db("glucontrol")
     .collection("articulos")
-    .find({ Autor: `${Nombre}` }).then((doc)=>{
-      if(doc){
-        res.send(doc)}
-        else{
-          res.status(404).send({ Titulo: "Error", Contenido: "No se encontró el documento"})
-        }
-    })
+    .find({ Autor: `${Nombre}` })
+    .then((doc) => {
+      if (doc) {
+        res.send(doc);
+      } else {
+        res
+          .status(404)
+          .send({ Titulo: "Error", Contenido: "No se encontró el documento" });
+      }
+    });
 };
