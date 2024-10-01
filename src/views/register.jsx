@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
-export const Register = (props) => {
-  const { toggleForm } = props;
+export const Register = ({ toggleForm }) => {
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
@@ -21,7 +20,6 @@ export const Register = (props) => {
     }
 
     fetch("http://localhost:4000/register", {
-      // Cambia la URL a tu endpoint de registro
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,19 +38,18 @@ export const Register = (props) => {
         }
 
         const token = data.token; // Asegúrate de que el backend devuelve el token
-        const user = jwt_decode(token);
+        const user = jwtDecode(token);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", token); // Almacena solo el token
         setSignupError(false);
         toggleForm(); // Cambia al formulario de inicio de sesión
-        // Limpiar los campos solo si se registra correctamente
         setSignupName("");
         setSignupEmail("");
         setSignupPassword("");
       })
       .catch((error) => {
         console.error(error);
-        setSignupError(true); // Maneja cualquier error en la solicitud
+        setSignupError(true);
       });
   };
 
@@ -154,7 +151,7 @@ export const Register = (props) => {
               className="bg-transparent border border-white text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase"
               onClick={toggleForm}
             >
-              Iniciar Sesión
+              Ya tengo cuenta
             </button>
           </form>
         </div>

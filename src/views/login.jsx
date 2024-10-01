@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
-export const Login = (props) => {
-  const { toggleForm } = props;
+export const Login = ({ toggleForm }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const [loginEmailError, setLoginEmailError] = useState(false);
   const [loginPasswordError, setLoginPasswordError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
@@ -19,8 +17,7 @@ export const Login = (props) => {
       return;
     }
 
-    setLoading(true);
-    fetch("", {
+    fetch("http://localhost:4000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,35 +30,36 @@ export const Login = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
-          setError(true);
-          setLoading(false);
+          setLoginError(true);
           return;
         }
-        const token = data.token;
-        localStorage.setItem("token", token);
-        const user = jwt_decode(token);
+
+        const token = data.token; // Asegúrate de que el backend devuelve el token
+        const user = jwtDecode(token);
         localStorage.setItem("user", JSON.stringify(user));
-        toggleForm();
-        resetForm();
+        localStorage.setItem("token", token); // Almacena solo el token
+        setLoginError(false);
+        toggleForm(); // Cambia al formulario de registro
+        setLoginEmail("");
+        setLoginPassword("");
       })
       .catch((error) => {
         console.error(error);
-        setError(true);
-        setLoading(false);
+        setLoginError(true);
       });
   };
 
   const validateLoginForm = () => {
     let isValid = true;
 
-    if (!loginEmail.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
+    if (loginEmail === "") {
       setLoginEmailError(true);
       isValid = false;
     } else {
       setLoginEmailError(false);
     }
 
-    if (loginPassword.length < 6) {
+    if (loginPassword === "") {
       setLoginPasswordError(true);
       isValid = false;
     } else {
@@ -71,38 +69,15 @@ export const Login = (props) => {
     return isValid;
   };
 
-  const resetForm = () => {
-    setLoginEmail("");
-    setLoginPassword("");
-    setError(false);
-    setLoading(false);
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-100 via-gray-200 to-blue-200">
       <div className="relative w-full max-w-4xl bg-white border border-gray-300 rounded-lg shadow-lg flex">
-        <div className="form-container sign-in w-1/2 p-8 flex items-center justify-center transition-opacity duration-700 opacity-100">
+        <div className="form-container sign-in w-1/2 p-8 flex items-center justify-center transition-opacity duration-700 opacity-100 pointer-events-auto z-20">
           <form
             className="flex flex-col items-center justify-center w-full"
             onSubmit={handleLoginSubmit}
           >
             <h1 className="text-4xl font-bold px-3 py-3">Iniciar Sesión</h1>
-            {/* Opciones de redes sociales */}
-            <div className="flex space-x-4">
-              <a href="#" className="px-3 py-3 border rounded-lg">
-                <i className="fab fa-google"></i>
-              </a>
-              <a href="#" className="px-3 py-3 border rounded-lg">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" className="px-3 py-3 border rounded-lg">
-                <i className="fab fa-github"></i>
-              </a>
-              <a href="#" className="px-3 py-3 border rounded-lg">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-            {/* Campos del formulario */}
             <input
               type="email"
               placeholder="Email"
@@ -121,25 +96,20 @@ export const Login = (props) => {
                 loginPasswordError ? "border-red-500" : ""
               }`}
             />
-            {error && (
+            {loginError && (
               <p className="text-red-500 text-sm mt-4 mb-5">
-                Por favor, complete todos los campos.
+                Por favor, verifique su email y contraseña.
               </p>
             )}
-            {loading && (
-              <p className="text-gray-500 text-sm mt-4 mb-5">Cargando...</p>
-            )}
-            <button
-              className="bg-indigo-700 text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase"
-              disabled={loading}
-            >
+            <button className="bg-purple-700 text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase">
               Iniciar Sesión
             </button>
             <button
+              type="button"
               className="bg-transparent border border-white text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase"
               onClick={toggleForm}
             >
-              Crear Cuenta
+              Crear cuenta
             </button>
           </form>
         </div>
