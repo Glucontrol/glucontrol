@@ -2,9 +2,7 @@ import React, { useState } from "react";
 export const Navbar = () => {
   const Menu = [
     { id: 1, name: "Home", icon: "add", link: "/home", gap: true },
-
     { id: 2, name: "Registros", icon: "register", link: "/registros" },
-
     {
       id: 3,
       name: "Articulos",
@@ -39,7 +37,7 @@ export const Navbar = () => {
               <li
                 className={`${
                   el.gap ? "mt-8" : "mt-3"
-                } flex h-10 overflow-hidden hover:scale-110 duration-100 w-full hover:shadow-lg hover:shadow-sky-100 hover:rotate-2 `}
+                } flex h-10 overflow-hidden hover:scale-110 duration-100 w-full hover:shadow-lg hover:rounded-lg  `}
               >
                 <img src={`../src/assets/icons/${el.icon}.svg`} />
                 <span
