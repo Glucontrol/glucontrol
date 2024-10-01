@@ -1,11 +1,9 @@
-const verifyJWT = require("../helpers/validarJWT");
+import { validarJWT } from "../helpers/validarJWT.js";
 const form = {};
-const { ObjectId } = require("mongodb");
-const cliente = require("../db/database");
-const client = cliente();
+import { ObjectId } from "mongodb";
+import { client } from "../db/database.js";
 
-form.Insulina = async (req, res) => {
-  client.connect();
+export const Insulina = async (req, res) => {
   const { token } = await req.headers;
   const { _id } = await verifyJWT(token);
   const query = client
@@ -14,8 +12,8 @@ form.Insulina = async (req, res) => {
     .find({ De: _id });
   res.send(await query.toArray());
 };
-form.InsulData = async (req, res) => {
-  client.connect();
+
+export const InsulData = async (req, res) => {
   const { Tipo, Dosis, Fecha, Via, Accion, Adicional } = req.body;
   const { token } = req.headers;
   const { _id } = await verifyJWT(token);
@@ -30,5 +28,3 @@ form.InsulData = async (req, res) => {
   });
   res.send(peticion);
 };
-
-module.exports = form;

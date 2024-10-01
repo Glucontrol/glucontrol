@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.react-calendar {
+    width: 350px;
+    max-width: 100%;
+    background: red; /* Fondo personalizado */
+    border-radius: 10px;
+}
+
+.react-calendar__month-view__days__day {
+    padding: 10px;
+    color: #333; /* Color del texto */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #999; /* Color de los días del mes vecino */
+}
+
+.react-calendar__tile {
+    background: red; /* Fondo de las celdas */
+    border: 1px solid #eaeaea; /* Borde de las celdas */
+}
+
+.react-calendar__tile--active {
+    background: #4a90e2; /* Fondo del día activo */
+    color: white; /* Color del texto en el día activo */
+}

@@ -1,14 +1,19 @@
-const { listar, agregar, leer, buscar, buscarUser} = require('../controllers/art.controller');
-const router = require('express').Router();
+import {
+  listar,
+  agregar,
+  leer,
+  buscarPorUsuario,
+} from "../controllers/art.controller.js";
+
+import { Router } from "express";
+const router = Router();
 
 //Ver todos los articulos
-router.get('/articulos', listar);
-//Buscar por Nombre
-router.post('/articulos',buscar)
+router.get("/articulos", listar);
 //Buscar por usuario
-router.post('/articulos/usuario/:user',buscarUser)
+router.post("/articulos/usuario/:user", buscarPorUsuario);
 //Leer un articulo
-router.get('/articulo/:id',leer);
+router.get("/articulo/:id", leer);
 //Agregar un articulo
-router.post('/articulo', agregar);
-module.exports = router;
+router.post("/articulo", agregar);
+export default router;

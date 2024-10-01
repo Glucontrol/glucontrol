@@ -1,11 +1,9 @@
-const jwt = require("jsonwebtoken");
-const cliente = require("../db/database");
-const { ObjectId } = require("mongodb");
+import jwt from "jsonwebtoken";
+import { client } from "../db/database.js";
+import { ObjectId } from "mongodb";
 
-const validarJWT = async (token, error) => {
+export const validarJWT = async (token, error) => {
   try {
-    const client = cliente();
-    client.connect();
     const { id } = jwt.verify(token, "mysecret");
     if (ObjectId.isValid(id)) {
       const o_id = ObjectId.createFromHexString(id.toString());
@@ -24,9 +22,7 @@ const validarJWT = async (token, error) => {
   } catch (error) {
     // Si ocurre un error lo mostramos por consola y retornamos false.
     console.log(error);
-    console.log("Hubo un error man");
+    console.log("Hubo un error");
     return false;
   }
 };
-
-module.exports = validarJWT;
