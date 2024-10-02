@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { generarJWT } from "../helpers/generarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 import { ObjectId } from "mongodb";
+import { validarJWT } from "../helpers/validarJWT.js";
 // Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 //Empezamos a ir agrengando los controladores a dicho objeto.
 export const register = async (req, res) => {
@@ -24,10 +25,15 @@ export const login = async (req, res) => {
     .collection("usuarios")
     .findOne({ Nombre: Nombre })
     .then((usuario) => {
+      console.log(usuario);
       if (usuario) {
         if (bcrypt.compareSync(Contraseña, usuario.Contrasenia)) {
           generarJWT({ id: usuario._id }).then((token) =>
-            res.cookie("token", token).json({ msg: "Inicio de Sesión Exitoso" })
+            res
+              .cookie("token", token, {
+                httpOnly: true,
+              })
+              .json({ msg: "Inicio de Sesión Exitoso" })
           );
         } else {
           res
@@ -58,7 +64,7 @@ export const selectall = async (req, res) => {
 };
 
 export const eliminar = async (req, res) => {
-  const { Id } = req.body;
+  const { Id } = req.headers.cookie;
   const o_id = generarOID(Id);
   const usuario = await client
     .db("glucontrol")
@@ -76,8 +82,15 @@ export const eliminar = async (req, res) => {
 };
 
 export const sesion = async (req, res) => {
-  const { token } = req.headers;
-  res.send(await verifyJWT(token));
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    const token = cookie.substr(6, cookie.length - 1);
+    validarJWT(token).then((resultado) => {
+      res.send(resultado);
+    });
+  } else {
+    res.status(404).send({ loggedIn: false });
+  }
 };
 
 export const user = async (req, res) => {

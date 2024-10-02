@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 export const Navbar = () => {
+  const user = useContext(UserContext);
+
   const Menu = [
-    { id: 1, name: "Home", icon: "add", link: "/home", gap: true },
+    { id: 1, name: "Home", icon: "add", link: "/home" },
     { id: 2, name: "Registros", icon: "register", link: "/registros" },
     {
       id: 3,
       name: "Articulos",
       icon: "article",
-      gap: true,
       link: "/articulos",
     },
     {
       id: 4,
-      name: "Usuario",
+      name: `${user.Nombre ? user.Nombre : "Iniciar Sesión"}`,
       icon: "account",
+      class: "relative top-80",
       link: "/me",
+    },
+    {
+      name: "Cerrar Sesión",
+      icon: "logout",
+      link: "/logout",
+      class: "relative top-80",
+      gap: true,
     },
   ];
   const [open, setOpen] = useState(true);
@@ -22,7 +32,7 @@ export const Navbar = () => {
     <div
       className={`${
         open ? "w-20" : "w-36"
-      }  bg-blend-color-burn border-r-2 flex flex-col items-center duration-300`}
+      }  bg-blend-color-burn border-r-2 flex flex-col items-center duration-300 top-`}
       onMouseEnter={() => {
         setOpen(false);
       }}
@@ -32,12 +42,14 @@ export const Navbar = () => {
     >
       <div className="flex flex-col fixed top-20 bottom-36">
         <ul className="">
-          {Menu.map((el) => (
-            <a href={el.link}>
+          {Menu.map((el, index) => (
+            <a href={el.link} key={index}>
               <li
                 className={`${
                   el.gap ? "mt-8" : "mt-3"
-                } flex h-10 overflow-hidden hover:scale-110 duration-100 w-full hover:shadow-lg hover:rounded-lg  `}
+                } flex h-10 overflow-hidden hover:scale-110 duration-100 w-full hover:shadow-lg hover:rounded-lg ${
+                  el.class
+                }  `}
               >
                 <img src={`../src/assets/icons/${el.icon}.svg`} />
                 <span

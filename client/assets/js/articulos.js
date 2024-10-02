@@ -1,17 +1,13 @@
-
-const lista = document.getElementById("lista")
-console.log('hola')
+const lista = document.getElementById("lista");
 const listaArticulos = async () => {
-    const peticion = await fetch(`http://localhost:8080/articulos`);
-    console.log(peticion)
-    const response = await peticion.json();
-    console.log({ response });
-    pintarArticulos(response)
-}
+  const peticion = await fetch(`http://localhost:8080/articulos`);
+  const response = await peticion.json();
+  pintarArticulos(response);
+};
 const pintarArticulos = async (req, res) => {
-    lista.innerHTML = "";
-    req.forEach(articulo => {
-        lista.innerHTML += `
+  lista.innerHTML = "";
+  req.forEach((articulo) => {
+    lista.innerHTML += `
             <div class="col">
               <a href="./ver/articulo.html?${articulo._id}" style="text-decoration: none">
               <div class="card h-100">
@@ -23,35 +19,39 @@ const pintarArticulos = async (req, res) => {
               </div>
               </a>
             </div>
-        `
-    })
-}
-const mostrarArticulo = async (req,res) =>{
-  const id = (window.location.search.substring(1))
-  const peticion = await fetch(`http://localhost:8080/articulo/${id}`,);
-  const Info = await peticion.json()
-  console.log(Info)
-  document.getElementById('titulo').innerText = `${Info.Titulo}`
-  document.getElementById('contenido').innerText = `${Info.Contenido}`
-}
-async function busqueda(req,res){
-  console.log(req)
-  const Info = {"Input":req}
-  const peticion = await fetch(`http://localhost:8080/articulos`,{
+        `;
+  });
+};
+const mostrarArticulo = async (req, res) => {
+  const id = window.location.search.substring(1);
+  const peticion = await fetch(`http://localhost:8080/articulo/${id}`);
+  const Info = await peticion.json();
+  console.log(Info);
+  document.getElementById("titulo").innerText = `${Info.Titulo}`;
+  document.getElementById("contenido").innerText = `${Info.Contenido}`;
+};
+async function busqueda(req, res) {
+  console.log(req);
+  const Info = { Input: req };
+  const peticion = await fetch(`http://localhost:8080/articulos`, {
     method: "POST",
-    headers:{
-      'Content-Type': 'application/json;charset=utf-8'
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body:JSON.stringify(Info)
-    })
-    return peticion.json()
+    body: JSON.stringify(Info),
+  });
+  return peticion.json();
 }
-document.getElementById('buscador').addEventListener('keyup', async function (e) {
-  const Input = document.getElementById('buscador').value
-  console.log(Input)
-  const bsqd = await busqueda(Input)
-  pintarArticulos(bsqd)
-  if (!Input){
-    listaArticulos();
-  }
-}, false);
+document.getElementById("buscador").addEventListener(
+  "keyup",
+  async function (e) {
+    const Input = document.getElementById("buscador").value;
+    console.log(Input);
+    const bsqd = await busqueda(Input);
+    pintarArticulos(bsqd);
+    if (!Input) {
+      listaArticulos();
+    }
+  },
+  false
+);

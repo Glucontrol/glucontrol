@@ -188,7 +188,7 @@ export const Home = () => {
       <main className="flex">
         <Navbar />
         <div className="container flex-1">
-          <div className="grid grid-cols-4 justify-around">
+          <div className="grid grid-cols-4 justify-around m-10">
             <div className="my-10 mx-4 col-span-2 gap-4">
               <h1 className="text-left font-bold m-4 text-2xl md:text-3xl">
                 ¡Bienvenido!

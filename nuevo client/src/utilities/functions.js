@@ -16,13 +16,24 @@ link.articuloId = (id) =>
     response.json()
   );
 
-link.login = (Nombre, Contraseña) => {
-  console.log("hola");
+link.login = async (Nombre, Contraseña) => {
   fetch(`http://localhost:${API_URL}/login`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "Application/Json",
     },
     body: JSON.stringify({ Nombre, Contraseña }),
-  }).then((response) => response.json());
+  }).then((response) => {
+    console.log(response.json());
+  });
+};
+
+link.sesion = async (req, res) => {
+  return fetch(`http://localhost:${API_URL}/sesion`, {
+    method: "GET",
+    credentials: "include",
+  }).then((usuario) => {
+    return usuario;
+  });
 };

@@ -33,7 +33,6 @@ export const leer = async (req, res) => {
 };
 export const buscar = async (req, res) => {
   const { Input } = req.body;
-  console.log(req.body);
   if (Input) {
     const lista = client
       .db("glucontrol")

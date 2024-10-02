@@ -56,10 +56,11 @@ export const Login = () => {
               <button
                 className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
                 onClick={() => {
-                  link.login(
+                  const hola = link.login(
                     document.querySelector("#email").value,
                     document.querySelector("#password").value
                   );
+                  console.log("holis", hola.status);
                 }}
               >
                 Iniciar sesión
