@@ -15,7 +15,6 @@ export const agregar = async (req, res) => {
 
 export const listar = async (req, res) => {
   const articulos = client.db("glucontrol").collection("articulos").find({});
-  console.log(articulos);
   res.send(await articulos.toArray());
 };
 
