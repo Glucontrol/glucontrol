@@ -14,7 +14,7 @@ const CrearArticulo = () => {
   return (
     <main className="max-w-4xl mx-auto p-4">
       <div className="flex items-center mb-6">
-        <a href="#" className="text-blue-500 hover:text-blue-700">
+        <a href="/articulos" className="text-blue-500 hover:text-blue-700">
           <BiArrowBack size={24} />
         </a>
         <h1 className="text-2xl font-bold ml-4">Crear Nuevo Artículo</h1>

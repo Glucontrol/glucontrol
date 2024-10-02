@@ -6,6 +6,7 @@ import { Articulo } from "../views/Articulo.jsx";
 import { Login } from "../views/login.jsx";
 import { Home } from "../views/Home.jsx";
 import { CrearArticulo } from "../views/crearArticulo.jsx";
+import { CrearRegistro } from "../views/crearRegistro.jsx";
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -17,7 +18,8 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/home" element={<Home />}></Route>
 
-        <Route path="/crear" element={<CrearArticulo />}></Route>
+        <Route path="/crearArticulo" element={<CrearArticulo />}></Route>
+        <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
       </Routes>
     </BrowserRouter>
   );
