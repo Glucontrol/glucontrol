@@ -60,7 +60,7 @@ export const Login = () => {
                     document.querySelector("#email").value,
                     document.querySelector("#password").value
                   );
-                  console.log("holis", hola.status);
+                  console.log("holis", hola.json().status);
                 }}
               >
                 Iniciar sesión
