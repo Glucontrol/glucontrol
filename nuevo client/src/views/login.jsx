@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
-
+import { link } from "../utilities/functions";
 export const Login = () => {
   return (
     <>
@@ -14,7 +14,7 @@ export const Login = () => {
 
             <div className="py-6 px-4 sm:px -10">
               <h2 className="text-3xl font-bold text-slate-800 mb-2">
-                Iniciar Sesión      
+                Iniciar Sesión
               </h2>
             </div>
 
@@ -26,9 +26,10 @@ export const Login = () => {
               <div className="bg-gray-100 w-full sm:w-64 p-2 flex items-center mb-3">
                 <FaRegEnvelope className="text-gray-400" />
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   placeholder="Email"
+                  id="email"
                   className="bg-gray-100 outline-none text-sm flex-1 p-1"
                   aria-label="Email"
                 />
@@ -39,6 +40,7 @@ export const Login = () => {
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   placeholder="Password"
                   className="bg-gray-100 outline-none text-sm flex-1 p-1"
                   aria-label="Password"
@@ -51,7 +53,16 @@ export const Login = () => {
                 </a>
               </div>
 
-              <button className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300">
+              <button
+                className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
+                onClick={() => {
+                  const hola = link.login(
+                    document.querySelector("#email").value,
+                    document.querySelector("#password").value
+                  );
+                  console.log("holis", hola.status);
+                }}
+              >
                 Iniciar sesión
               </button>
             </div>

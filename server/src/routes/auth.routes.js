@@ -8,6 +8,7 @@ import {
 } from "../controllers/auth.controller.js";
 
 import { Router } from "express";
+import { validarJWT } from "../helpers/validarJWT.js";
 const router = Router();
 
 // Creamos una ruta /register con el metodo 'POST' ya que recibiremos datos desde el cliente a traves de este metodo.
@@ -22,7 +23,7 @@ router.post("/admin/:user", user);
 //Para eliminar algún pobre diablo
 router.post("/admin", eliminar);
 //Ver si está el usuario iniciada
-router.post("/sesion", sesion);
+router.get("/sesion", sesion);
 // Exportamos las rutas
 
 export default router;
