@@ -3,29 +3,19 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { jwtDecode } from "jwt-decode";
 
 export const Login = ({ toggleForm }) => {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
-  const [loginEmailError, setLoginEmailError] = useState(false);
-  const [loginPasswordError, setLoginPasswordError] = useState(false);
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
 
-    const isValid = validateLoginForm();
-    if (!isValid) {
-      return;
-    }
-
-    fetch("http://localhost:4000/login", {
+    fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: loginEmail,
-        password: loginPassword,
-      }),
+      body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -34,14 +24,13 @@ export const Login = ({ toggleForm }) => {
           return;
         }
 
-        const token = data.token; // Asegúrate de que el backend devuelve el token
+        const token = data.token;
         const user = jwtDecode(token);
         localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", token); // Almacena solo el token
+        localStorage.setItem("token", token);
         setLoginError(false);
-        toggleForm(); // Cambia al formulario de registro
-        setLoginEmail("");
-        setLoginPassword("");
+        setEmail("");
+        setPassword("");
       })
       .catch((error) => {
         console.error(error);
@@ -49,71 +38,50 @@ export const Login = ({ toggleForm }) => {
       });
   };
 
-  const validateLoginForm = () => {
-    let isValid = true;
-
-    if (loginEmail === "") {
-      setLoginEmailError(true);
-      isValid = false;
-    } else {
-      setLoginEmailError(false);
-    }
-
-    if (loginPassword === "") {
-      setLoginPasswordError(true);
-      isValid = false;
-    } else {
-      setLoginPasswordError(false);
-    }
-
-    return isValid;
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-100 via-gray-200 to-blue-200">
-      <div className="relative w-full max-w-4xl bg-white border border-gray-300 rounded-lg shadow-lg flex">
-        <div className="form-container sign-in w-1/2 p-8 flex items-center justify-center transition-opacity duration-700 opacity-100 pointer-events-auto z-20">
-          <form
-            className="flex flex-col items-center justify-center w-full"
-            onSubmit={handleLoginSubmit}
-          >
-            <h1 className="text-4xl font-bold px-3 py-3">Iniciar Sesión</h1>
-            <input
-              type="email"
-              placeholder="Email"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-              className={`w-full bg-gray-200 border-none rounded-lg py-2 px-3 my-2 ${
-                loginEmailError ? "border-red-500" : ""
-              }`}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-              className={`w-full bg-gray-200 border-none rounded-lg py-2 px-3 my-2 ${
-                loginPasswordError ? "border-red-500" : ""
-              }`}
-            />
-            {loginError && (
-              <p className="text-red-500 text-sm mt-4 mb-5">
-                Por favor, verifique su email y contraseña.
-              </p>
-            )}
-            <button className="bg-purple-700 text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase">
-              Iniciar Sesión
-            </button>
-            <button
-              type="button"
-              className="bg-transparent border border-white text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase"
-              onClick={toggleForm}
-            >
-              Crear cuenta
-            </button>
-          </form>
-        </div>
+    <form
+      className="flex flex-col items-center justify-center w-full"
+      onSubmit={handleLoginSubmit}
+    >
+      <h1 className="text-4xl font-bold px-3 py-3">Iniciar Sesión</h1>
+      <div className="flex space-x-4">
+        <a href="#" className="px-3 py-3 border rounded-lg">
+          <i className="fab fa-google"></i>
+        </a>
+        <a href="#" className="px-3 py-3 border rounded-lg">
+          <i className="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" className="px-3 py-3 border rounded-lg">
+          <i className="fab fa-github"></i>
+        </a>
+        <a href="#" className="px-3 py-3 border rounded-lg">
+          <i className="fab fa-linkedin-in"></i>
+        </a>
       </div>
-    </div>
+      <p>Use la contraseña de su correo electrónico.</p>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full bg-gray-200 border-none rounded-lg py-2 px-3 my-2"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full bg-gray-200 border-none rounded-lg py-2 px-3 my-2"
+      />
+      {loginError && (
+        <p className="text-red-500 text-sm mt-4 mb-5">
+          Credenciales incorrectas. Por favor, intente nuevamente.
+        </p>
+      )}
+      <a className="mt-4 text-sm text-blue-500">¿Olvidaste tu contraseña?</a>
+      <button className="bg-indigo-600 text-white font-semibold py-2 px-10 rounded-lg mt-5 text-sm uppercase">
+        Iniciar Sesión
+      </button>
+    </form>
   );
 };
