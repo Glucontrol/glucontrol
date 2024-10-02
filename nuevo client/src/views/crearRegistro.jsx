@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import "../style.css";
+import { link } from "../utilities/functions";
 
 export const CrearRegistro = () => {
   const [contenido, setContenido] = useState("");
@@ -46,12 +47,12 @@ export const CrearRegistro = () => {
             </select>
           </div>
           <div className="flex flex-col">
-            <label htmlFor="dosis" className="mb-2 font-semibold">
+            <label htmlFor="dosisInsulina" className="mb-2 font-semibold">
               Dosis (ej. 10 mg o 5 UI)
             </label>
             <input
               type="text"
-              id="dosis"
+              id="dosisInsulina"
               value={dosis}
               onChange={(e) => handleChangeDosis(e.target.value)}
               className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -92,7 +93,20 @@ export const CrearRegistro = () => {
               placeholder="Añada su nota..."
             ></textarea>
           </div>
-          <button className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white">
+          <button
+            className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"
+            onClick={(e) => {
+              e.preventDefault();
+              const form = {
+                Fecha: document.querySelector("#fechaRegistro").value,
+                Via: document.querySelector("#viaAdministracion").value,
+                Dosis: document.querySelector("#dosisInsulina").value,
+                Tipo: document.querySelector("#tipoInsulina").value,
+              };
+              console.log(form);
+              link.registerI(form);
+            }}
+          >
             Listo
           </button>
         </form>
