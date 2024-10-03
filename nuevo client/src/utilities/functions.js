@@ -16,7 +16,7 @@ link.articuloId = (id) =>
     response.json()
   );
 
-link.login = async (Nombre, Contraseña) => {
+link.login = (Nombre, Contraseña) => {
   fetch(`http://localhost:${API_URL}/login`, {
     method: "POST",
     credentials: "include",
@@ -35,5 +35,23 @@ link.sesion = async (req, res) => {
     credentials: "include",
   }).then((usuario) => {
     return usuario;
+  });
+};
+
+link.registerI = async (data) => {
+  return fetch(`http://localhost:${API_URL}/insulina`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/JSON",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+};
+
+link.getRegistersI = async (data) => {
+  return fetch(`http://localhost:${API_URL}/registrosI`, {
+    method: "GET",
+    credentials: "include",
   });
 };

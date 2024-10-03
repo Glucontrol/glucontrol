@@ -14,7 +14,6 @@ function cliente() {
 async function run() {
   const client = cliente();
   await client.connect();
-  const resposta = await client.db("admin").command({ ping: 1 });
 }
 //Esto es para testear si funca la base de datos
 run();

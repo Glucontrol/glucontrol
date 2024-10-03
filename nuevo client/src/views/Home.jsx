@@ -6,6 +6,7 @@ import { Racha } from "./Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
+
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
     <a href="#">
@@ -33,8 +34,8 @@ const Card = ({ imgSrc, title, description }) => (
 const ArticleCard = ({ info }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const handleBookmarkClick = async (info) => {
-    const prevBookmarked = isBookmarked; // Guarda el valor previo
+  const handleBookmarkClick = async () => {
+    const prevBookmarked = isBookmarked;
     setIsBookmarked(!prevBookmarked);
 
     // Lógica para enviar a la base de datos
@@ -45,8 +46,8 @@ const ArticleCard = ({ info }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          articleId: info._id, // Se asume que info contiene un campo _id
-          bookmarked: !prevBookmarked, // Invertimos el estado anterior
+          articleId: info._id,
+          bookmarked: !prevBookmarked,
         }),
       });
 
@@ -54,11 +55,9 @@ const ArticleCard = ({ info }) => {
         throw new Error(`Error al marcar el artículo: ${response.statusText}`);
       }
 
-      // Respuesta exitosa
       console.log("Artículo marcado/desmarcado con éxito");
     } catch (error) {
       console.error("Error:", error);
-      // Volver al estado anterior en caso de error
       setIsBookmarked(prevBookmarked);
     }
   };
@@ -67,15 +66,15 @@ const ArticleCard = ({ info }) => {
     <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-95 transition ease-in-out duration-200">
       <div className="relative m-1">
         <img
-          src="https://images.pexels.com/photos/28403274/pexels-photo-28403274/free-photo-of-fresas.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://images.pexels.com/photos/28403274/pexels-photo-28403274/free-photo-of-fresas.jpeg"
           alt={info.title}
           className="rounded-t-lg object-cover w-full max-h-96"
         />
-        <span className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+        <span className="block absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
           salud
         </span>
       </div>
-      <div className=" flex flex-row justify-around">
+      <div className="flex flex-row justify-around">
         <a
           onClick={() => {
             window.location.href = `./articulo?${info._id}`;
@@ -85,7 +84,6 @@ const ArticleCard = ({ info }) => {
             {info.Titulo}
           </h4>
         </a>
-        {/* Cambiar el ícono según el estado */}
         <div onClick={handleBookmarkClick} className="cursor-pointer">
           {isBookmarked ? (
             <FaBookmark className="top-3 right-3 mt-4 text-black" />
@@ -116,9 +114,9 @@ export const Articulos = () => {
       .then((response) => setData(response));
   }, []);
 
-  const Articulos = data.slice(0, 4).map((el) => <ArticleCard info={el} />);
+  const articulos = data.slice(0, 4).map((el) => <ArticleCard key={el._id} info={el} />);
 
-  return Articulos;
+  return <>{articulos}</>;
 };
 
 export const Home = () => {
@@ -132,25 +130,14 @@ export const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      /*   try {
-              setLoading(true); // Establecer estado de carga 
-              const response = await fetch("http://localhost:8080/registrosI");
-              if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-              const fetchedData = await response.json();
-              setRecords(fetchedData);
-          } catch (error) {
-              console.error("Error fetching data:", error);
-              alert("Ocurrió un error al obtener los registros.");
-          } finally {
-              setLoading(false); // Finalizar estado de carga
-          } */
+      // Código para obtener los registros
     };
 
     const timeoutId = setTimeout(() => {
       fetchData();
-    }, 1000); // Simulando un retraso de 1 segundo
+    }, 1000);
 
-    return () => clearTimeout(timeoutId); // Limpiar el timeout
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const onChange = (newDate) => {
@@ -162,11 +149,11 @@ export const Home = () => {
 
     if (records[dateString]) {
       if (records[dateString].glucose && records[dateString].insulin) {
-        return "bg-purple-300 text-white"; // Ambos registros
+        return "bg-purple-300 text-white";
       } else if (records[dateString].glucose) {
-        return "bg-blue-300 text-white"; // Solo glucosa
+        return "bg-blue-300 text-white";
       } else if (records[dateString].insulin) {
-        return "bg-green-300 text-white"; // Solo insulina
+        return "bg-green-300 text-white";
       }
     }
     return "";
@@ -201,13 +188,13 @@ export const Home = () => {
               </p>
             </div>
             <div className="my-10 mx-4">
-              <div className="flex flex-col items-center justify-center ">
-                <h4 className="text-center  font-semibold mb-4">Racha</h4>
+              <div className="flex flex-col items-center justify-center">
+                <h4 className="text-center font-semibold mb-4">Racha</h4>
                 <Racha value={currentStreak} />
               </div>
             </div>
             <div className="my-10 mx-4">
-              <div className="flex flex-col items-center  justify-center">
+              <div className="flex flex-col items-center justify-center">
                 <h4 className="mb-4 text-center font-semibold">Tu actividad</h4>
                 <Calendar
                   onChange={onChange}
@@ -220,11 +207,11 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Separador */}
-          <span className="bg-gray-300 w-full h-0.5 my-5"></span>
+          {/* Separador con div */}
+          <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           {/* Sección de Cards */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2">
             <h4 className="text-left font-bold col-span-full mb-4">
               ¿Qué puedo hacer?
             </h4>
@@ -235,27 +222,29 @@ export const Home = () => {
             />
             <Card
               imgSrc="./assets/img/articulos.svg"
-              title="Descubre"
-              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+              title="Aprende"
+              description="Conoce más sobre cómo manejar tu condición día a día"
             />
             <Card
               imgSrc="./assets/img/articulos.svg"
-              title="Descubre"
-              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+              title="Comparte"
+              description="Únete a nuestra comunidad y comparte tus experiencias"
             />
           </div>
 
-          {/* Separador */}
-          <span className="bg-gray-300 w-full h-0.5 my-5"></span>
+          {/* Separador con div */}
+          <div className="bg-gray-200 w-full h-0.5 m-6"></div>
+
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
             <h4 className="text-left font-bold col-span-full mb-1">
-              Ultimos artículos
+              Últimos artículos
             </h4>
 
             <Articulos />
           </div>
-          <span className="bg-gray-300 w-full h-0.5 my-5"></span>
+          <div className="bg-gray-200 w-full h-0.5 m-6"></div>
+
         </div>
       </main>
       <Footer />
