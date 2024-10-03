@@ -1,0 +1,164 @@
+*{
+    font-family: 'Manrope';
+    margin: 0;
+    padding:0;
+}
+body{
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image:  radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0,10px 10px;
+}
+
+#header {
+    background-color: #343a40; 
+    color: white;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    color: white;
+    padding: 0.5rem 1rem;
+}
+.nav-logo img {
+    width: 100px;
+    height: auto; 
+}
+
+.navbar {
+    background-color: #292A2E; 
+    color: white; 
+}
+.nav-link {
+    color: white; 
+}
+
+.nav-link:hover {
+    color: #ddd; 
+}
+
+@media (max-width: 991.98px) {
+    .nav__toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        justify-content: flex-start;
+    }
+}
+.navbar-container{
+    background-color: #111725;
+    color: #FFF;
+}
+.btn-navbar{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+}
+
+footer{
+    background-color: #111725;
+}
+.btn-form{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: none;
+}
+
+
+.btn-footer{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+}
+.btn-form:hover{
+    background-color: #343a40;
+    border: none;
+}
+.btn-footer:hover{
+    background-color: #343a40;
+}
+.section-padding {
+    padding-top: 100px; /* Adjust top padding for spacing from the fixed navbar */
+    padding-bottom: 50px; /* Bottom padding */
+}
+
+/* Form styling */
+.form-container {
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px; /* Padding inside the form */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Form headers */
+.form-container > h2 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Form labels */
+.form-container > .form-label {
+    font-weight: 600;
+    color: #343a40;
+}
+
+
+
+
+/* Footer customization */
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Customizing input fields */
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+/* Adjusting textarea */
+textarea.form-control {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .navbar-brand, .nav-link {
+        font-size: 14px;
+    }
+
+    .section-padding {
+        padding-top: 70px;
+        padding-bottom: 30px;
+    }
+}

@@ -1,0 +1,131 @@
+*{
+    font-family: 'Manrope';
+    margin: 0;
+    padding:0;
+}
+body{
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image:  radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0,10px 10px;
+}
+.section-padding{
+    padding: 70px 0;
+}
+#header {
+    background-color: #343a40; 
+    color: white;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: white;
+}
+.nav-logo img {
+    width: 100px;
+    height: auto; 
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.navbar {
+    background-color: #292A2E; 
+    color: white; 
+}
+.btn-inicio {
+    background-color:#292A2E; 
+    color: white;
+    border: none; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    transition-duration: 0.4s;
+    cursor: pointer; 
+    border-radius: 12px; 
+
+}
+
+.btn-inicio:hover {
+    background-color: #111725; 
+    color: white; 
+}
+
+
+.nav-link {
+    color: white; 
+}
+
+.nav-link:hover {
+    color: #ddd; 
+}
+
+@media (max-width: 991.98px) {
+    .nav__toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        justify-content: flex-start;
+    }
+}
+.navbar-container{
+    background-color: #111725;
+    color: #FFF;
+}
+.recipe-card {
+    margin-top: 30px;
+}
+.recipe-card .card-body {
+    padding: 20px;
+}
+.recipe-card .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.recipe-card ul, .recipe-card ol {
+    margin-bottom: 20px;
+}
+.recipe-card ul li, .recipe-card ol li {
+    margin-bottom: 5px;
+}
+.btn-navbar{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+}
+footer{
+    background-color: #111725;
+  }
+  .btn-footer{
+    background: #292A2E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+  }
+.container-receta{
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+#ingredient-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#ingredient-list li {
+    margin-bottom: 5px;
+    list-style-type: circle;
+}
+
+#ingredient-list li label {
+    cursor: pointer;
+}
+
+
