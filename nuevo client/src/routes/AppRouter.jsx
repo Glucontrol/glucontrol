@@ -8,6 +8,7 @@ import User from "../views/userPage.jsx";
 import { Home } from "../views/Home.jsx";
 import { CrearArticulo } from "../views/crearArticulo.jsx";
 import { CrearRegistro } from "../views/crearRegistro.jsx";
+import { Registros } from "../views/Registros.jsx";
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ const AppRouter = () => {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/crearArticulo" element={<CrearArticulo />}></Route>
         <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
+        <Route path="/Registros" element={<Registros />}></Route>
       </Routes>
     </BrowserRouter>
   );

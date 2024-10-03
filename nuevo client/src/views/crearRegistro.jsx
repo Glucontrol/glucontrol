@@ -104,7 +104,9 @@ export const CrearRegistro = () => {
                 Tipo: document.querySelector("#tipoInsulina").value,
               };
               console.log(form);
-              link.registerI(form);
+              link.registerI(form).then(() => {
+                window.location.href = "/registros";
+              });
             }}
           >
             Listo
