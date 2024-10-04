@@ -1,39 +1,66 @@
 import React from "react";
 import { Header } from "../components/Header";
 import helao from "../assets/helao.png";
+import landing from "../assets/icons/landing.svg";
+import cardregister from "../assets/icons/cardregister.svg";
 export const Landing = () => {
   return (
     <>
-      <Header />
-      <main>
-        <div className="grid grid-cols-2 grid-rows-2 mt-10">
-          <div className="flex flex-col ml-10 mt-10 justify-center">
-            <h1 className="text-5xl ml-4 mt-6 font-bold">
-              Ten un control de tu vida
-            </h1>
-            <p className="mt-4 ml-10 font-semibold text-lg">
-              {" "}
-              Registra tus niveles de glucosa y manten un registro de los
-              niveles de insulina, haciendo un buen hábito que permitirá que
-              disfrutes la vida de la forma que te mereces. Descubra una
-              comunidad que comparte su misma patología.{" "}
-            </p>
-            <div className="flex justify-center mt-5">
-              <button
-                type="button"
-                className="rounded-lg font-semibold w-40 h-7 justify-center hover:bg-slate-100 transition ease-in-out delay-150duration-300"
+      <nav className="grid items-center grid-cols-2  shadow-lg shadow-gray-100 m-3  ">
+        <div className="flex flex-row  justify-start  p-4">
+          <h1 className="font-bold text-gray-800 ">Glucontrol</h1>
+        </div>
+        <div className="flex flex-row justify-end mx-3 items-center content-center ">
+          <ul className="flex flex-row justify-between gap-8 p-4 ">
+            <li className="">Nosotros</li>
+            <li>Servicios</li>
+            <li>Contacto</li>
+            <li>
+              <a
+                href="/login"
+                className="rounded-lg cursor-pointer font-semibold text-white bg-slate-400 px-4  hover:bg-slate-600 py-2 text-center items-center"
               >
-                Unirse
-              </button>
-            </div>
-          </div>
-          <div>
-            <img src={helao} />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold mt-10 ml-5">
-              Descubre quienes forman parte de la comunidad Glucontrol:
+                Iniciar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main>
+        <div className="grid grid-cols-2  m-10">
+          <div className="flex flex-col justify-center gap-4">
+            <h1 className="text-5xl  font-extrabold ">
+              Haz del autocuidado un hábito diario
             </h1>
+            <p className="font-normal text-lg text-justify">
+              {" "}
+              Una herramienta diseñada para ayudarte a tomar decisiones más
+              informadas sobre tu salud. Únete a una comunidad de apoyo que te
+              acompaña en cada paso.{" "}
+            </p>
+            <a
+              href="/register"
+              type="button"
+              className="rounded-lg font-semibold justify-center text-center hover:bg-slate-600 bg-slate-400 p-1 w-1/4 text-white transition ease-in-out delay-150 duration-300"
+            >
+              Comienza hoy
+            </a>
+          </div>
+          <div>
+            <img src={landing} />
+          </div>
+        </div>
+
+        <div className="bg-slate-400 rounded-3xl shadow-2xl grid grid-cols-4 justify-center items-center gap-4 ">
+          <div className="rounded-lg bg-white grid grid-rows-2 m-10">
+            <div>
+              <img src="" alt="" />
+            </div>
+            <div>
+              <h1>Registra tus niveles de glucosa</h1>
+              <a href="">Ir</a>
+            </div>
           </div>
         </div>
       </main>

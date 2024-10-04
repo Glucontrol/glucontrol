@@ -114,7 +114,9 @@ export const Articulos = () => {
       .then((response) => setData(response));
   }, []);
 
-  const articulos = data.slice(0, 4).map((el) => <ArticleCard key={el._id} info={el} />);
+  const articulos = data
+    .slice(0, 4)
+    .map((el) => <ArticleCard key={el._id} info={el} />);
 
   return <>{articulos}</>;
 };
@@ -235,7 +237,6 @@ export const Home = () => {
           {/* Separador con div */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
-
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
             <h4 className="text-left font-bold col-span-full mb-1">
               Últimos artículos
@@ -244,10 +245,11 @@ export const Home = () => {
             <Articulos />
           </div>
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
-
         </div>
       </main>
       <Footer />
     </>
   );
 };
+
+export default Home;
