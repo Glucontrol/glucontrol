@@ -46,12 +46,12 @@ link.registerI = async (data) => {
     },
     credentials: "include",
     body: JSON.stringify(data),
-  });
+  }).then((res) => true);
 };
 
 link.getRegistersI = async (data) => {
   return fetch(`http://localhost:${API_URL}/registrosI`, {
     method: "GET",
     credentials: "include",
-  });
+  }).then((resultado) => resultado.json());
 };
