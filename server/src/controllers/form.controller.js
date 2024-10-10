@@ -45,3 +45,22 @@ export const InsulData = async (req, res) => {
     });
   }
 };
+
+export const leerRegistros = async (req, res) => {
+  const fecha = req.params.fecha;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    const token = cookie.substr(6, cookie.length - 1);
+    validarJWT(token).then((resultado) => {
+      const peticion = client
+        .db("glucontrol")
+        .collection("registros")
+        .find({
+          Fecha: fecha,
+          De: resultado._id,
+        })
+        .toArray();
+      res.send(peticion);
+    });
+  }
+};
