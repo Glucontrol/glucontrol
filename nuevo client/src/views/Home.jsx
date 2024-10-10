@@ -124,51 +124,63 @@ export const Articulos = () => {
 export const Home = () => {
   const currentStreak = 75;
   const [date, setDate] = useState(new Date());
-  const [records, setRecords] = useState({
-    "2024-09-26": { glucose: [100], insulin: [5] },
-    "2024-09-27": {},
-    "2024-09-28": { glucose: [110], insulin: [6] },
-  });
+  const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
 
   useEffect(() => {
     const fetchData = async () => {
-      // Código para obtener los registros
+      try {
+        const response = await fetch("http://localhost:8080/registrosI", {
+          method: "GET",
+          credentials: "include", // Para incluir las cookies
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los registros");
+        }
+
+        const data = await response.json();
+        console.log("Datos recibidos:", data); // Verifica lo que devuelve la API
+
+        // Asegúrate de que la estructura es la esperada
+        const recordsMap = data.reduce((acc, registro) => {
+          const dateString = registro.Fecha.split("T")[0];
+          acc[dateString] = {
+            insulin: registro.Dosis,
+          };
+          return acc;
+        }, {});
+
+        setRecords(recordsMap); // Guardar los registros en el estado
+        console.log("Records actualizados:", recordsMap); // Verifica la estructura de records
+      } catch (error) {
+        console.error("Error al cargar los registros:", error);
+      }
     };
-
-    const timeoutId = setTimeout(() => {
-      fetchData();
-    }, 1000);
-
-    return () => clearTimeout(timeoutId);
+    fetchData();
   }, []);
 
   const onChange = (newDate) => {
     setDate(newDate);
   };
-
   const tileClassName = ({ date }) => {
     const dateString = date.toISOString().split("T")[0];
 
-    if (records[dateString]) {
-      if (records[dateString].glucose && records[dateString].insulin) {
-        return "bg-purple-300 text-white";
-      } else if (records[dateString].glucose) {
-        return "bg-blue-300 text-white";
-      } else if (records[dateString].insulin) {
-        return "bg-green-300 text-white";
-      }
+    // Si existe un registro para esa fecha, aplica la clase de fondo
+    if (records[dateString] && records[dateString].insulin) {
+      console.log("Pintando la fecha:", dateString);
+      return "bg-blue-200 text-white"; // Clase para el fondo de la celda
     }
-    return "";
+    return ""; // Sin clase si no hay registro
   };
 
   const handleDateClick = (value) => {
     const dateString = value.toISOString().split("T")[0];
-    if (records[dateString] && Object.keys(records[dateString]).length > 0) {
-      alert(
-        `Registros para ${dateString}: ${JSON.stringify(records[dateString])}`
-      );
+
+    if (records[dateString] && records[dateString].insulin) {
+      alert(`Hay registro de insulina para ${dateString}`);
     } else {
-      alert(`No hay registros para ${dateString}`);
+      alert(`No hay registros de insulina para ${dateString}`);
+      window.location.href = `./articulo?${dateString}`;
     }
   };
 
