@@ -5,12 +5,19 @@ import { validarJWT } from "../helpers/validarJWT.js";
 
 export const agregar = async (req, res) => {
   let doc = req.body;
-  const { token } = req.headers;
-  const Usuario = await validarJWT(token);
-  doc.Autor = Usuario.Nombre;
-  res.send(
-    await client.db("glucontrol").collection("articulos").insertOne(doc)
-  );
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    const token = cookie.split("=")[1];
+    const Usuario = await validarJWT(token);
+    console.log(Usuario);
+    doc.Autor = Usuario.Nombre;
+    console.log(doc);
+    res.send(
+      await client.db("glucontrol").collection("articulos").insertOne(doc)
+    );
+  } else {
+    res.send("Fallo en la autorización").status(400);
+  }
 };
 
 export const listar = async (req, res) => {

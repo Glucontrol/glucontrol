@@ -39,7 +39,10 @@ const CrearArticulo = () => {
             />
           </div>
           <div className="flex flex-col">
-            <select className="select w-full rounded-lg focus:outline-none p-2 border border-gray-300 focus:ring-2  focus:ring-blue-500">
+            <select
+              className="select w-full rounded-lg focus:outline-none p-2 border border-gray-300 focus:ring-2  focus:ring-blue-500"
+              id="categoria"
+            >
               <option disabled selected>
                 Selecciona una categoría
               </option>
@@ -63,11 +66,30 @@ const CrearArticulo = () => {
                 onChange={handleChange}
                 placeholder="Escribe el contenido del artículo..."
                 className="h-full"
+                id="contenido"
               />
             </div>
           </div>
         </form>
-        <button className="bg-blue-400 text-white w-1/3  mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white">
+        <button
+          className="bg-blue-400 text-white w-1/3  mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"
+          onClick={() => {
+            const data = {
+              Titulo: document.querySelector("#nombreArticulo").value,
+              categoria: document.querySelector("#categoria").value,
+              Contenido: document.querySelector("#contenido").textContent,
+            };
+            fetch("http://localhost:8080/articulo", {
+              method: "POST",
+              headers: {
+                "Content-Type": "Application/JSON",
+              },
+              credentials: "include",
+              body: JSON.stringify(data),
+            });
+            console.log(data);
+          }}
+        >
           Listo
         </button>
       </div>
