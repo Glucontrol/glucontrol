@@ -126,7 +126,7 @@ export const Home = () => {
   const [date, setDate] = useState(new Date());
   const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:8080/registrosI", {
@@ -146,7 +146,9 @@ export const Home = () => {
           const dateString = registro.Fecha.split("T")[0];
           acc[dateString] = {
             insulin: registro.Dosis,
+            id: registro._id,
           };
+
           return acc;
         }, {});
 
@@ -157,7 +159,45 @@ export const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, []); */
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dateString = date.toISOString().split("T")[0]; // Fecha en formato YYYY-MM-DD
+        console.log("Fetching data for date:", dateString); // Verificar la fecha solicitada
+        const response = await fetch(`http://localhost:8080/registrosI`, {
+          method: "GET",
+          credentials: "include", // Para incluir las cookies
+          headers: {
+            "Cache-Control": "no-cache", // Evitar que se use una respuesta cacheada
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los registros");
+        }
+
+        const data = await response.json();
+        console.log("Datos recibidos para la fecha:", dateString, data); // Verifica la respuesta del servidor
+
+        const recordsMap = data.reduce((acc, registro) => {
+          const dateString = registro.Fecha.split("T")[0];
+          acc[dateString] = {
+            insulin: registro.Dosis,
+            id: registro._id,
+          };
+          return acc;
+        }, {});
+
+        setRecords(recordsMap); // Guardar los registros en el estado
+        console.log("Records actualizados para la fecha:", recordsMap); // Verifica la estructura de records
+      } catch (error) {
+        console.error("Error al cargar los registros:", error);
+      }
+    };
+
+    fetchData(); // Ejecutar el fetch cuando cambia la fecha
+  }, [date]); // Asegúrate de que el useEffect se dispare al cambiar la fecha
 
   const onChange = (newDate) => {
     setDate(newDate);
@@ -167,7 +207,6 @@ export const Home = () => {
 
     // Si existe un registro para esa fecha, aplica la clase de fondo
     if (records[dateString] && records[dateString].insulin) {
-      console.log("Pintando la fecha:", dateString);
       return "bg-blue-200 text-white"; // Clase para el fondo de la celda
     }
     return ""; // Sin clase si no hay registro
@@ -177,10 +216,9 @@ export const Home = () => {
     const dateString = value.toISOString().split("T")[0];
 
     if (records[dateString] && records[dateString].insulin) {
-      alert(`Hay registro de insulina para ${dateString}`);
+      window.location.href = `./Registro/${dateString}`;
     } else {
       alert(`No hay registros de insulina para ${dateString}`);
-      window.location.href = `./articulo?${dateString}`;
     }
   };
 
