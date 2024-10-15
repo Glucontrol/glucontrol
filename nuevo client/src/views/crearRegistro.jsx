@@ -6,13 +6,40 @@ import { link } from "../utilities/functions";
 export const CrearRegistro = () => {
   const [contenido, setContenido] = useState("");
   const [dosis, setDosis] = useState("");
+  const [tipoInsulina, setTipoInsulina] = useState("");
+  const [viaAdministracion, setViaAdministracion] = useState("");
+  const [fechaRegistro, setFechaRegistro] = useState("");
+  const [error, setError] = useState("");
 
   const handleChangeDosis = (value) => {
-    // Validación para permitir solo números y la unidad correcta
-    const regex = /^\d*(\.\d+)?( mg| UI)?$/; // Puedes ajustar esto según las unidades que necesites
+    const regex = /^\d*(\.\d+)?( mg| UI)?$/;
     if (regex.test(value) || value === "") {
       setDosis(value);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validar que todos los campos obligatorios estén llenos
+    if (!tipoInsulina || !dosis || !viaAdministracion || !fechaRegistro) {
+      setError("Por favor, completa todos los campos obligatorios.");
+      return;
+    }
+
+    setError(""); // Reiniciar el error si todo está correcto
+
+    const form = {
+      Fecha: fechaRegistro,
+      Via: viaAdministracion,
+      Dosis: dosis,
+      Tipo: tipoInsulina,
+    };
+
+    console.log(form);
+    link.registerI(form).then(() => {
+      window.location.href = "/registros";
+    });
   };
 
   return (
@@ -27,7 +54,9 @@ export const CrearRegistro = () => {
         <h2 className="text-xl mb-4">
           Completa con los detalles de tu registro
         </h2>
-        <form className="space-y-6">
+        {error && <p className="text-red-500 mb-4">{error}</p>}{" "}
+        {/* Mostrar mensaje de error */}
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <label htmlFor="tipoInsulina" className="mb-2 font-semibold">
               Tipo de Insulina
@@ -35,15 +64,16 @@ export const CrearRegistro = () => {
             <select
               id="tipoInsulina"
               className="select w-full rounded-lg focus:outline-none p-2 border border-gray-300 focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setTipoInsulina(e.target.value)}
             >
-              <option disabled selected>
+              <option value="" disabled selected>
                 Selecciona un tipo de insulina
               </option>
-              <option>Rápida</option>
-              <option>Intermedia</option>
-              <option>Corta</option>
-              <option>Prolongada</option>
-              <option>Combinada</option>
+              <option value="Rápida">Rápida</option>
+              <option value="Intermedia">Intermedia</option>
+              <option value="Corta">Corta</option>
+              <option value="Prolongada">Prolongada</option>
+              <option value="Combinada">Combinada</option>
             </select>
           </div>
           <div className="flex flex-col">
@@ -66,15 +96,18 @@ export const CrearRegistro = () => {
             <select
               id="viaAdministracion"
               className="select w-full rounded-lg focus:outline-none p-2 border border-gray-300 focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setViaAdministracion(e.target.value)}
             >
-              <option disabled selected>
+              <option value="" disabled selected>
                 Selecciona una vía de administración
               </option>
-              <option>Inyección Subcutánea</option>
-              <option>Infusión Subcutánea</option>
-              <option>Inhalación</option>
-              <option>Inyección Intravenosa</option>
-              <option>Transdérmica</option>
+              <option value="Inyección Subcutánea">Inyección Subcutánea</option>
+              <option value="Infusión Subcutánea">Infusión Subcutánea</option>
+              <option value="Inhalación">Inhalación</option>
+              <option value="Inyección Intravenosa">
+                Inyección Intravenosa
+              </option>
+              <option value="Transdérmica">Transdérmica</option>
             </select>
           </div>
           <div className="flex flex-col">
@@ -84,6 +117,7 @@ export const CrearRegistro = () => {
               id="fechaRegistro"
               name="fechaRegistro"
               className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setFechaRegistro(e.target.value)}
             />
           </div>
           <div className="flex flex-col">
@@ -94,20 +128,8 @@ export const CrearRegistro = () => {
             ></textarea>
           </div>
           <button
+            type="submit" // Cambiar a submit
             className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"
-            onClick={(e) => {
-              e.preventDefault();
-              const form = {
-                Fecha: document.querySelector("#fechaRegistro").value,
-                Via: document.querySelector("#viaAdministracion").value,
-                Dosis: document.querySelector("#dosisInsulina").value,
-                Tipo: document.querySelector("#tipoInsulina").value,
-              };
-              console.log(form);
-              link.registerI(form).then(() => {
-                window.location.href = "/registros";
-              });
-            }}
           >
             Listo
           </button>

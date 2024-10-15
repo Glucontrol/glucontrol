@@ -6,6 +6,7 @@ import { Racha } from "./Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
+import { calcularRacha } from "../views/Racha.jsx";
 
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -122,9 +123,10 @@ export const Articulos = () => {
 };
 
 export const Home = () => {
-  const currentStreak = 75;
   const [date, setDate] = useState(new Date());
   const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
+  const [streak, setStreak] = useState(0);
+  const [fechas, setFechas] = useState([]);
 
   /* useEffect(() => {
     const fetchData = async () => {
@@ -191,6 +193,12 @@ export const Home = () => {
 
         setRecords(recordsMap); // Guardar los registros en el estado
         console.log("Records actualizados para la fecha:", recordsMap); // Verifica la estructura de records
+        const fetchedDates = Object.keys(recordsMap).sort();
+        setFechas(fetchedDates);
+
+        // Llamamos a la función calcularRacha y actualizamos el estado
+        const nuevaRacha = calcularRacha(recordsMap);
+        setStreak(nuevaRacha);
       } catch (error) {
         console.error("Error al cargar los registros:", error);
       }
@@ -224,28 +232,28 @@ export const Home = () => {
 
   return (
     <>
-      <main className="flex">
+      <main className="flex flex-col md:flex-row">
         <Navbar />
         <div className="container flex-1">
-          <div className="grid grid-cols-4 justify-around m-10">
-            <div className="my-10 mx-4 col-span-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
+            <div className="my-5 mx-2 col-span-1 md:col-span-2">
               <h1 className="text-left font-bold m-4 text-2xl md:text-3xl">
                 ¡Bienvenido!
               </h1>
-              <p className="text-left text-gray-600 w-full md:w-3/4 mt-4 mb-2">
+              <p className="text-left text-gray-600 w-full mt-4 mb-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
                 accusamus error vel modi explicabo? Minus nihil maxime facilis
                 fugit hic at est, facere temporibus consectetur magnam
                 laudantium beatae officia libero.
               </p>
             </div>
-            <div className="my-10 mx-4">
+            <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
                 <h4 className="text-center font-semibold mb-4">Racha</h4>
-                <Racha value={currentStreak} />
+                <Racha value={streak} max={30} />
               </div>
             </div>
-            <div className="my-10 mx-4">
+            <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
                 <h4 className="mb-4 text-center font-semibold">Tu actividad</h4>
                 <Calendar
@@ -259,7 +267,7 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Separador con div */}
+          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           {/* Sección de Cards */}
@@ -284,7 +292,7 @@ export const Home = () => {
             />
           </div>
 
-          {/* Separador con div */}
+          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
