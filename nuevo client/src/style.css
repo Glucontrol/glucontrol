@@ -4,12 +4,10 @@
 
 .react-calendar {
   width: 100%;
-  max-width: 400px;
-  background: red;
+  max-width: 100%; /* Asegúrate de que sea 100% en pantallas más pequeñas */
   border-radius: 10px;
   padding: 20px;
 }
-
 .react-calendar__navigation button {
   color: #4b5563; /* Color del texto de los botones de navegación */
 
@@ -59,4 +57,31 @@
 .react-calendar__tile.bg-blue-200 {
   background-color: #4db8ff !important; /* Color de bg-blue-200 */
   color: white !important; /* Asegura que el texto sea visible */
+}
+/* Asegúrate de que la tabla del calendario sea responsiva */
+.react-calendar__month-view {
+  @apply overflow-x-auto; /* Añade overflow para que sea desplazable en pantallas pequeñas */
+}
+
+/* Puedes ajustar los márgenes y el padding para que sean más responsivos */
+.my-10 {
+  @apply my-5; /* Reducir el margen vertical en pantallas pequeñas */
+}
+
+.mx-4 {
+  @apply mx-2; /* Reducir el margen horizontal en pantallas pequeñas */
+}
+
+/* Ajustar el tamaño de las tarjetas */
+.min-h-48 {
+  @apply min-h-32; /* Ajustar la altura mínima para ser más responsivo */
+}
+
+/* Para que el texto sea más pequeño en pantallas pequeñas */
+.text-sm {
+  @apply text-xs; /* Ajustar el tamaño de texto en pantallas pequeñas */
+}
+
+.container {
+  @apply mx-auto px-4; /* Asegúrate de que el contenedor tenga un buen padding */
 }
