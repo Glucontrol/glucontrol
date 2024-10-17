@@ -10,7 +10,7 @@ import { CrearArticulo } from "../views/crearArticulo.jsx";
 import { CrearRegistro } from "../views/crearRegistro.jsx";
 import { Registros } from "../views/Registros.jsx";
 import { EditDiabeticProfile } from "../views/EditDiabeticProfile";
-import { Register } from "../views/Registro.jsx";
+import { Register } from "../views/register.jsx";
 
 const AppRouter = () => {
   return (
@@ -28,7 +28,6 @@ const AppRouter = () => {
         <Route path="/crearArticulo" element={<CrearArticulo />}></Route>
         <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
         <Route path="/Registros" element={<Registros />}></Route>
-        <Route path="/Registro/:fecha" element={<Registro />}></Route>
       </Routes>
     </BrowserRouter>
   );
