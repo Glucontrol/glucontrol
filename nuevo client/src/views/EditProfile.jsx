@@ -3,7 +3,7 @@ import * as Avatar from "@radix-ui/react-avatar";
 import * as Switch from "@radix-ui/react-switch";
 import * as Select from "@radix-ui/react-select";
 import * as Toast from "@radix-ui/react-toast";
-import { Moon, Sun, Plus, Trash } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import { Footer } from "../components/Footer.jsx";
 
 const Boton = ({ children, onClick, type = "button", className = "" }) => (
