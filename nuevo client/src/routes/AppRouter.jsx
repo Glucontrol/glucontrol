@@ -9,11 +9,7 @@ import { Home } from "../views/Home.jsx";
 import { CrearArticulo } from "../views/crearArticulo.jsx";
 import { CrearRegistro } from "../views/crearRegistro.jsx";
 import { Registros } from "../views/Registros.jsx";
-<<<<<<< HEAD
 import { EditDiabeticProfile } from "../views/EditDiabeticProfile";
-=======
-import { Registro } from "../views/Registro.jsx";
->>>>>>> 75a2b975bee54a389d127b247e1b2f53289d25da
 
 const AppRouter = () => {
   return (
