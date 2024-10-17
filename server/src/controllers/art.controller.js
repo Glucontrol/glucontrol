@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { client } from "../db/database.js";
 import { validarJWT } from "../helpers/validarJWT.js";
+import { generarOID } from "../helpers/generarOID.js";
 // Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 
 export const agregar = async (req, res) => {
@@ -21,22 +22,21 @@ export const listar = async (req, res) => {
 export const leer = async (req, res) => {
   console.log(req.params.id);
   const { id } = req.params;
-  if (ObjectId.isValid(id)) {
-    const o_id = ObjectId.createFromHexString(id);
-    client
-      .db("glucontrol")
-      .collection("articulos")
-      .findOne({ _id: o_id })
-      .then((doc) => {
-        if (doc) {
-          res.send(doc);
-        } else {
-          res
-            .status(404)
-            .send({ Titulo: "Error", Contenido: "No sé encontró el articulo" });
-        }
-      });
-  } else {
+  const o_id = generarOID(id);
+  client
+    .db("glucontrol")
+    .collection("articulos")
+    .findOne({ _id: o_id })
+    .then((doc) => {
+      if (doc) {
+        res.send(doc);
+      } else {
+        res
+          .status(404)
+          .send({ Titulo: "Error", Contenido: "No sé encontró el articulo" });
+      }
+    });
+  if (!o_id) {
     res.send({ Titulo: "Error:ID no valido", Contenido: "ID no Valido" });
   }
 };
