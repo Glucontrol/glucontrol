@@ -1,6 +1,5 @@
 import { validarJWT } from "../helpers/validarJWT.js";
 import { client } from "../db/database.js";
-import { generarOID } from "../helpers/generarOID.js";
 const form = {};
 
 export const Insulina = async (req, res) => {
