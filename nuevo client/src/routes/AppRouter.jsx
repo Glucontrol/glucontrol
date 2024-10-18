@@ -11,6 +11,7 @@ import { CrearRegistro } from "../views/crearRegistro.jsx";
 import { Registros } from "../views/Registros.jsx";
 import { EditDiabeticProfile } from "../views/EditDiabeticProfile";
 import { Register } from "../views/register.jsx";
+import { Registro } from "../views/Registro.jsx";
 
 const AppRouter = () => {
   return (
@@ -25,9 +26,10 @@ const AppRouter = () => {
         <Route path="/me" element={<User />}></Route>
         <Route path="/editProfile" element={<EditDiabeticProfile />}></Route>
         <Route path="/home" element={<Home />}></Route>
-      
+
         <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
         <Route path="/Registros" element={<Registros />}></Route>
+        <Route path="/Registro/:fecha" element={<Registro />}></Route>
       </Routes>
     </BrowserRouter>
   );
