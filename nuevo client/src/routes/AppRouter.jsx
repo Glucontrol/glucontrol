@@ -15,6 +15,7 @@ import { Register } from "../views/register.jsx";
 import { UserContext } from "../context/UserContext.jsx";
 import PublicRoutes from "../routes/PublicRoutes.jsx";
 import PrivateRoutes from "../routes/PrivateRoutes.jsx";
+import { Registro } from "../views/Registro.jsx";
 
 const AppRouter = () => {
   return (
@@ -33,8 +34,11 @@ const AppRouter = () => {
           <Route path="/editProfile" element={<EditDiabeticProfile />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
+          <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
+          <Route path="/Registros" element={<Registros />}></Route>
           <Route path="/Registros" element={<Registros />}></Route>
         </Route>
+        <Route path="/Registro/:fecha" element={<Registro />}></Route>
       </Routes>
     </BrowserRouter>
   );
