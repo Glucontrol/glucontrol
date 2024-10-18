@@ -7,6 +7,7 @@ import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../views/Racha.jsx";
+import toast, { Toaster } from "react-hot-toast";
 
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -226,12 +227,13 @@ export const Home = () => {
     if (records[dateString] && records[dateString].insulin) {
       window.location.href = `./Registro/${dateString}`;
     } else {
-      alert(`No hay registros de insulina para ${dateString}`);
+      return toast.error("No hay registros para esta fecha:(");
     }
   };
 
   return (
     <>
+      <Toaster />
       <main className="flex flex-col md:flex-row">
         <Navbar />
         <div className="container flex-1">

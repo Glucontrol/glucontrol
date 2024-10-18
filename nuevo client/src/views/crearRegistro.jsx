@@ -49,6 +49,7 @@ export const CrearRegistro = () => {
 
       // API
       link.registerI(formInsulina).then(() => {
+        toast.success("Registro creado con exito");
         window.location.href = "/registros";
       });
     } else if (tipoRegistro === "glucosa") {
