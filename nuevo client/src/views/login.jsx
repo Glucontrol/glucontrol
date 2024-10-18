@@ -24,7 +24,7 @@ export const Login = () => {
     const name = document.querySelector("#password").value;
     link
       .login(email, name)
-      .then((res) => (res ? (window.location.href = "/home") : alert("Error")));
+      .then((res) => (res ? console.log(res) : alert("Error")));
   };
 
   const toggleDarkMode = () => {

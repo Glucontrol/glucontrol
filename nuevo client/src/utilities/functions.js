@@ -38,8 +38,17 @@ link.sesion = async (req, res) => {
   return fetch(`http://localhost:${API_URL}/sesion`, {
     method: "GET",
     credentials: "include",
-  }).then((usuario) => {
-    return usuario;
+  }).then(async (usuario) => {
+    if (usuario.status == 200) {
+      const doc = {
+        ...(await usuario.json()),
+        loggedIn: true,
+      };
+      return doc;
+    } else {
+      console.log("no logeado");
+      return { loggedIn: false };
+    }
   });
 };
 
@@ -59,4 +68,11 @@ link.getRegistersI = async (data) => {
     method: "GET",
     credentials: "include",
   }).then((resultado) => resultado.json());
+};
+
+link.logOut = async (req, res) => {
+  return fetch(`http://localhost:${API_URL}/logout`, {
+    method: "DELETE",
+    credentials: "include",
+  });
 };

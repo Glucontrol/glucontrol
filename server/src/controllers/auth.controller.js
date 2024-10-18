@@ -90,6 +90,10 @@ export const sesion = async (req, res) => {
   }
 };
 
+export const logOut = async (req, res) => {
+  res.clearCookie("token").send("hola");
+};
+
 export const user = async (req, res) => {
   const { user } = req.params;
   const usuario = await client
