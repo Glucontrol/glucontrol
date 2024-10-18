@@ -1,23 +1,23 @@
 import { API_URL } from "../config.js";
 export const link = {};
 
-link.articulos = () =>
+link.articulos = async () =>
   fetch(`http://localhost:${API_URL}/articulos`).then((response) =>
     response.json()
   );
 
-link.registros = () =>
+link.registros = async () =>
   fetch(`http://localhost:${API_URL}/registros`).then((response) =>
     response.json()
   );
 
-link.articuloId = (id) =>
+link.articuloId = async (id) =>
   fetch(`http://localhost:${API_URL}/articulo/${id}`).then((response) =>
     response.json()
   );
 
-link.login = (Nombre, Contraseña) => {
-  fetch(`http://localhost:${API_URL}/login`, {
+link.login = async (Nombre, Contraseña) => {
+  return fetch(`http://localhost:${API_URL}/login`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -25,7 +25,12 @@ link.login = (Nombre, Contraseña) => {
     },
     body: JSON.stringify({ Nombre, Contraseña }),
   }).then((response) => {
-    console.log(response.json());
+    if (response.status == 200) {
+      console.log("salió bien");
+      return true;
+    } else {
+      return false;
+    }
   });
 };
 

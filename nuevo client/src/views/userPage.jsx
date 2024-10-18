@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer.jsx";
+import { UserContext } from "../context/UserContext.jsx";
 
 export default function Usuario() {
   const navigate = useNavigate();
+  let user = {};
+  console.log(user);
+  setTimeout(() => {
+    console.log("ahi anda");
+  }, 2000 * 2000);
   const [datosUsuario, setDatosUsuario] = useState({
-    Nombre: "John Doe",
-    Email: "john@example.com",
-    Diabetes: "Tipo 2",
-    Edad: "45",
-    Peso: "75",
-    Altura: "175",
+    Nombre: user.Nombre || "No especificado",
+    Email: user.Email || "No especificado",
+    Diabetes: user.Type || "No especificado",
+    Edad: user.Age || "No especificado",
+    Peso: user.Weight || "No especificado",
+    Altura: "190",
     Medicaciones: [
       { nombre: "Metformina", dosis: "500mg", frecuencia: "2 veces al día" },
       {
@@ -76,9 +82,26 @@ export default function Usuario() {
                 label="Tipo de Diabetes"
                 value={datosUsuario.Diabetes}
               />
-              <InfoItem label="Edad" value={`${datosUsuario.Edad} años`} />
-              <InfoItem label="Peso" value={`${datosUsuario.Peso} kg`} />
-              <InfoItem label="Altura" value={`${datosUsuario.Altura} cm`} />
+              <InfoItem
+                label="Edad"
+                value={`${
+                  user.age ? datosUsuario.Edad + "años" : datosUsuario.Edad
+                } `}
+              />
+              <InfoItem
+                label="Peso"
+                value={`${
+                  user.Weight ? datosUsuario.Peso + "kg" : datosUsuario.Peso
+                } `}
+              />
+              <InfoItem
+                label="Altura"
+                value={`${
+                  user.Height
+                    ? datosUsuario.Altura + "metros"
+                    : datosUsuario.Altura
+                } `}
+              />
             </div>
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-4">Medicación actual</h3>
