@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import AppRouter from "./routes/AppRouter";
+import { useState, Suspense, lazy } from "react";
 import { UserContext } from "./context/UserContext";
 import "./style.css";
-import { useEffect } from "react";
 import { link } from "./utilities/functions";
+const AppRouter = lazy(() => import("./routes/AppRouter.jsx"));
 
 function App() {
   const [user, setUser] = useState({ loggedIn: false });
-  useEffect(() => {
-    link
-      .sesion()
-      .then((resultado) => resultado.json())
-      .then((resultado) => setUser(resultado));
+  const [loading, setLoading] = useState(true);
+
+  useState(() => {
+    link.sesion().then((res) => setUser(res));
+    setLoading(false);
   }, []);
-  return (
+  return loading ? (
+    <h1>Hola</h1>
+  ) : (
     <UserContext.Provider value={user}>
-      <AppRouter />
+      <Suspense fallback={<h1>Cargando po'</h1>}>
+        <AppRouter />
+      </Suspense>
     </UserContext.Provider>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -45,3 +46,27 @@ export const calcularRacha = (recordsMap) => {
 
   return mayorRacha;
 };
+
+export const Card = ({ imgSrc, title, description }) => (
+  <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
+    <a href="#">
+      <img
+        src={imgSrc}
+        alt={title}
+        className="w-full object-cover rounded-md"
+      />
+    </a>
+    <a href="#">
+      <h4 className="font-bold text-lg md:text-xl mt-2">{title}</h4>
+    </a>
+    <a href="#">
+      <p className="text-gray-600 text-sm md:text-base mt-2">{description}</p>
+    </a>
+    <a
+      href="#"
+      className="text-left font-bold text-black text-md md:text-lg px-3 py-2"
+    >
+      Ver
+    </a>
+  </div>
+);

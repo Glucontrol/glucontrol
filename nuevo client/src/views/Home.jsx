@@ -6,6 +6,8 @@ import { Racha } from "./Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
+import { calcularRacha } from "../views/Racha.jsx";
+import toast, { Toaster } from "react-hot-toast";
 
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -122,80 +124,138 @@ export const Articulos = () => {
 };
 
 export const Home = () => {
-  const currentStreak = 75;
   const [date, setDate] = useState(new Date());
-  const [records, setRecords] = useState({
-    "2024-09-26": { glucose: [100], insulin: [5] },
-    "2024-09-27": {},
-    "2024-09-28": { glucose: [110], insulin: [6] },
-  });
+  const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
+  const [streak, setStreak] = useState(0);
+  const [fechas, setFechas] = useState([]);
 
+  /* useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/registrosI", {
+          method: "GET",
+          credentials: "include", // Para incluir las cookies
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los registros");
+        }
+
+        const data = await response.json();
+        console.log("Datos recibidos:", data); // Verifica lo que devuelve la API
+
+        // Asegúrate de que la estructura es la esperada
+        const recordsMap = data.reduce((acc, registro) => {
+          const dateString = registro.Fecha.split("T")[0];
+          acc[dateString] = {
+            insulin: registro.Dosis,
+            id: registro._id,
+          };
+
+          return acc;
+        }, {});
+
+        setRecords(recordsMap); // Guardar los registros en el estado
+        console.log("Records actualizados:", recordsMap); // Verifica la estructura de records
+      } catch (error) {
+        console.error("Error al cargar los registros:", error);
+      }
+    };
+    fetchData();
+  }, []); */
   useEffect(() => {
     const fetchData = async () => {
-      // Código para obtener los registros
+      try {
+        const dateString = date.toISOString().split("T")[0]; // Fecha en formato YYYY-MM-DD
+        console.log("Fetching data for date:", dateString); // Verificar la fecha solicitada
+        const response = await fetch(`http://localhost:8080/registrosI`, {
+          method: "GET",
+          credentials: "include", // Para incluir las cookies
+          headers: {
+            "Cache-Control": "no-cache", // Evitar que se use una respuesta cacheada
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los registros");
+        }
+
+        const data = await response.json();
+        console.log("Datos recibidos para la fecha:", dateString, data); // Verifica la respuesta del servidor
+
+        const recordsMap = data.reduce((acc, registro) => {
+          const dateString = registro.Fecha.split("T")[0];
+          acc[dateString] = {
+            insulin: registro.Dosis,
+            id: registro._id,
+          };
+          return acc;
+        }, {});
+
+        setRecords(recordsMap); // Guardar los registros en el estado
+        console.log("Records actualizados para la fecha:", recordsMap); // Verifica la estructura de records
+        const fetchedDates = Object.keys(recordsMap).sort();
+        setFechas(fetchedDates);
+
+        // Llamamos a la función calcularRacha y actualizamos el estado
+        const nuevaRacha = calcularRacha(recordsMap);
+        setStreak(nuevaRacha);
+      } catch (error) {
+        console.error("Error al cargar los registros:", error);
+      }
     };
 
-    const timeoutId = setTimeout(() => {
-      fetchData();
-    }, 1000);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
+    fetchData(); // Ejecutar el fetch cuando cambia la fecha
+  }, [date]); // Asegúrate de que el useEffect se dispare al cambiar la fecha
 
   const onChange = (newDate) => {
     setDate(newDate);
   };
-
   const tileClassName = ({ date }) => {
     const dateString = date.toISOString().split("T")[0];
 
-    if (records[dateString]) {
-      if (records[dateString].glucose && records[dateString].insulin) {
-        return "bg-purple-300 text-white";
-      } else if (records[dateString].glucose) {
-        return "bg-blue-300 text-white";
-      } else if (records[dateString].insulin) {
-        return "bg-green-300 text-white";
-      }
+    // Si existe un registro para esa fecha, aplica la clase de fondo
+    if (records[dateString] && records[dateString].insulin) {
+      return "bg-blue-200 text-white"; // Clase para el fondo de la celda
     }
-    return "";
+    return ""; // Sin clase si no hay registro
   };
 
   const handleDateClick = (value) => {
     const dateString = value.toISOString().split("T")[0];
-    if (records[dateString] && Object.keys(records[dateString]).length > 0) {
-      alert(
-        `Registros para ${dateString}: ${JSON.stringify(records[dateString])}`
-      );
+
+    if (records[dateString] && records[dateString].insulin) {
+      window.location.href = `./Registro/${dateString}`;
     } else {
-      alert(`No hay registros para ${dateString}`);
+      return toast.error("No hay registros para esta fecha:(");
     }
   };
 
   return (
     <>
-      <main className="flex">
+      <Toaster />
+      <main className="flex flex-col md:flex-row">
         <Navbar />
         <div className="container flex-1">
-          <div className="grid grid-cols-4 justify-around m-10">
-            <div className="my-10 mx-4 col-span-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
+            <div className="my-5 mx-2 col-span-1 md:col-span-2">
               <h1 className="text-left font-bold m-4 text-2xl md:text-3xl">
                 ¡Bienvenido!
               </h1>
-              <p className="text-left text-gray-600 w-full md:w-3/4 mt-4 mb-2">
+              <p className="text-left text-gray-600 w-full mt-4 mb-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
                 accusamus error vel modi explicabo? Minus nihil maxime facilis
                 fugit hic at est, facere temporibus consectetur magnam
                 laudantium beatae officia libero.
               </p>
             </div>
-            <div className="my-10 mx-4">
+            <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
                 <h4 className="text-center font-semibold mb-4">Racha</h4>
-                <Racha value={currentStreak} />
+                <Racha value={streak} max={30} />
               </div>
             </div>
-            <div className="my-10 mx-4">
+            <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
                 <h4 className="mb-4 text-center font-semibold">Tu actividad</h4>
                 <Calendar
@@ -209,7 +269,7 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Separador con div */}
+          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           {/* Sección de Cards */}
@@ -234,7 +294,7 @@ export const Home = () => {
             />
           </div>
 
-          {/* Separador con div */}
+          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">

@@ -28,17 +28,14 @@ export const login = async (req, res) => {
       console.log(usuario);
       if (usuario) {
         if (bcrypt.compareSync(Contraseña, usuario.Contrasenia)) {
-          generarJWT({ id: usuario._id }).then((token) =>
-            res
-              .cookie("token", token, {
-                httpOnly: true,
-              })
-              .json({ msg: "Inicio de Sesión Exitoso" })
-          );
+          generarJWT({ id: usuario._id }).then((token) => {
+            res.cookie("token", token, {
+              httpOnly: true,
+            });
+            res.status(200).send("Authorized");
+          });
         } else {
-          res
-            .status(400)
-            .json({ msg: "La contraseña o el usuario son incorrectos" });
+          res.status(400).send("Bad Login");
         }
       } else {
         res.status(404).json({ msg: "El usuario no existe" });
@@ -91,6 +88,10 @@ export const sesion = async (req, res) => {
   } else {
     res.status(404).send({ loggedIn: false });
   }
+};
+
+export const logOut = async (req, res) => {
+  res.clearCookie("token").send("hola");
 };
 
 export const user = async (req, res) => {

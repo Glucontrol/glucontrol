@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaRegEnvelope, FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
+import {
+  FaRegEnvelope,
+  FaGoogle,
+  FaFacebook,
+  FaApple,
+  FaUser,
+} from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
-import { link } from "../utilities/functions";
 
-export const Login = () => {
+export const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [darkMode, setDarkMode] = useState(false);
@@ -17,14 +23,10 @@ export const Login = () => {
     }
   }, [darkMode]);
 
-  const handleLogin = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    // Implementa tu lógica de inicio de sesión aquí
-    const email = document.querySelector("#email").value;
-    const name = document.querySelector("#password").value;
-    link
-      .login(email, name)
-      .then((res) => (res ? console.log(res) : alert("Error")));
+    // Implementa tu lógica de registro aquí
+    console.log("Registrar con:", name, email, password);
   };
 
   const toggleDarkMode = () => {
@@ -49,22 +51,43 @@ export const Login = () => {
               </button>
             </div>
             <h2 className="mb-6 text-center text-3xl font-extrabold text-gray-900 transition-colors duration-300 dark:text-white">
-              Iniciar Sesión
+              Regístrate
             </h2>
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={handleRegister} className="space-y-6">
               <div>
                 <label
-                  htmlFor="text"
+                  htmlFor="name"
                   className="block text-sm font-medium text-gray-700 transition-colors duration-300 dark:text-gray-300"
                 >
-                  Nombre de Usuario
+                  Nombre
+                </label>
+                <div className="mt-1 flex items-center rounded-md border border-gray-300 bg-white transition-colors duration-300 dark:border-gray-600 dark:bg-gray-700">
+                  <FaUser className="ml-2 text-gray-400" />
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    className="w-full border-0 bg-transparent p-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:placeholder-gray-400"
+                    placeholder="full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 transition-colors duration-300 dark:text-gray-300"
+                >
+                  Email
                 </label>
                 <div className="mt-1 flex items-center rounded-md border border-gray-300 bg-white transition-colors duration-300 dark:border-gray-600 dark:bg-gray-700">
                   <FaRegEnvelope className="ml-2 text-gray-400" />
                   <input
                     id="email"
                     name="email"
-                    type="text"
+                    type="email"
                     required
                     className="w-full border-0 bg-transparent p-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:placeholder-gray-400"
                     placeholder="Email"
@@ -94,29 +117,11 @@ export const Login = () => {
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-center">
-                <div className="text-sm">
-                  <Link
-                    to="/forgot-password"
-                    className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
-                  >
-                    Olvidé mi contraseña
-                  </Link>
-                </div>
-              </div>
               <button
                 type="submit"
-                className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
-                onClick={() => {
-                  const hola = link.login(
-                    document.querySelector("#email").value,
-                    document.querySelector("#password").value
-                  );
-                  console.log("holis", hola.json().status);
-                }}
-
+                className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600"
               >
-                Iniciar sesión
+                Registrarse
               </button>
             </form>
             <div className="mt-6">
@@ -126,7 +131,7 @@ export const Login = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="bg-white px-2 text-gray-500 dark:bg-gray-800 dark:text-gray-400">
-                    O continúa con
+                    O regístrate con
                   </span>
                 </div>
               </div>
@@ -143,24 +148,24 @@ export const Login = () => {
             </div>
           </div>
           {/* Panel derecho */}
-          <div className="bg-blue-600 p-8 text-white transition-colors duration-300 dark:bg-blue-800 md:w-2/5">
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center">
-                <h2 className="mb-6 text-3xl font-extrabold">¡Bienvenido!</h2>
-                <div className="mb-6 flex justify-center">
-                  <div className="w-16 border-b-2 border-white"></div>
-                </div>
-                <p className="mb-6">
-                  Completa el formulario para acceder a todas las funciones
-                </p>
-                <p className="mb-6">¿Aún no tienes cuenta?</p>
-                <div className="flex justify-center">
-                  <Link to="/register">
-                    <button className="rounded-full border-2 border-white bg-transparent px-6 py-2 font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-blue-600">
-                      Regístrate
-                    </button>
-                  </Link>
-                </div>
+          <div className="bg-blue-600 p-8 text-white transition-colors duration-300 dark:bg-blue-800 md:w-2/5 md:flex md:items-center md:justify-center">
+            <div className="md:w-full">
+              <h2 className="mb-6 text-center text-3xl font-extrabold">
+                ¡Bienvenido!
+              </h2>
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 border-b-2 border-white"></div>
+              </div>
+              <p className="mb-2 text-center">
+                Completa el formulario para acceder a todas las funciones
+              </p>
+              <p className="mb-6 text-center">¿Ya tienes una cuenta?</p>
+              <div className="flex justify-center">
+                <Link to="/login">
+                  <button className="rounded-full border-2 border-white bg-transparent px-6 py-2 font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-blue-600">
+                    Iniciar sesión
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
