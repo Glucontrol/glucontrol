@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Landing } from "../views/Landing.jsx";
 import { Articulos } from "../views/Articulos.jsx";
 import { Articulo } from "../views/Articulo.jsx";
-import { Login } from "../views/login.jsx";
+import { Login } from "../views/Login.jsx";
 import User from "../views/userPage.jsx";
 import { Home } from "../views/Home.jsx";
 import Logout from "../views/Logout.jsx";

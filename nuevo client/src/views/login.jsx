@@ -106,7 +106,15 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600"
+                className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
+                onClick={() => {
+                  const hola = link.login(
+                    document.querySelector("#email").value,
+                    document.querySelector("#password").value
+                  );
+                  console.log("holis", hola.json().status);
+                }}
+
               >
                 Iniciar sesión
               </button>
