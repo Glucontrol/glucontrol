@@ -76,3 +76,14 @@ link.logOut = async (req, res) => {
     credentials: "include",
   });
 };
+
+link.createArticulo = async (data) => {
+  return fetch(`http://localhost:${API_URL}/articulo`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+};

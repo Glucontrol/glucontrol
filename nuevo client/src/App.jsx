@@ -9,8 +9,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useState(() => {
-    link.sesion().then((res) => setUser(res));
-    setLoading(false);
+    link
+      .sesion()
+      .then((res) => setUser(res))
+      .then(() => setLoading(false));
   }, []);
   return loading ? (
     <h1>Hola</h1>

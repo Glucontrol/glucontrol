@@ -19,8 +19,6 @@ export const validarJWT = async (token, error, next) => {
     }
   } catch (error) {
     // Si ocurre un error lo mostramos por consola y retornamos false.
-    console.log(error);
-    console.log("Hubo un error");
     return false;
   }
 };

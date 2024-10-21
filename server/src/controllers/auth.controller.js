@@ -83,7 +83,9 @@ export const sesion = async (req, res) => {
   if (cookie) {
     const token = cookie.substr(6, cookie.length - 1);
     validarJWT(token).then((resultado) => {
-      res.send(resultado);
+      resultado
+        ? res.status(200).send(resultado)
+        : res.status(400).send({ loggedIn: false });
     });
   } else {
     res.status(404).send({ loggedIn: false });

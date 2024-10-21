@@ -24,7 +24,7 @@ export const Login = () => {
     const name = document.querySelector("#password").value;
     link
       .login(email, name)
-      .then((res) => (res ? console.log(res) : alert("Error")));
+      .then((res) => (res ? (window.location.href = "/home") : alert("Error")));
   };
 
   const toggleDarkMode = () => {
@@ -107,14 +107,6 @@ export const Login = () => {
               <button
                 type="submit"
                 className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
-                onClick={() => {
-                  const hola = link.login(
-                    document.querySelector("#email").value,
-                    document.querySelector("#password").value
-                  );
-                  console.log("holis", hola.json().status);
-                }}
-
               >
                 Iniciar sesión
               </button>
