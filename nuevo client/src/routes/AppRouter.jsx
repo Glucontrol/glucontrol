@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Landing } from "../views/Landing.jsx";
 import { Articulos } from "../views/Articulos.jsx";
 import { Articulo } from "../views/Articulo.jsx";
-import { Login } from "../views/Login.jsx";
+import { Login } from "../views/login.jsx";
 import User from "../views/userPage.jsx";
 import { Home } from "../views/Home.jsx";
 import Logout from "../views/Logout.jsx";
@@ -11,10 +11,10 @@ import { CrearRegistro } from "../views/crearRegistro.jsx";
 import { Registros } from "../views/Registros.jsx";
 import { EditDiabeticProfile } from "../views/EditDiabeticProfile";
 import { Register } from "../views/register.jsx";
-import PublicRoutes from "../routes/PublicRoutes.jsx";
 import PrivateRoutes from "../routes/PrivateRoutes.jsx";
 import { Registro } from "../views/Registro.jsx";
 import { CrearArticulo } from "../views/crearArticulo.jsx";
+import PublicRoutes from "./publicRoutes.jsx";
 
 const AppRouter = () => {
   return (

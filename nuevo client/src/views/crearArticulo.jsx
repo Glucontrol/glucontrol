@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import "../style.css";
+import { link } from "../utilities/functions.js";
+import toast, { Toaster } from "react-hot-toast";
 
 const CrearArticulo = () => {
   const [contenido, setContenido] = useState("");
@@ -10,33 +10,42 @@ const CrearArticulo = () => {
   const [categoria, setCategoria] = useState("");
   const [error, setError] = useState("");
 
-  const handleChange = (value) => {
-    setContenido(value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validar que todos los campos obligatorios estén llenos
     if (!nombreArticulo || !categoria || !contenido) {
       setError("Por favor, completa todos los campos obligatorios.");
+
       return;
     }
 
     setError(""); // Reiniciar el error si todo está correcto
 
-    const form = {
-      Nombre: nombreArticulo,
+    const Fecha = new Date().toISOString();
+
+    const data = {
+      Titulo: nombreArticulo,
       Categoria: categoria,
       Contenido: contenido,
+      Fecha: Fecha,
     };
 
-    console.log(form);
-    // Aquí puedes agregar la lógica para enviar el formulario
+    try {
+      await link.createArticulo(data);
+      toast.success("Artículo creado exitosamente!"); // Notificación de éxito
+
+      setTimeout(() => {
+        window.location.href = "/articulos";
+      }, 1000);
+    } catch (err) {
+      toast.error("Hubo un error al crear el artículo."); // Notificación de error
+    }
   };
 
   return (
     <main className="max-w-4xl mx-auto p-4">
+      <Toaster />
       <div className="flex items-center mb-6">
         <a
           href="/articulos"
@@ -93,24 +102,22 @@ const CrearArticulo = () => {
             <label htmlFor="contenidoArticulo" className="mb-2 font-semibold">
               Contenido
             </label>
-            <div className="h-64">
-              <ReactQuill
-                theme="snow"
-                value={contenido}
-                onChange={handleChange}
-                placeholder="Escribe el contenido del artículo..."
-                className="h-full"
-              />
-            </div>
+            <textarea
+              id="contenidoArticulo"
+              value={contenido}
+              onChange={(e) => setContenido(e.target.value)}
+              placeholder="Escribe el contenido del artículo..."
+              className="w-full h-64 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
+          <button
+            type="submit"
+            className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"
+          >
+            Listo
+          </button>
         </form>
       </div>
-      <button
-        type="submit"
-        className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"
-      >
-        Listo
-      </button>
     </main>
   );
 };
