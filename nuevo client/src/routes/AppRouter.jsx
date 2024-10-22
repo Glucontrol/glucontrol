@@ -7,15 +7,14 @@ import { Login } from "../views/Login.jsx";
 import User from "../views/userPage.jsx";
 import { Home } from "../views/Home.jsx";
 import Logout from "../views/Logout.jsx";
-import { CrearArticulo } from "../views/crearArticulo.jsx";
 import { CrearRegistro } from "../views/crearRegistro.jsx";
 import { Registros } from "../views/Registros.jsx";
 import { EditDiabeticProfile } from "../views/EditDiabeticProfile";
 import { Register } from "../views/register.jsx";
-import { UserContext } from "../context/UserContext.jsx";
 import PublicRoutes from "../routes/PublicRoutes.jsx";
 import PrivateRoutes from "../routes/PrivateRoutes.jsx";
 import { Registro } from "../views/Registro.jsx";
+import { CrearArticulo } from "../views/crearArticulo.jsx";
 
 const AppRouter = () => {
   return (
@@ -34,7 +33,7 @@ const AppRouter = () => {
           <Route path="/editProfile" element={<EditDiabeticProfile />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
-          <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
+          <Route path="/crearArticulo" element={<CrearArticulo />}></Route>
           <Route path="/Registros" element={<Registros />}></Route>
           <Route path="/Registros" element={<Registros />}></Route>
         </Route>

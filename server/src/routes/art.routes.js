@@ -11,7 +11,7 @@ const router = Router();
 //Ver todos los articulos
 router.get("/articulos", listar);
 //Buscar por usuario
-router.post("/articulos/usuario/:user", buscarPorUsuario);
+router.get("/articles/user", buscarPorUsuario);
 //Leer un articulo
 router.get("/articulo/:id", leer);
 //Agregar un articulo

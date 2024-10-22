@@ -1,6 +1,6 @@
 import React from "react";
 export const Tarjeta = ({ info }) => {
-  switch (info.categoria) {
+  switch (info.Categoria) {
     case "Ejercicio":
       var color = "bg-red-200";
       var icon = "../src/assets/icons/ejercicio.svg";

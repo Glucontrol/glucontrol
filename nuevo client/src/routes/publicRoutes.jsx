@@ -4,7 +4,8 @@ import { Outlet, Navigate } from "react-router-dom";
 import { link } from "../utilities/functions";
 
 const PublicRoutes = () => {
-  link.sesion().then((res) => console.log("hola", res));
-  return <Outlet />;
+  const user = useContext(UserContext);
+  console.log("Publica :", user);
+  return !user.loggedIn ? <Outlet /> : <Navigate to="/home" />;
 };
 export default PublicRoutes;

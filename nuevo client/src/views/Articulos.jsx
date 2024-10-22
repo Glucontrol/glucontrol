@@ -10,7 +10,12 @@ export const Articulos = () => {
       setData(response);
     });
   }, []);
-  const Tarjetas = data.map((el) => <Tarjeta info={el} />);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState(null);
+  let Tarjetas = data.map((el) => <Tarjeta info={el} />);
+  const Standard = (string) => {
+    return string.toUpperCase().trim();
+  };
   return (
     <>
       <main className="flex">
@@ -26,8 +31,20 @@ export const Articulos = () => {
             >
               Crear Articulo
             </button>
+            {/* Input */}
+            <input
+              type="text"
+              className="bg-red-200 "
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <div className="flex flex-wrap flex-row justify-around gap-4 mt-10">
-              {Tarjetas}
+              {data.map((el) => {
+                if (typeof el.Titulo == "string") {
+                  if (Standard(el.Titulo).match(Standard(search))) {
+                    return <Tarjeta info={el} />;
+                  }
+                }
+              })}
             </div>
           </div>
         </div>

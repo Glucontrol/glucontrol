@@ -49,18 +49,17 @@ export const leer = async (req, res) => {
 };
 
 export const buscarPorUsuario = async (req, res) => {
-  const Nombre = req.params.user;
-  client
-    .db("glucontrol")
-    .collection("articulos")
-    .find({ Autor: `${Nombre}` })
-    .then((doc) => {
-      if (doc) {
-        res.send(doc);
-      } else {
-        res
-          .status(404)
-          .send({ Titulo: "Error", Contenido: "No se encontró el documento" });
-      }
-    });
+  const cookie = req.headers.cookie;
+  console.log(cookie);
+  if (cookie) {
+    const token = cookie.split("=")[1];
+    const Usuario = await validarJWT(token);
+    const Articles = client
+      .db("glucontrol")
+      .collection("articulos")
+      .find({ Autor: `${Usuario.Nombre}` });
+    res.send(await Articles.toArray());
+  } else {
+    res.send("Fallo en la autorización").status(400);
+  }
 };
