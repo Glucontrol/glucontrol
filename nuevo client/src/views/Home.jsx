@@ -188,6 +188,7 @@ export const Home = () => {
           acc[dateString] = {
             insulin: registro.Dosis,
             id: registro._id,
+            glucosa: registro.Glucosa,
           };
           return acc;
         }, {});
@@ -214,10 +215,12 @@ export const Home = () => {
   const tileClassName = ({ date }) => {
     const dateString = date.toISOString().split("T")[0];
 
-    // Si existe un registro para esa fecha, aplica la clase de fondo
-    if (records[dateString] && records[dateString].insulin) {
-      return "bg-blue-200 text-white"; // Clase para el fondo de la celda
+    if (records[dateString]) {
+      if (records[dateString].insulin || records[dateString].glucosa) {
+        return "bg-blue-200 text-white"; // Celeste si hay insulina
+      }
     }
+
     return ""; // Sin clase si no hay registro
   };
 

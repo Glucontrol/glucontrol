@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext.jsx";
 
 export default function Usuario() {
   const navigate = useNavigate();
-  let user = {};
+  let user = useContext(UserContext);
   console.log(user);
   setTimeout(() => {
     console.log("ahi anda");
