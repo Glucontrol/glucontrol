@@ -50,7 +50,6 @@ export const leer = async (req, res) => {
 
 export const buscarPorUsuario = async (req, res) => {
   const cookie = req.headers.cookie;
-  console.log(cookie);
   if (cookie) {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
@@ -61,5 +60,31 @@ export const buscarPorUsuario = async (req, res) => {
     res.send(await Articles.toArray());
   } else {
     res.send("Fallo en la autorización").status(400);
+  }
+};
+
+export const deleteArticle = async (req, res) => {
+  const cookie = req.headers.cookie;
+  console.log("hola", req.params.id);
+  if (cookie) {
+    const token = cookie.split("=")[1];
+    const Usuario = await validarJWT(token);
+    console.log(Usuario);
+    const id = generarOID(req.params.id);
+    console.log(id);
+    client
+      .db("glucontrol")
+      .collection("articulos")
+      .findOneAndDelete({
+        _id: id,
+        Autor: Usuario.Nombre,
+      })
+      .then((res) => {
+        if (res) {
+          res.send("Articulo Eliminado Con Exito").status(200);
+        } else {
+          res.send("No se ha podido eliminar el Articulo").status(500);
+        }
+      });
   }
 };

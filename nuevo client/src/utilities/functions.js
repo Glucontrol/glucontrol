@@ -87,3 +87,10 @@ link.createArticulo = async (data) => {
     body: JSON.stringify(data),
   }).then((res) => res.json());
 };
+
+link.delete = async (id, res) => {
+  return fetch(`http://localhost:${API_URL}/article/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  }).then((res) => console.log("hola man", res));
+};

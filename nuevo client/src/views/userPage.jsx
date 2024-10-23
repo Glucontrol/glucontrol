@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer.jsx";
 import { UserContext } from "../context/UserContext.jsx";
+import { Tarjeta } from "../components/Tarjeta.jsx";
+import { link } from "../utilities/functions.js";
 
 export default function Usuario() {
   const navigate = useNavigate();
   let user = useContext(UserContext);
 
-  const [articles, setArticles] = useState(null);
+  const [articles, setArticles] = useState([]);
   useEffect(() => {
     fetch("http://localhost:8080/articles/user", {
       credentials: "include",
@@ -121,7 +123,52 @@ export default function Usuario() {
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-4">Mis Articulos</h3>
-              <ul className="space-y-2"></ul>
+              <div className="grid grid-cols-3 gap-2 ">
+                {articles.map((el) => {
+                  return (
+                    <div className="bg-slate-300 w-full text-center mx-auto rounded-lg hover:bg-slate-400 duration-300 curos grid grid-rows-2">
+                      <h1 className="mx-auto font-bold ">{el.Titulo}</h1>
+                      <div className="flex flex-row justify-end ">
+                        <a
+                          className=" duration-300 flex justify-end hover:scale-110"
+                          href={`./articulo?${el._id}`}
+                        >
+                          <img
+                            src="../src/assets/icons/read.svg"
+                            alt=""
+                            srcset=""
+                            className=" h-10"
+                          />
+                        </a>
+
+                        <a
+                          className=" duration-300 flex justify-end hover:scale-110"
+                          onClick={() => alert("hola")}
+                        >
+                          <img
+                            src="../src/assets/icons/edit.svg"
+                            alt=""
+                            srcset=""
+                            className=" h-10"
+                          />
+                        </a>
+
+                        <a
+                          className=" duration-300 flex justify-end hover:scale-110 cursor-pointer"
+                          onClick={() => link.delete(el._id)}
+                        >
+                          <img
+                            src="../src/assets/icons/delete.svg"
+                            alt=""
+                            srcset=""
+                            className=" h-10"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import {
   agregar,
   leer,
   buscarPorUsuario,
+  deleteArticle,
 } from "../controllers/art.controller.js";
 
 import { Router } from "express";
@@ -16,4 +17,6 @@ router.get("/articles/user", buscarPorUsuario);
 router.get("/articulo/:id", leer);
 //Agregar un articulo
 router.post("/articulo", agregar);
+
+router.delete("/article/:id", deleteArticle);
 export default router;
