@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import "../style.css";
 import { link } from "../utilities/functions";
+import toast, { Toaster } from "react-hot-toast";
 
 export const CrearRegistro = () => {
   // estos son los estads locales para almacenar los valores de los inputs del formulario
@@ -50,7 +51,9 @@ export const CrearRegistro = () => {
       // API
       link.registerI(formInsulina).then(() => {
         toast.success("Registro creado con exito");
-        window.location.href = "/registros";
+        setTimeout(() => {
+          window.location.href = "/registros";
+        }, 1000);
       });
     } else if (tipoRegistro === "glucosa") {
       // Validación de campos obligatorios para el registro de glucosa
@@ -80,6 +83,7 @@ export const CrearRegistro = () => {
 
   return (
     <main className="max-w-4xl mx-auto p-4">
+      <Toaster />
       <div className="flex items-center mb-6">
         <a href="/registros" className="text-blue-500 hover:text-blue-700">
           <BiArrowBack size={24} />
