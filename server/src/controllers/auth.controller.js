@@ -105,3 +105,31 @@ export const user = async (req, res) => {
   console.log(usuario);
   res.send(usuario);
 };
+
+export const datosUsuario = async (req, res) => {
+  const { datos } = req.body;
+
+  if (!datos) {
+    return res.status(400).send({ error: "Datos no proporcionados." });
+  }
+
+  console.log(datos);
+
+  try {
+    const usuario = await client
+      .db("glucontrol")
+      .collection("usuarios")
+      .insertOne({
+        Diabetes: datos.Diabetes,
+        Edad: datos.Edad,
+        Altura: datos.Altura,
+        Peso: datos.Peso,
+      });
+
+    console.log(usuario);
+    res.send(usuario);
+  } catch (error) {
+    console.error("Error al insertar usuario:", error);
+    res.status(500).send({ error: "Error al guardar los datos del usuario." });
+  }
+};

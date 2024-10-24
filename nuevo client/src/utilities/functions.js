@@ -87,6 +87,16 @@ link.createArticulo = async (data) => {
     body: JSON.stringify(data),
   }).then((res) => res.json());
 };
+link.cambiarDatosPerfil = async (datosUsuario) => {
+  return fetch(`http://localhost:${API_URL}/articulo`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(datosUsuario),
+  }).then((res) => res.json());
+};
 
 link.delete = async (id, res) => {
   return fetch(`http://localhost:${API_URL}/article/${id}`, {

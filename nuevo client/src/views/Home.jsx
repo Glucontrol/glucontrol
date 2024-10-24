@@ -129,40 +129,6 @@ export const Home = () => {
   const [streak, setStreak] = useState(0);
   const [fechas, setFechas] = useState([]);
 
-  /* useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/registrosI", {
-          method: "GET",
-          credentials: "include", // Para incluir las cookies
-        });
-
-        if (!response.ok) {
-          throw new Error("Error al obtener los registros");
-        }
-
-        const data = await response.json();
-        console.log("Datos recibidos:", data); // Verifica lo que devuelve la API
-
-        // Asegúrate de que la estructura es la esperada
-        const recordsMap = data.reduce((acc, registro) => {
-          const dateString = registro.Fecha.split("T")[0];
-          acc[dateString] = {
-            insulin: registro.Dosis,
-            id: registro._id,
-          };
-
-          return acc;
-        }, {});
-
-        setRecords(recordsMap); // Guardar los registros en el estado
-        console.log("Records actualizados:", recordsMap); // Verifica la estructura de records
-      } catch (error) {
-        console.error("Error al cargar los registros:", error);
-      }
-    };
-    fetchData();
-  }, []); */
   useEffect(() => {
     const fetchData = async () => {
       try {
