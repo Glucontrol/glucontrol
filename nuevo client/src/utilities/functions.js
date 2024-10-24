@@ -88,13 +88,9 @@ link.createArticulo = async (data) => {
   }).then((res) => res.json());
 };
 
-link.filterArticulos = async (data) => {
-  return fetch(`http://localhost:${API_URL}/articulos`, {
-    method: "POST",
+link.delete = async (id, res) => {
+  return fetch(`http://localhost:${API_URL}/article/${id}`, {
+    method: "DELETE",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
+  }).then((res) => console.log("hola man", res));
 };

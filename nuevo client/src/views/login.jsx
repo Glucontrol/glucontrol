@@ -48,7 +48,7 @@ export const Login = () => {
                 {darkMode ? "☀️" : "🌙"}
               </button>
             </div>
-            <h2 className="mb-6 text-center text-3xl font-extrabold text-gray-900 transition-colors duration-300 dark:text-white">
+            <h2 className="mb-6 text-center text-3xl font-extrabold text-gray-900 transition-colors duration-300 dark:text-white ">
               Iniciar Sesión
             </h2>
             <form onSubmit={handleLogin} className="space-y-6">
@@ -67,7 +67,7 @@ export const Login = () => {
                     type="text"
                     required
                     className="w-full border-0 bg-transparent p-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:placeholder-gray-400"
-                    placeholder="Email"
+                    placeholder="Nombre de Usuario"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -106,7 +106,7 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
-                className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
+                className="border-2 w-full border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
               >
                 Iniciar sesión
               </button>

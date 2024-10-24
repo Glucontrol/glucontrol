@@ -15,10 +15,20 @@ function App() {
       .then(() => setLoading(false));
   }, []);
   return loading ? (
-    <h1>Hola</h1>
+    <div className="flex w-screen h-screen justify-center items-center">
+      <div className=" bg-red-600 w-20 h-20 animate-spin"></div>
+    </div>
   ) : (
     <UserContext.Provider value={user}>
-      <Suspense fallback={<h1>Cargando po'</h1>}>
+      <Suspense
+        fallback={
+          <div className="flex flex-row justify-center gap-5 h-screen w-screen items-center">
+            <div className="bg-slate-400 flex h-10 w-10 animate-bounce"></div>
+            <div className="bg-slate-400 flex h-10 w-10 animate-bounce"></div>
+            <div className="bg-slate-400 flex h-10 w-10 animate-bounce"></div>
+          </div>
+        }
+      >
         <AppRouter />
       </Suspense>
     </UserContext.Provider>

@@ -1,6 +1,6 @@
 import React from "react";
 export const Tarjeta = ({ info }) => {
-  switch (info.categoria) {
+  switch (info.Categoria) {
     case "Ejercicio":
       var color = "bg-red-200";
       var icon = "../src/assets/icons/ejercicio.svg";
@@ -25,7 +25,7 @@ export const Tarjeta = ({ info }) => {
       }}
     >
       <div
-        className={`tarjeta border-2 mx-5 border-solid  border-gray-200 shadow-lg shadow-gray-300 hover:scale-110 rounded-lg transition ease-in-out duration-200 mt-10`}
+        className={`tarjeta border-2 mx-5 border-solid  border-gray-200 shadow-lg shadow-gray-300 hover:scale-110 rounded-lg transition ease-in-out duration-200 mt-10 cursor-pointer`}
       >
         <div className="3/4 flex flex-row">
           <div className="w-80 h-40 flex flex-col align-text-bottom p-2">

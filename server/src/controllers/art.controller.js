@@ -49,18 +49,42 @@ export const leer = async (req, res) => {
 };
 
 export const buscarPorUsuario = async (req, res) => {
-  const Nombre = req.params.user;
-  client
-    .db("glucontrol")
-    .collection("articulos")
-    .find({ Autor: `${Nombre}` })
-    .then((doc) => {
-      if (doc) {
-        res.send(doc);
-      } else {
-        res
-          .status(404)
-          .send({ Titulo: "Error", Contenido: "No se encontró el documento" });
-      }
-    });
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    const token = cookie.split("=")[1];
+    const Usuario = await validarJWT(token);
+    const Articles = client
+      .db("glucontrol")
+      .collection("articulos")
+      .find({ Autor: `${Usuario.Nombre}` });
+    res.send(await Articles.toArray());
+  } else {
+    res.send("Fallo en la autorización").status(400);
+  }
+};
+
+export const deleteArticle = async (req, res) => {
+  const cookie = req.headers.cookie;
+  console.log("hola", req.params.id);
+  if (cookie) {
+    const token = cookie.split("=")[1];
+    const Usuario = await validarJWT(token);
+    console.log(Usuario);
+    const id = generarOID(req.params.id);
+    console.log(id);
+    client
+      .db("glucontrol")
+      .collection("articulos")
+      .findOneAndDelete({
+        _id: id,
+        Autor: Usuario.Nombre,
+      })
+      .then((res) => {
+        if (res) {
+          res.send("Articulo Eliminado Con Exito").status(200);
+        } else {
+          res.send("No se ha podido eliminar el Articulo").status(500);
+        }
+      });
+  }
 };

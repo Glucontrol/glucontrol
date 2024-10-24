@@ -55,8 +55,8 @@
   background: #3b82f6; /* Fondo más oscuro al pasar el ratón por el día activo */
 }
 .react-calendar__tile.bg-blue-200 {
-  background-color: #4db8ff !important; /* Color de bg-blue-200 */
-  color: white !important; /* Asegura que el texto sea visible */
+  background-color: #4db8ff; /* Color de bg-blue-200 */
+  color: white; /* Asegura que el texto sea visible */
 }
 /* Asegúrate de que la tabla del calendario sea responsiva */
 .react-calendar__month-view {

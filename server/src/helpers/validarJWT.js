@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import { client } from "../db/database.js";
-import { ObjectId } from "mongodb";
 import { generarOID } from "./generarOID.js";
 
 export const validarJWT = async (token, error, next) => {
