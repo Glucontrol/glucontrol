@@ -5,10 +5,10 @@ import {
   eliminar,
   sesion,
   user,
+  logOut,
 } from "../controllers/auth.controller.js";
 
 import { Router } from "express";
-import { validarJWT } from "../helpers/validarJWT.js";
 const router = Router();
 
 // Creamos una ruta /register con el metodo 'POST' ya que recibiremos datos desde el cliente a traves de este metodo.
@@ -25,5 +25,6 @@ router.post("/admin", eliminar);
 //Ver si está el usuario iniciada
 router.get("/sesion", sesion);
 // Exportamos las rutas
+router.delete("/logout", logOut);
 
 export default router;

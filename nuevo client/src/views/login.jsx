@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaRegEnvelope, FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
+import { link } from "../utilities/functions";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,10 +17,14 @@ export const Login = () => {
     }
   }, [darkMode]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     // Implementa tu lógica de inicio de sesión aquí
-    console.log("Iniciar sesión con:", email, password);
+    const email = document.querySelector("#email").value;
+    const name = document.querySelector("#password").value;
+    link
+      .login(email, name)
+      .then((res) => (res ? (window.location.href = "/home") : alert("Error")));
   };
 
   const toggleDarkMode = () => {
@@ -49,17 +54,17 @@ export const Login = () => {
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="text"
                   className="block text-sm font-medium text-gray-700 transition-colors duration-300 dark:text-gray-300"
                 >
-                  Email
+                  Nombre de Usuario
                 </label>
                 <div className="mt-1 flex items-center rounded-md border border-gray-300 bg-white transition-colors duration-300 dark:border-gray-600 dark:bg-gray-700">
                   <FaRegEnvelope className="ml-2 text-gray-400" />
                   <input
                     id="email"
                     name="email"
-                    type="email"
+                    type="text"
                     required
                     className="w-full border-0 bg-transparent p-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:placeholder-gray-400"
                     placeholder="Email"
@@ -101,7 +106,7 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600"
+                className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
               >
                 Iniciar sesión
               </button>

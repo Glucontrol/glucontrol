@@ -21,8 +21,37 @@ export const Insulina = async (req, res) => {
   }
 };
 
+export const filtroRegistros = async (req, res) => {
+  const cookie = req.headers.cookie;
+  const { TipoRegistro } = req.body;
+  if (cookie) {
+    const token = cookie.substr(6, cookie.length - 1);
+    validarJWT(token).then(async (resultado) => {
+      client
+        .db("glucontrol")
+        .collection("registros")
+        .find({ De: resultado._id, TipoRegistro: TipoRegistro })
+        .toArray()
+        .then((array) => {
+          res.send(array);
+        });
+    });
+  } else {
+    res.status(404).send({ loggedIn: false });
+  }
+};
 export const InsulData = async (req, res) => {
-  const { Tipo, Dosis, Fecha, Via, Accion, Adicional } = req.body;
+  const {
+    Tipo,
+    Dosis,
+    Fecha,
+    Via,
+    Adicional,
+    TipoRegistro,
+    Glucosa,
+    EstadoFisico,
+    MedicacionAdicional,
+  } = req.body;
   const cookie = req.headers.cookie;
   if (cookie) {
     const token = cookie.substr(6, cookie.length - 1);
@@ -36,9 +65,12 @@ export const InsulData = async (req, res) => {
           Dosis: Dosis,
           Fecha: Fecha,
           Via: Via,
-          Accion,
           Adicional: Adicional,
           De: resultado._id,
+          TipoRegistro: TipoRegistro,
+          Glucosa: Glucosa,
+          EstadoFisico: EstadoFisico,
+          MedicacionAdicional: MedicacionAdicional,
         });
       res.send(peticion);
     });

@@ -5,74 +5,75 @@ import { link } from "../utilities/functions";
 
 export const CrearRegistro = () => {
   // estos son los estads locales para almacenar los valores de los inputs del formulario
-  const [tipoRegistro, setTipoRegistro] = useState("insulina");  // Controla si se está registrando insulina o glucosa
-  const [dosis, setDosis] = useState("");  // Almacena la dosis de insulina
-  const [tipoInsulina, setTipoInsulina] = useState("");  // Almacena el tipo de insulina seleccionado
-  const [viaAdministracion, setViaAdministracion] = useState("");  // Almacena la vía de administración de la insulina
-  const [glucosa, setGlucosa] = useState("");  // Almacena el nivel de glucosa
-  const [fechaRegistro, setFechaRegistro] = useState("");  // Almacena la fecha y hora del registro
-  const [estadoFisico, setEstadoFisico] = useState("");  // Almacena el estado físico seleccionado
-  const [medicacionAdicional, setMedicacionAdicional] = useState("");  // Almacena medicación adicional (si existe)
-  const [notas, setNotas] = useState("");  // Almacena notas o comentarios adicionales
-  const [error, setError] = useState("");  // Almacena el mensaje de error si algún campo está incompleto
+  const [tipoRegistro, setTipoRegistro] = useState("insulina"); // Controla si se está registrando insulina o glucosa
+  const [dosis, setDosis] = useState(""); // Almacena la dosis de insulina
+  const [tipoInsulina, setTipoInsulina] = useState(""); // Almacena el tipo de insulina seleccionado
+  const [viaAdministracion, setViaAdministracion] = useState(""); // Almacena la vía de administración de la insulina
+  const [glucosa, setGlucosa] = useState(""); // Almacena el nivel de glucosa
+  const [fechaRegistro, setFechaRegistro] = useState(""); // Almacena la fecha y hora del registro
+  const [estadoFisico, setEstadoFisico] = useState(""); // Almacena el estado físico seleccionado
+  const [medicacionAdicional, setMedicacionAdicional] = useState(""); // Almacena medicación adicional (si existe)
+  const [notas, setNotas] = useState(""); // Almacena notas o comentarios adicionales
+  const [error, setError] = useState(""); // Almacena el mensaje de error si algún campo está incompleto
 
   // Valida que la dosis de insulina siga el formato adecuado (ej. 10 mg o 5 UI)
   const handleChangeDosis = (value) => {
-    const regex = /^\d*(\.\d+)?( mg| UI)?$/; 
+    const regex = /^\d*(\.\d+)?( mg| UI)?$/;
     if (regex.test(value) || value === "") {
-      setDosis(value);  // Actualiza la dosis si el valor es válido
+      setDosis(value); // Actualiza la dosis si el valor es válido
     }
   };
 
   // Maneja el envío del formulario tanto para el registro de insulina como de glucosa
   const handleSubmit = (e) => {
-    e.preventDefault();  
+    e.preventDefault();
     if (tipoRegistro === "insulina") {
       // Validación de campos obligatorios para el registro de insulina
       if (!tipoInsulina || !dosis || !viaAdministracion || !fechaRegistro) {
         setError("Por favor, completa todos los campos obligatorios.");
-        return; 
+        return;
       }
 
-      setError("");  
-      
+      setError("");
+
       const formInsulina = {
         Fecha: fechaRegistro,
         Via: viaAdministracion,
         Dosis: dosis,
         Tipo: tipoInsulina,
-        tipoRegistro: tipoRegistro
+        tipoRegistro: tipoRegistro,
+        Adicional: notas,
       };
 
-      console.log(formInsulina); 
+      console.log(formInsulina);
 
       // API
       link.registerI(formInsulina).then(() => {
-        window.location.href = "/registros";  
+        toast.success("Registro creado con exito");
+        window.location.href = "/registros";
       });
     } else if (tipoRegistro === "glucosa") {
       // Validación de campos obligatorios para el registro de glucosa
-      if (!glucosa || !fechaRegistro || !estadoFisico || !medicacionAdicional  ) {
+      if (!glucosa || !fechaRegistro || !estadoFisico || !medicacionAdicional) {
         setError("Por favor, completa todos los campos obligatorios.");
         return;
       }
 
-      setError("");  // Borra los errores previos si la validación es correcta
+      setError(""); // Borra los errores previos si la validación es correcta
 
-     
       const formGlucosa = {
         Fecha: fechaRegistro,
         Glucosa: glucosa,
         EstadoFisico: estadoFisico,
         MedicacionAdicional: medicacionAdicional,
-        Notas: notas,
-        tipoRegistro: tipoRegistro
+        Adicional: notas,
+        TipoRegistro: tipoRegistro,
       };
 
-      console.log(formGlucosa); 
+      console.log(formGlucosa);
       //  API
       link.registerI(formGlucosa).then(() => {
-        window.location.href = "/registros";  
+        window.location.href = "/registros";
       });
     }
   };
@@ -80,19 +81,19 @@ export const CrearRegistro = () => {
   return (
     <main className="max-w-4xl mx-auto p-4">
       <div className="flex items-center mb-6">
-       
         <a href="/registros" className="text-blue-500 hover:text-blue-700">
           <BiArrowBack size={24} />
         </a>
         <h1 className="text-2xl font-bold ml-4">Crear Nuevo Registro</h1>
       </div>
       <div>
-       
         <h2 className="text-xl mb-4">Selecciona el tipo de registro:</h2>
         <div className="flex mb-6 space-x-4">
           <button
             className={`${
-              tipoRegistro === "insulina" ? "bg-blue-500 text-white" : "bg-gray-200"
+              tipoRegistro === "insulina"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
             } p-2 rounded-lg`}
             onClick={() => setTipoRegistro("insulina")}
           >
@@ -100,7 +101,9 @@ export const CrearRegistro = () => {
           </button>
           <button
             className={`${
-              tipoRegistro === "glucosa" ? "bg-blue-500 text-white" : "bg-gray-200"
+              tipoRegistro === "glucosa"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
             } p-2 rounded-lg`}
             onClick={() => setTipoRegistro("glucosa")}
           >
@@ -108,13 +111,11 @@ export const CrearRegistro = () => {
           </button>
         </div>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>} 
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        
         <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Campos para registrar insulinaa */}
 
-           {/* Campos para registrar insulinaa */}
-        
           {tipoRegistro === "insulina" && (
             <>
               <div className="flex flex-col">
@@ -150,7 +151,10 @@ export const CrearRegistro = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <label htmlFor="viaAdministracion" className="mb-2 font-semibold">
+                <label
+                  htmlFor="viaAdministracion"
+                  className="mb-2 font-semibold"
+                >
                   Vía de administración
                 </label>
                 <select
@@ -161,14 +165,19 @@ export const CrearRegistro = () => {
                   <option value="" disabled selected>
                     Selecciona una vía de administración
                   </option>
-                  <option value="Inyección Subcutánea">Inyección Subcutánea</option>
-                  <option value="Infusión Subcutánea">Infusión Subcutánea</option>
+                  <option value="Inyección Subcutánea">
+                    Inyección Subcutánea
+                  </option>
+                  <option value="Infusión Subcutánea">
+                    Infusión Subcutánea
+                  </option>
                   <option value="Inhalación">Inhalación</option>
-                  <option value="Inyección Intravenosa">Inyección Intravenosa</option>
+                  <option value="Inyección Intravenosa">
+                    Inyección Intravenosa
+                  </option>
                   <option value="Transdérmica">Transdérmica</option>
                 </select>
               </div>
-              
             </>
           )}
 
@@ -194,6 +203,7 @@ export const CrearRegistro = () => {
                 </label>
                 <select
                   id="estadoFisico"
+                  value={estadoFisico}
                   className="select w-full rounded-lg focus:outline-none p-2 border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => setEstadoFisico(e.target.value)}
                 >
@@ -202,26 +212,40 @@ export const CrearRegistro = () => {
                   </option>
                   <option value="Antes de comer">Antes de comer</option>
                   <option value="Después de comer">Después de comer</option>
-                  <option value="Después de ejercicio">Después de ejercicio</option>
+                  <option value="Después de ejercicio">
+                    Después de ejercicio
+                  </option>
                   <option value="Antes de dormir">Antes de dormir</option>
                 </select>
               </div>
-              
-            </>
-          )}
-          <div className="flex flex-col">
+              <div className="flex flex-col">
                 <label htmlFor="notas" className="mb-2 font-semibold">
-                  Notas
+                  Medicación adicional
                 </label>
                 <input
                   type="text"
-                  id="notaAdicional"
-                  value={notas}
-                  onChange={(e) => setNotas(e.target.value)}
+                  id="nmedicacionAdicional"
+                  value={medicacionAdicional}
+                  onChange={(e) => setMedicacionAdicional(e.target.value)}
                   className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Escribe cualquier anotación adicional..."
                 />
               </div>
+            </>
+          )}
+          <div className="flex flex-col">
+            <label htmlFor="notas" className="mb-2 font-semibold">
+              Notas
+            </label>
+            <input
+              type="text"
+              id="notaAdicional"
+              value={notas}
+              onChange={(e) => setNotas(e.target.value)}
+              className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Escribe cualquier anotación adicional..."
+            />
+          </div>
 
           <div className="flex flex-col">
             <label className="mb-2 font-semibold">Fecha y hora</label>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { link } from "../utilities/functions";
 
 export const FiltroArticulos = () => {
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
   const [temaSeleccionado, setTemaSeleccionado] = useState("");
   const [fechaDesde, setFechaDesde] = useState("");
+  const [fechaHasta, setFechaHasta] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [articulosFiltrados, setArticulosFiltrados] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
@@ -18,31 +20,26 @@ export const FiltroArticulos = () => {
   ];
 
   useEffect(() => {
-    // Aquí iría la lógica para obtener los artículos de una API o fuente de datos
-    // Por ahora, simularemos que los artículos se obtienen y filtran
-    const obtenerYFiltrarArticulos = async () => {
-      // Simulación de obtención de artículos
-      // En una implementación real, aquí se haría una llamada a la API
-      const articulosObtenidos = [];
+    buscarArticulos();
+  }, [temaSeleccionado, fechaDesde, fechaHasta, busqueda]);
 
-      const resultadosFiltrados = articulosObtenidos.filter((articulo) => {
-        const cumpleTema =
-          temaSeleccionado === "" || articulo.tema === temaSeleccionado;
-        const cumpleFecha =
-          fechaDesde === "" || new Date(articulo.fecha) >= new Date(fechaDesde);
-        const cumpleBusqueda =
-          busqueda === "" ||
-          articulo.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-          articulo.contenido.toLowerCase().includes(busqueda.toLowerCase());
-        return cumpleTema && cumpleFecha && cumpleBusqueda;
-      });
+  const buscarArticulos = async () => {
+    try {
+      const data = {
+        tema: temaSeleccionado,
+        fechaInicio: fechaDesde,
+        fechaFin: fechaHasta,
+        keywords: busqueda,
+      };
 
-      setArticulosFiltrados(resultadosFiltrados);
+      const resultado = await link.filterArticulos(data);
+      setArticulosFiltrados(resultado);
       setPaginaActual(1);
-    };
-
-    obtenerYFiltrarArticulos();
-  }, [temaSeleccionado, fechaDesde, busqueda]);
+    } catch (error) {
+      console.error("Error:", error);
+      setArticulosFiltrados([]);
+    }
+  };
 
   const indiceUltimoArticulo = paginaActual * articulosPorPagina;
   const indicePrimerArticulo = indiceUltimoArticulo - articulosPorPagina;
@@ -64,6 +61,12 @@ export const FiltroArticulos = () => {
           className="w-full p-2 border rounded-md"
           aria-label="Buscar artículos"
         />
+        <button
+          onClick={buscarArticulos}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2"
+        >
+          Buscar
+        </button>
       </div>
 
       <button
@@ -108,7 +111,7 @@ export const FiltroArticulos = () => {
               ))}
             </select>
           </div>
-          <div>
+          <div className="mb-4">
             <label htmlFor="fecha-desde" className="block mb-2">
               Fecha desde:
             </label>
@@ -120,15 +123,32 @@ export const FiltroArticulos = () => {
               className="w-full p-2 border rounded-md"
             />
           </div>
+          <div>
+            <label htmlFor="fecha-hasta" className="block mb-2">
+              Fecha hasta:
+            </label>
+            <input
+              id="fecha-hasta"
+              type="date"
+              value={fechaHasta}
+              onChange={(e) => setFechaHasta(e.target.value)}
+              className="w-full p-2 border rounded-md"
+            />
+          </div>
         </div>
       )}
 
       <div className="grid gap-4">
         {articulosActuales.map((articulo) => (
-          <article key={articulo.id} className="bg-white p-4 rounded-md shadow">
+          <article
+            key={articulo._id}
+            className="bg-white p-4 rounded-md shadow"
+          >
             <h2 className="text-xl font-bold">{articulo.titulo}</h2>
             <p className="text-gray-600">Tema: {articulo.tema}</p>
-            <p className="text-gray-600">Fecha: {articulo.fecha}</p>
+            <p className="text-gray-600">
+              Fecha: {new Date(articulo.fechaPublicacion).toLocaleDateString()}
+            </p>
             <p className="mt-2">{articulo.contenido.substring(0, 150)}...</p>
           </article>
         ))}
