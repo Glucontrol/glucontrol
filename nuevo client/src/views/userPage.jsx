@@ -8,6 +8,7 @@ import { link } from "../utilities/functions.js";
 export default function Usuario() {
   const navigate = useNavigate();
   let user = useContext(UserContext);
+<<<<<<< HEAD
 
   const [articles, setArticles] = useState([]);
   useEffect(() => {
@@ -18,6 +19,12 @@ export default function Usuario() {
       .then((res) => setArticles(res));
   }, []);
 
+=======
+  console.log(user);
+  setTimeout(() => {
+    console.log("ahi anda");
+  }, 2000 * 2000);
+>>>>>>> 718641fc906efa07b2bf0b9a4eded80f73668287
   const [datosUsuario, setDatosUsuario] = useState({
     Nombre: user.Nombre,
     Email: user.Email,
