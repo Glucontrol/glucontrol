@@ -106,11 +106,7 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
-<<<<<<< HEAD
                 className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300 w-full"
-=======
-                className="border-2 w-full border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300"
->>>>>>> 718641fc906efa07b2bf0b9a4eded80f73668287
               >
                 Iniciar sesión
               </button>
