@@ -6,6 +6,7 @@ import {
   sesion,
   user,
   logOut,
+  datosUsuario,
 } from "../controllers/auth.controller.js";
 
 import { Router } from "express";
@@ -26,5 +27,6 @@ router.post("/admin", eliminar);
 router.get("/sesion", sesion);
 // Exportamos las rutas
 router.delete("/logout", logOut);
+router.put("/me", datosUsuario);
 
 export default router;
