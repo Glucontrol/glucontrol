@@ -1,5 +1,12 @@
-import React from "react";
+import { useEffect,useState } from "react";
 export const Tarjeta = ({ info }) => {
+  const [pop, setPop] = useState(false)
+  useEffect(()=>{
+    setTimeout(() => {
+      setPop(true)
+    }, 200);
+  }
+  ,[])
   switch (info.Categoria) {
     case "Ejercicio":
       var color = "bg-red-200";
@@ -25,7 +32,7 @@ export const Tarjeta = ({ info }) => {
       }}
     >
       <div
-        className={`tarjeta border-2 mx-5 border-solid  border-gray-200 shadow-lg shadow-gray-300 hover:scale-110 rounded-lg transition ease-in-out duration-200 mt-10 cursor-pointer`}
+        className={`${pop ? "scale-100" : "scale-0"} tarjeta border-2 mx-5 border-solid  border-gray-200 shadow-lg shadow-gray-300 hover:scale-110 rounded-lg transition ease-in-out duration-200 mt-10 cursor-pointer`}
       >
         <div className="3/4 flex flex-row">
           <div className="w-80 h-40 flex flex-col align-text-bottom p-2">
