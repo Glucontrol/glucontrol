@@ -163,7 +163,9 @@ export default function Usuario() {
 
                         <a
                           className="duration-300 flex justify-end hover:scale-110"
-                          onClick={() => alert("hola")}
+                          onClick={() =>
+                            (window.location.href = `/edit/article/${el._id}`)
+                          }
                         >
                           <img
                             src="../src/assets/icons/edit.svg"
@@ -174,7 +176,17 @@ export default function Usuario() {
 
                         <a
                           className="duration-300 flex justify-end hover:scale-110 cursor-pointer"
-                          onClick={() => link.delete(el._id)}
+                          onClick={() =>
+                            link.delete(el._id).then((res) => {
+                              console.log(el);
+                              const newArray = articles;
+                              const hola = newArray.splice(
+                                articles.indexOf(el),
+                                1
+                              );
+                              console.log(hola);
+                            })
+                          }
                         >
                           <img
                             src="../src/assets/icons/delete.svg"

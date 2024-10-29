@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: ["http://localhost:5173"],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
   })
 ); // cors para que nos permita realizar peticiones desde cualquier cliente.
 app.use(morgan("dev")); // morgan para mostrar informacion acerca de las peticiones que llegan a nuestro servidor.

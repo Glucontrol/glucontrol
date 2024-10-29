@@ -23,7 +23,12 @@ export const Articulo = () => {
             </a>
             <h1 className="text-2xl font-bold ml-4">Articulos</h1>
           </div>
-
+          <img
+            src={`${contenido.urlImg}`}
+            className="m-auto"
+            alt=""
+            srcset=""
+          />
           <h1 className="text-center text-4xl font-bold text-gray-800 mt-4 mb-6">
             {contenido.Titulo}
           </h1>
