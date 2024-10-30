@@ -40,12 +40,16 @@ export const Tarjeta = ({ info }) => {
             <div className="m-auto">
               <h2 className=" font-semibold text-center">{info.Titulo}</h2>
             </div>
-              <p className="font-normal text-center">{info.Autor}</p>
-            <img
-              src={`${info.urlImg}`}
-              alt={`${info.Titulo}img`}
-              className=" w-full h-3/5"
-            />
+            <p className="font-normal text-center">{info.Autor}</p>
+            {info.urlImg ? (
+              <img
+                src={`${info.urlImg}`}
+                alt={`${info.Titulo}img`}
+                className=" w-full h-3/5"
+              />
+            ) : (
+              <div className="w-full h-3/5 bg-gray-200 animate-pulse" />
+            )}
           </div>
           <div className={`${color} h-auto w-10 `}>
             <img src={`${icon}`} className="h-10 w-10" alt="" />

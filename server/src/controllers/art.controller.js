@@ -3,6 +3,7 @@ import fs from "fs";
 import { validarJWT } from "../helpers/validarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 import cloudinary from "cloudinary";
+import cConfig from "../helpers/cloudinary.js";
 
 const Cloudinary = cloudinary.v2;
 
@@ -11,29 +12,28 @@ const Cloudinary = cloudinary.v2;
 const API_ENV =
   "CLOUDINARY_URL=cloudinary://848899543485337:GmUUP_OaI0LxaaCpU9ItUfnzpIw@dz8trxow0";
 
-Cloudinary.config({
-  cloud_name: "dz8trxow0",
-  api_key: "848899543485337",
-  api_secret: "GmUUP_OaI0LxaaCpU9ItUfnzpIw",
-});
+Cloudinary.config(cConfig);
 
 export const agregar = async (req, res) => {
-  fs.renameSync(
-    `${req.file.path}`,
-    `${req.file.destination}${req.file.originalname}`
-  );
-  const url = Cloudinary.uploader
-    .upload(`${req.file.destination}${req.file.originalname}`, {
-      use_filename: true,
-    })
-    .then((el) => el.url);
   let doc = req.body;
+  if (req.file) {
+    fs.renameSync(
+      `${req.file.path}`,
+      `${req.file.destination}${req.file.originalname}`
+    );
+    const url = Cloudinary.uploader
+      .upload(`${req.file.destination}${req.file.originalname}`, {
+        use_filename: true,
+      })
+      .then((el) => el.url);
+    doc.urlImg = await url;
+  }
   const cookie = req.headers.cookie;
   if (cookie) {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
-    doc.Autor = Usuario.Nombre;
-    doc.urlImg = await url;
+    doc.Autor = Usuario._id;
+
     console.log(doc);
     res.send(
       await client.db("glucontrol").collection("articulos").insertOne(doc)
@@ -44,7 +44,33 @@ export const agregar = async (req, res) => {
 };
 
 export const listar = async (req, res) => {
-  const articulos = client.db("glucontrol").collection("articulos").find({});
+  const articulos = client
+    .db("glucontrol")
+    .collection("articulos")
+    .aggregate([
+      {
+        $lookup: {
+          from: "usuarios",
+          localField: "Autor",
+          foreignField: "_id",
+          as: "dbBase",
+        },
+      },
+      {
+        $project: {
+          Titulo: 1,
+          Contenido: 1,
+          Fecha: 1,
+          urlImg: 1,
+          Autor: {
+            $getField: {
+              field: "Nombre",
+              input: { $arrayElemAt: ["$dbBase", 0] },
+            },
+          },
+        },
+      },
+    ]);
   res.send(await articulos.toArray());
 };
 
@@ -72,10 +98,11 @@ export const buscarPorUsuario = async (req, res) => {
   if (cookie) {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
+    console.log("id", Usuario._id);
     const Articles = client
       .db("glucontrol")
       .collection("articulos")
-      .find({ Autor: `${Usuario.Nombre}` });
+      .find({ Autor: Usuario._id });
     res.send(await Articles.toArray());
   } else {
     res.send("Fallo en la autorización").status(400);
@@ -110,7 +137,7 @@ export const deleteArticle = async (req, res) => {
 
 export const edit = async (req, res) => {
   let doc = req.body;
-  if (req.file){
+  if (req.file) {
     fs.renameSync(
       `${req.file.path}`,
       `${req.file.destination}${req.file.originalname}`
@@ -120,7 +147,7 @@ export const edit = async (req, res) => {
         use_filename: true,
       })
       .then((el) => el.url);
-      doc.urlImg = await url;
+    doc.urlImg = await url;
   }
   const o_id = generarOID(req.params.id);
   const cookie = req.headers.cookie;
@@ -128,13 +155,13 @@ export const edit = async (req, res) => {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
     doc.Autor = Usuario.Nombre;
-    console.log("no cambio imagen")
+    console.log("no cambio imagen");
     console.log(doc);
     res.send(
       await client
         .db("glucontrol")
         .collection("articulos")
-        .findOneAndUpdate({ _id: o_id }, {$set:doc})
+        .findOneAndUpdate({ _id: o_id }, { $set: doc })
     );
   } else {
     res.send("Fallo en la autorización").status(400);

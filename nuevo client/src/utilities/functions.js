@@ -111,9 +111,17 @@ link.edit = async (doc, id) => {
   }).then((res) => console.log("editar", res));
 };
 
-link.signUp = async(data) => {
+link.editProfile = async (data) => {
+  return fetch(`http://localhost:${API_URL}/profile`, {
+    method: "PATCH",
+    credentials: "include",
+    body: data,
+  }).then((res) => console.log(res));
+};
+
+link.signUp = async (data) => {
   return fetch(`http://localhost:${API_URL}/signup`, {
     method: "POST",
-    body:data
-  }).then((res)=>console.log(res))
-}
+    body: data,
+  }).then((res) => console.log(res));
+};

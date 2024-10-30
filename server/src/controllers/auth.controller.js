@@ -4,16 +4,35 @@ import { generarJWT } from "../helpers/generarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 import { ObjectId } from "mongodb";
 import { validarJWT } from "../helpers/validarJWT.js";
+import fs from "fs";
+import cloudinary from "cloudinary";
+
+const Cloudinary = cloudinary.v2;
+Cloudinary.config({
+  cloud_name: "dz8trxow0",
+  api_key: "848899543485337",
+  api_secret: "GmUUP_OaI0LxaaCpU9ItUfnzpIw",
+});
 // Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 //Empezamos a ir agrengando los controladores a dicho objeto.
 export const register = async (req, res) => {
-  console.log(req.body)
-  const { Nombre, Email, Contraseña } = req.body;
-  const hashContrasenia = bcrypt.hashSync(Contraseña, 10);
-  client
-    .db("glucontrol")
-    .collection("usuarios")
-    .insertOne({ Nombre: Nombre, Email: Email, Contrasenia: hashContrasenia });
+  let doc = req.body;
+  if (req.file) {
+    fs.renameSync(
+      `${req.file.path}`,
+      `${req.file.destination}${req.file.originalname}`
+    );
+    const url = Cloudinary.uploader
+      .upload(`${req.file.destination}${req.file.originalname}`, {
+        use_filename: true,
+      })
+      .then((el) => el.url);
+    doc.urlImg = await url;
+  }
+  doc.Email = "hola@gmail.com";
+  doc.Contrasenia = bcrypt.hashSync(doc.Contrasenia, 10);
+  console.log(doc);
+  client.db("glucontrol").collection("usuarios").insertOne(doc);
   res.json({
     msg: "Registrado correctamente",
   });
@@ -133,4 +152,32 @@ export const datosUsuario = async (req, res) => {
     console.error("Error al insertar usuario:", error);
     res.status(500).send({ error: "Error al guardar los datos del usuario." });
   }
+};
+
+export const edit = async (req, res) => {
+  const { cookie } = req.headers;
+
+  const token = await validarJWT(cookie.substr(6, cookie.length));
+
+  const doc = req.body;
+  if (doc.Contrasenia.trim() == "") {
+    delete doc.Contrasenia;
+  }
+  if (req.file) {
+    fs.renameSync(
+      `${req.file.path}`,
+      `${req.file.destination}${req.file.originalname}`
+    );
+    const url = Cloudinary.uploader
+      .upload(`${req.file.destination}${req.file.originalname}`, {
+        use_filename: true,
+      })
+      .then((el) => el.url);
+    doc.urlImg = await url;
+  }
+  client
+    .db("glucontrol")
+    .collection("usuarios")
+    .findOneAndUpdate({ _id: token._id }, { $set: doc });
+  res.send("hola");
 };

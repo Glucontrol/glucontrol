@@ -9,12 +9,18 @@ const CrearArticulo = () => {
   const edit = path[1] == "edit" ? true : false;
   const article = path[3];
   const [articulo, setArticulo] = useState({});
+  const time = new Date().toISOString();
   useEffect(() => {
     if (edit) {
-      link.articuloId(article).then((el) => setArticulo(el)).then(()=>setLoading(true))
+      link
+        .articuloId(article)
+        .then((el) => setArticulo(el))
+        .then(() => setLoading(true));
+    } else {
+      setLoading(true);
     }
   }, []);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -27,20 +33,22 @@ const CrearArticulo = () => {
       if (edit) {
         await link.edit(formData, article).then((res) => console.log(res));
       } else {
+        formData.append("Fecha", new Date().toISOString());
+        console.log(formData);
         await link.createArticulo(formData);
       }
       toast.success("Artículo creado exitosamente!"); // Notificación de éxito
 
       setTimeout(() => {
-        // window.location.href = "/articulos";
+        window.location.href = "/articulos";
       }, 1000);
     } catch (err) {
       toast.error("Hubo un error al crear el artículo."); // Notificación de error
     }
   };
 
-  return (
-    !loading ? <main className="max-w-4xl mx-auto p-4">
+  return !loading ? (
+    <main className="max-w-4xl mx-auto p-4">
       <Toaster />
       <div className="flex items-center mb-6">
         <a
@@ -61,37 +69,47 @@ const CrearArticulo = () => {
         {/* Mostrar mensaje de error */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="flex flex-col">
-            <label htmlFor="nombreArticulo" className="mb-2 font-semibold bg-gray-100 animate-pulse border border-gray-100">
-            </label>
+            <label
+              htmlFor="nombreArticulo"
+              className="mb-2 font-semibold bg-gray-100 animate-pulse border border-gray-100"
+            ></label>
             <input
-            disabled
+              disabled
               className="p-2 rounded-lg border border-gray-100 bg-gray-100 animate-pulse text-transparent"
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="categoriaArticulo" className="mb-2 font-semibold bg-gray-100 animate-pulse border border-gray-100">
-            </label>
+            <label
+              htmlFor="categoriaArticulo"
+              className="mb-2 font-semibold bg-gray-100 animate-pulse border border-gray-100"
+            ></label>
             <select
               id="categoriaArticulo"
               className="select w-full rounded-lg focus:outline-none p-2 border border-gray-100 bg-gray-100 animate-pulse text-transparent "
               name="Categoria"
               disabled
-            >
-            </select>
+            ></select>
           </div>
           <div>
-            <label htmlFor="contenidoArticulo" className="mb-2 font-semibold text-transparent bg-gray-100 border border-gray-100 animate-pulse">
+            <label
+              htmlFor="contenidoArticulo"
+              className="mb-2 font-semibold text-transparent bg-gray-100 border border-gray-100 animate-pulse"
+            >
               Contenido
             </label>
             <textarea
               id="contenidoArticulo"
               disabled
               name="Contenido"
-              placeholder="Escribe el contenido del artículo..."
               className="w-full h-64 p-2 border border-gray-100 bg-gray-100 animate-pulse text-transparent"
             />
           </div>
-          <input type="file" name="photo" className="border border-gray-100 bg-gray-100 text-transparent animate-pulse" disabled  />
+          <input
+            type="file"
+            name="photo"
+            className="border border-gray-100 bg-gray-100 text-transparent animate-pulse"
+            disabled
+          />
           <button
             type="submit"
             disabled
@@ -101,7 +119,8 @@ const CrearArticulo = () => {
           </button>
         </form>
       </div>
-    </main> : 
+    </main>
+  ) : (
     <main className="max-w-4xl mx-auto p-4">
       <Toaster />
       <div className="flex items-center mb-6">
@@ -150,10 +169,10 @@ const CrearArticulo = () => {
               <option value="Salud">Salud</option>
               <option value="Nutricion">Nutrición</option>
               <option value="Ejercicio">Ejercicio</option>
-              <option>Tecnología</option>
-              <option>Investigación</option>
-              <option>Consejos</option>
-              <option>Recetas</option>
+              <option value="Tecnología">Tecnología</option>
+              <option value="Investigación">Investigación</option>
+              <option value="Consejos">Consejos</option>
+              <option value="Recetas">Recetas</option>
             </select>
           </div>
           <div>

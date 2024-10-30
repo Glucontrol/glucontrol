@@ -6,9 +6,8 @@ import { UserContext } from "../context/UserContext.jsx";
 import { link } from "../utilities/functions.js";
 
 export default function Usuario() {
-  const navigate = useNavigate();
   let user = useContext(UserContext);
-
+  console.log(user);
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     fetch("http://localhost:8080/articles/user", {
@@ -68,7 +67,7 @@ export default function Usuario() {
             <div className="flex mb-8">
               <div className="w-32 h-32 rounded-full overflow-hidden mr-8 flex-shrink-0">
                 <img
-                  src="/placeholder.svg?height=128&width=128"
+                  src={`${user.urlImg}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -79,61 +78,14 @@ export default function Usuario() {
                 <p className="text-gray-500 mb-4">{datosUsuario.Email}</p>
               </div>
             </div>
-            <form className="grid grid-cols-2 gap-6 mb-8">
-              <InfoItem
-                label="Tipo de Diabetes"
-                value={
-                  <input
-                    type="text"
-                    name="Diabetes"
-                    value={datosUsuario.Diabetes}
-                    onChange={actualizarDatosUsuario}
-                    className="border border-gray-300 rounded p-2 w-full"
-                  />
-                }
-              />
-              <InfoItem
-                label="Edad"
-                value={
-                  <input
-                    type="number"
-                    name="Edad"
-                    value={datosUsuario.Edad}
-                    onChange={actualizarDatosUsuario}
-                    className="border border-gray-300 rounded p-2 w-full"
-                  />
-                }
-              />
-              <InfoItem
-                label="Peso"
-                value={
-                  <input
-                    type="number"
-                    name="Peso"
-                    value={datosUsuario.Peso}
-                    onChange={actualizarDatosUsuario}
-                    className="border border-gray-300 rounded p-2 w-full"
-                  />
-                }
-              />
-              <InfoItem
-                label="Altura"
-                value={
-                  <input
-                    type="number"
-                    name="Altura"
-                    value={datosUsuario.Altura}
-                    onChange={actualizarDatosUsuario}
-                    className="border border-gray-300 rounded p-2 w-full"
-                  />
-                }
-              />
-            </form>
-
+            <div className="">
+              <h1>Tipo de Diabetes</h1>
+              <p>{user.Type}</p>
+            </div>
             <div className="flex justify-center">
               <button
                 className="px-4 py-2 shadow-lg rounded-full text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out border border-indigo-600"
-                onClick={guardarDatosUsuario} // Guardar cambios al hacer clic
+                onClick={() => (window.location.href = "/edit/user")} // Guardar cambios al hacer clic
               >
                 Guardar Cambios
               </button>
@@ -149,7 +101,15 @@ export default function Usuario() {
                       className="bg-white w-full text-center rounded-lg hover:bg-gray-100 shadow-lg duration-300 "
                     >
                       <div className="flex gap-3 flex-col">
-                        <img src={`${el.urlImg}`} alt="" className="w-full h-20 px-10 rounded-lg" />
+                        {el.urlImg ? (
+                          <img
+                            src={`${el.urlImg}`}
+                            alt=""
+                            className="w-full h-20 px-10 rounded-lg"
+                          />
+                        ) : (
+                          <div className="bg-gray-400 w-full h-20 px-10 animate-pulse"></div>
+                        )}
                         <h1 className="text-xl">{el.Titulo}</h1>
                       </div>
                       <div className="flex flex-row justify-end ">
@@ -180,14 +140,14 @@ export default function Usuario() {
                         <a
                           className="duration-300 flex justify-end hover:scale-110 cursor-pointer"
                           onClick={() =>
-                            link.delete(el._id).then((res) => {
-                              console.log(el);
-                              const newArray = articles;
-                              const hola = newArray.splice(
-                                articles.indexOf(el),
-                                1
-                              );
-                              console.log(hola);
+                            link.delete(el._id).then(async (res) => {
+                              const newArray = articles.filter((filter) => {
+                                return (
+                                  articles.indexOf(filter) !==
+                                  articles.indexOf(el)
+                                );
+                              });
+                              setArticles(newArray);
                             })
                           }
                         >

@@ -7,6 +7,7 @@ import {
   user,
   logOut,
   datosUsuario,
+  edit,
 } from "../controllers/auth.controller.js";
 import multer from "multer";
 
@@ -16,7 +17,9 @@ const upload = multer({
   dest: "./src/uploads/",
 });
 // Creamos una ruta /register con el metodo 'POST' ya que recibiremos datos desde el cliente a traves de este metodo.
-router.post("/signup",upload.single("profile"), register);
+router.post("/signup", upload.single("profile"), register);
+
+router.patch("/profile", upload.single("profile"), edit);
 
 // Lo mismo que el registro pero con el login.
 router.post("/login", login);
