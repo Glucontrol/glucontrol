@@ -38,7 +38,7 @@ export const Navbar = () => {
         setOpen(!open);
       }}
     >
-      <div className="flex flex-col top-20 bottom-36">
+      <div className="flex flex-col top-20 bottom-36 fixed">
         <ul className="grid grid-rows-7 relative">
           {Menu.map((el, index) => (
             <a href={el.link} key={index}>

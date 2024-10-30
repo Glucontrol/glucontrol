@@ -109,29 +109,32 @@ export const deleteArticle = async (req, res) => {
 };
 
 export const edit = async (req, res) => {
-  fs.renameSync(
-    `${req.file.path}`,
-    `${req.file.destination}${req.file.originalname}`
-  );
-  const url = Cloudinary.uploader
-    .upload(`${req.file.destination}${req.file.originalname}`, {
-      use_filename: true,
-    })
-    .then((el) => el.url);
   let doc = req.body;
+  if (req.file){
+    fs.renameSync(
+      `${req.file.path}`,
+      `${req.file.destination}${req.file.originalname}`
+    );
+    const url = Cloudinary.uploader
+      .upload(`${req.file.destination}${req.file.originalname}`, {
+        use_filename: true,
+      })
+      .then((el) => el.url);
+      doc.urlImg = await url;
+  }
   const o_id = generarOID(req.params.id);
   const cookie = req.headers.cookie;
   if (cookie) {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
     doc.Autor = Usuario.Nombre;
-    doc.urlImg = await url;
+    console.log("no cambio imagen")
     console.log(doc);
     res.send(
       await client
         .db("glucontrol")
         .collection("articulos")
-        .findOneAndReplace({ _id: o_id }, doc)
+        .findOneAndUpdate({ _id: o_id }, {$set:doc})
     );
   } else {
     res.send("Fallo en la autorización").status(400);

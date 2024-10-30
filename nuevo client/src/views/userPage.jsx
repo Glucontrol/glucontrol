@@ -141,14 +141,17 @@ export default function Usuario() {
 
             <div>
               <h3 className="text-xl font-semibold mb-4">Mis Articulos</h3>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-2 px-4">
                 {articles.map((el) => {
                   return (
                     <div
                       key={el._id}
-                      className="bg-slate-300 w-full text-center mx-auto rounded-lg hover:bg-slate-400 duration-300 curos grid grid-rows-2"
+                      className="bg-white w-full text-center rounded-lg hover:bg-gray-100 shadow-lg duration-300 "
                     >
-                      <h1 className="mx-auto font-bold">{el.Titulo}</h1>
+                      <div className="flex gap-3 flex-col">
+                        <img src={`${el.urlImg}`} alt="" className="w-full h-20 px-10 rounded-lg" />
+                        <h1 className="text-xl">{el.Titulo}</h1>
+                      </div>
                       <div className="flex flex-row justify-end ">
                         <a
                           className="duration-300 flex justify-end hover:scale-110"
@@ -162,7 +165,7 @@ export default function Usuario() {
                         </a>
 
                         <a
-                          className="duration-300 flex justify-end hover:scale-110"
+                          className="duration-300 flex justify-end hover:scale-110 cursor-pointer"
                           onClick={() =>
                             (window.location.href = `/edit/article/${el._id}`)
                           }

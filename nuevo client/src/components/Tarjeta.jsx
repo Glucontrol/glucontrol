@@ -36,16 +36,16 @@ export const Tarjeta = ({ info }) => {
         } tarjeta border-2 mx-5 border-solid  border-gray-200 shadow-lg shadow-gray-300 hover:scale-110 rounded-lg transition ease-in-out duration-200 mt-10 cursor-pointer`}
       >
         <div className="3/4 flex flex-row">
-          <div className="w-80 h-40 flex flex-col align-text-bottom p-2">
+          <div className="w-80 h-40 flex flex-col align-text-bottom ">
+            <div className="m-auto">
+              <h2 className=" font-semibold text-center">{info.Titulo}</h2>
+            </div>
+              <p className="font-normal text-center">{info.Autor}</p>
             <img
               src={`${info.urlImg}`}
               alt={`${info.Titulo}img`}
-              className="absolute w-20 h-3/5"
+              className=" w-full h-3/5"
             />
-            <div className="m-auto">
-              <h2 className=" font-semibold text-center">{info.Titulo}</h2>
-              <p className="font-normal text-center">{info.Autor}</p>
-            </div>
           </div>
           <div className={`${color} h-auto w-10 `}>
             <img src={`${icon}`} className="h-10 w-10" alt="" />

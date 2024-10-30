@@ -11,9 +11,10 @@ const CrearArticulo = () => {
   const [articulo, setArticulo] = useState({});
   useEffect(() => {
     if (edit) {
-      link.articuloId(article).then((el) => setArticulo(el));
+      link.articuloId(article).then((el) => setArticulo(el)).then(()=>setLoading(true))
     }
   }, []);
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -39,6 +40,68 @@ const CrearArticulo = () => {
   };
 
   return (
+    !loading ? <main className="max-w-4xl mx-auto p-4">
+      <Toaster />
+      <div className="flex items-center mb-6">
+        <a
+          href="/articulos"
+          className="text-blue-500 hover:text-blue-700 cursor-pointer"
+        >
+          <BiArrowBack size={24} />
+        </a>
+        <h1 className="text-2xl font-bold ml-4 bg-gray-100 border border-gray-100 animate-pulse text-transparent">
+          {edit ? "Editar Artículo" : "Crear Nuevo Artículo"}
+        </h1>
+      </div>
+      <div>
+        <h2 className="text-xl mb-4 bg-gray-100 border border-gray-100 text-transparent">
+          Completa con los detalles de tu artículo
+        </h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}{" "}
+        {/* Mostrar mensaje de error */}
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="flex flex-col">
+            <label htmlFor="nombreArticulo" className="mb-2 font-semibold bg-gray-100 animate-pulse border border-gray-100">
+            </label>
+            <input
+            disabled
+              className="p-2 rounded-lg border border-gray-100 bg-gray-100 animate-pulse text-transparent"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="categoriaArticulo" className="mb-2 font-semibold bg-gray-100 animate-pulse border border-gray-100">
+            </label>
+            <select
+              id="categoriaArticulo"
+              className="select w-full rounded-lg focus:outline-none p-2 border border-gray-100 bg-gray-100 animate-pulse text-transparent "
+              name="Categoria"
+              disabled
+            >
+            </select>
+          </div>
+          <div>
+            <label htmlFor="contenidoArticulo" className="mb-2 font-semibold text-transparent bg-gray-100 border border-gray-100 animate-pulse">
+              Contenido
+            </label>
+            <textarea
+              id="contenidoArticulo"
+              disabled
+              name="Contenido"
+              placeholder="Escribe el contenido del artículo..."
+              className="w-full h-64 p-2 border border-gray-100 bg-gray-100 animate-pulse text-transparent"
+            />
+          </div>
+          <input type="file" name="photo" className="border border-gray-100 bg-gray-100 text-transparent animate-pulse" disabled  />
+          <button
+            type="submit"
+            disabled
+            className="bg-blue-200 text-transparent animate-pulse w-1/3 mt-16 p-2 rounded-lg"
+          >
+            Listo
+          </button>
+        </form>
+      </div>
+    </main> : 
     <main className="max-w-4xl mx-auto p-4">
       <Toaster />
       <div className="flex items-center mb-6">
