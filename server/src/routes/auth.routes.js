@@ -8,12 +8,15 @@ import {
   logOut,
   datosUsuario,
 } from "../controllers/auth.controller.js";
+import multer from "multer";
 
 import { Router } from "express";
 const router = Router();
-
+const upload = multer({
+  dest: "./src/uploads/",
+});
 // Creamos una ruta /register con el metodo 'POST' ya que recibiremos datos desde el cliente a traves de este metodo.
-router.post("/register", register);
+router.post("/signup",upload.single("profile"), register);
 
 // Lo mismo que el registro pero con el login.
 router.post("/login", login);

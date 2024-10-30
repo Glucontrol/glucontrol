@@ -22,6 +22,7 @@ router.get("/articles/user", buscarPorUsuario);
 //Leer un articulo
 router.get("/articulo/:id", leer);
 //Agregar un articulo
+
 router.post("/articulo", upload.single("photo"), agregar);
 //Editar Articulo
 router.patch("/article/:id", upload.single("photo"), edit);

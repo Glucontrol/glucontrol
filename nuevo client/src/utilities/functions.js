@@ -110,3 +110,10 @@ link.edit = async (doc, id) => {
     body: doc,
   }).then((res) => console.log("editar", res));
 };
+
+link.signUp = async(data) => {
+  return fetch(`http://localhost:${API_URL}/signup`, {
+    method: "POST",
+    body:data
+  }).then((res)=>console.log(res))
+}

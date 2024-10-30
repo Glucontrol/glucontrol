@@ -7,6 +7,7 @@ import { validarJWT } from "../helpers/validarJWT.js";
 // Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 //Empezamos a ir agrengando los controladores a dicho objeto.
 export const register = async (req, res) => {
+  console.log(req.body)
   const { Nombre, Email, Contraseña } = req.body;
   const hashContrasenia = bcrypt.hashSync(Contraseña, 10);
   client
