@@ -55,6 +55,7 @@ export const Registros = () => {
                 <option value="Todos">Todos</option>
                 <option value="Glucosa">Glucosa</option>
                 <option value="Insulina">Insulina</option>
+                <option value="HbA1c">HbA1c</option>
               </select>
             </div>
 
@@ -78,7 +79,7 @@ export const Registros = () => {
               Cargando registros...
             </p>
           ) : registros.length === 0 ? (
-            <p className="text-center text-xl text-gray-500">
+            <p className="text-center text-xl text-gray-500 min-h-full">
               No hay registros disponibles
             </p>
           ) : (
@@ -88,6 +89,7 @@ export const Registros = () => {
                 .filter((registro) => {
                   if (filtro === "Todos") return true;
                   if (filtro === "Glucosa") return registro.Glucosa; // Filtrar por Glucosa
+                  if (filtro === "HbA1c") return registro.HbA1c; // Filtrar por Glucosa
                   if (filtro === "Insulina")
                     return registro.Dosis || registro.Via; // Filtrar por Insulina
                   return true;
