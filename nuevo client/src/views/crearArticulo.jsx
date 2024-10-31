@@ -167,7 +167,7 @@ const CrearArticulo = () => {
                 Selecciona una categoría
               </option>
               <option value="Salud">Salud</option>
-              <option value="Nutricion">Nutrición</option>
+              <option value="Nutrición">Nutrición</option>
               <option value="Ejercicio">Ejercicio</option>
               <option value="Tecnología">Tecnología</option>
               <option value="Investigación">Investigación</option>

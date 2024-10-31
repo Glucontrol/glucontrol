@@ -16,12 +16,19 @@ export const CrearRegistro = () => {
   const [medicacionAdicional, setMedicacionAdicional] = useState(""); // Almacena medicación adicional (si existe)
   const [notas, setNotas] = useState(""); // Almacena notas o comentarios adicionales
   const [error, setError] = useState(""); // Almacena el mensaje de error si algún campo está incompleto
+  const [hba1c, setHbA1c] = useState(""); // Almacena el valor de HbA1c
 
   // Valida que la dosis de insulina siga el formato adecuado (ej. 10 mg o 5 UI)
   const handleChangeDosis = (value) => {
     const regex = /^\d*(\.\d+)?( mg| UI)?$/;
     if (regex.test(value) || value === "") {
       setDosis(value); // Actualiza la dosis si el valor es válido
+    }
+  };
+  const handleChangeHbA1c = (value) => {
+    const regex = /^\d*(\.\d+)?( mg| UI)?$/;
+    if (regex.test(value) || value === "") {
+      setHbA1c(value); // Actualiza la dosis si el valor es válido
     }
   };
 
@@ -78,6 +85,27 @@ export const CrearRegistro = () => {
       link.registerI(formGlucosa).then(() => {
         window.location.href = "/registros";
       });
+    } else if (tipoRegistro === "hba1c") {
+      if (!hba1c || !fechaRegistro) {
+        setError("Por favor, completa todos los campos obligatorios.");
+        return;
+      }
+
+      setError(""); // Borra los errores previos si la validación es correcta
+
+      const formHba1c = {
+        HbA1c: hba1c,
+        Fecha: fechaRegistro,
+
+        Adicional: notas,
+        TipoRegistro: tipoRegistro,
+      };
+
+      console.log(formHba1c);
+      //  API
+      link.registerI(formHba1c).then(() => {
+        window.location.href = "/registros";
+      });
     }
   };
 
@@ -112,6 +140,16 @@ export const CrearRegistro = () => {
             onClick={() => setTipoRegistro("glucosa")}
           >
             Registrar Glucosa
+          </button>
+          <button
+            className={`${
+              tipoRegistro === "hba1c"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
+            } p-2 rounded-lg`}
+            onClick={() => setTipoRegistro("hba1c")}
+          >
+            Registrar HbA1c
           </button>
         </div>
 
@@ -233,6 +271,23 @@ export const CrearRegistro = () => {
                   onChange={(e) => setMedicacionAdicional(e.target.value)}
                   className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Escribe cualquier anotación adicional..."
+                />
+              </div>
+            </>
+          )}
+          {tipoRegistro === "hba1c" && (
+            <>
+              <div className="flex flex-col">
+                <label htmlFor="glucosa" className="mb-2 font-semibold">
+                  Nivel de hemoglobina glucosilada (mg/dL)
+                </label>
+                <input
+                  type="number"
+                  id="nivelHba1c"
+                  value={hba1c}
+                  onChange={(e) => setHbA1c(e.target.value)}
+                  className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Introduce el nivel de HbA1c"
                 />
               </div>
             </>

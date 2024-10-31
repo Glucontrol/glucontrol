@@ -62,6 +62,7 @@ export const listar = async (req, res) => {
           Contenido: 1,
           Fecha: 1,
           urlImg: 1,
+          Categoria: 1,
           Autor: {
             $getField: {
               field: "Nombre",

@@ -123,7 +123,7 @@ export const Articulos = () => {
           </div>
 
           {isLoading ? (
-            <p className="text-center text-xl text-gray-500">
+            <p className="text-center text-xl text-gray-500 h-full ">
               Cargando artículos...
             </p>
           ) : data.length === 0 ? (

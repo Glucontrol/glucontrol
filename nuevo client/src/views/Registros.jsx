@@ -21,7 +21,9 @@ export const Registros = () => {
 
   useEffect(() => {
     link.getRegistersI().then((data) => {
+      console.log(data);
       setRegistros(data);
+
       setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
     });
   }, []);
@@ -131,6 +133,14 @@ export const Registros = () => {
                         <PiDrop className="text-indigo-500 w-6 h-6" />
                         <p className="text-base font-semibold text-gray-700">
                           {registro.Dosis}
+                        </p>
+                      </div>
+                    )}
+                    {registro.HbA1c && (
+                      <div className="flex items-center gap-2">
+                        <PiDrop className="text-indigo-500 w-6 h-6" />
+                        <p className="text-base font-semibold text-gray-700">
+                          {registro.HbA1c}
                         </p>
                       </div>
                     )}
