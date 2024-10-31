@@ -100,9 +100,10 @@ export const eliminar = async (req, res) => {
 
 export const sesion = async (req, res) => {
   const cookie = req.headers.cookie;
+
   console.log(cookie);
   if (cookie) {
-    const token = cookie.substr(6, cookie.length - 1);
+    const token = cookie.trim().substr(6, cookie.length - 1);
     validarJWT(token).then((resultado) => {
       resultado
         ? res.send(resultado).status(200)
