@@ -116,7 +116,7 @@ link.editProfile = async (data) => {
     method: "PATCH",
     credentials: "include",
     body: data,
-  }).then((res) => console.log(res));
+  }).then((res) => (res.ok ? true : false));
 };
 
 link.signUp = async (data) => {
