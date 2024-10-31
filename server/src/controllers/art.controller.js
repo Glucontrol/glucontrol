@@ -61,6 +61,7 @@ export const listar = async (req, res) => {
           Titulo: 1,
           Contenido: 1,
           Fecha: 1,
+          Categoria: 1,
           urlImg: 1,
           Autor: {
             $getField: {
@@ -76,13 +77,45 @@ export const listar = async (req, res) => {
 
 export const leer = async (req, res) => {
   const { id } = req.params;
+
   const o_id = generarOID(id);
-  const doc = await client
+  const articulos = client
     .db("glucontrol")
     .collection("articulos")
-    .findOne({ _id: o_id });
-  if (doc) {
-    res.send(doc);
+    .aggregate([
+      {
+        $match: {
+          _id: o_id,
+        },
+      },
+      {
+        $lookup: {
+          from: "usuarios",
+          localField: "Autor",
+          foreignField: "_id",
+          as: "dbBase",
+        },
+      },
+      {
+        $project: {
+          Titulo: 1,
+          Contenido: 1,
+          Fecha: 1,
+          Categoria: 1,
+          urlImg: 1,
+          Autor: {
+            $getField: {
+              field: "Nombre",
+              input: { $arrayElemAt: ["$dbBase", 0] },
+            },
+          },
+        },
+      },
+    ]);
+  const articulo = await articulos.toArray();
+  if (articulos) {
+    console.log(articulo[0]);
+    res.send(articulo[0]);
   } else {
     res
       .status(404)

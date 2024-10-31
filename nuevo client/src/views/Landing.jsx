@@ -20,6 +20,7 @@ export const Landing = () => {
         <div className="flex flex-row justify-start p-4">
           <h1 className="font-bold text-gray-800 ">Glucontrol</h1>
         </div>
+
         <div className="flex flex-row justify-end mx-3 items-center content-center ">
           <ul className="flex flex-row justify-between gap-8 p-4 ">
             <li className="">Nosotros</li>
