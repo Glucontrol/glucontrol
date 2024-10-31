@@ -28,11 +28,11 @@ export const Register = () => {
     return (
       <button
         className={`${
-          index === type
+          type === text
             ? "border-2 border-sky-500 scale-105 shadow-lg"
             : "bg-gray-100 hover:scale-95"
         } w-1/4 h-32 flex items-center justify-center rounded-md transition-all duration-300`}
-        onClick={() => setType(index)}
+        onClick={() => setType(text)}
       >
         {text}
       </button>

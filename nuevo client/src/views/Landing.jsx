@@ -23,9 +23,6 @@ export const Landing = () => {
 
         <div className="flex flex-row justify-end mx-3 items-center content-center ">
           <ul className="flex flex-row justify-between gap-8 p-4 ">
-            <li className="">Nosotros</li>
-            <li>Servicios</li>
-            <li>Contacto</li>
             <li>
               <a
                 href="/login"
@@ -128,52 +125,6 @@ export const Landing = () => {
               alt="imagen"
               className="w-3/5 content-end items-end justify-end"
             />
-          </div>
-        </div>
-        <div className=" p-10 mt-20 grid grid-cols-2 " data-aos="fade-up">
-          <div className="flex items-center justify-center">
-            <img src={email} alt="" className="w-3/5" />
-          </div>
-          <div>
-            <h2 className="text-3xl font-bold text-center mb-6">Contáctanos</h2>
-            <form className="flex flex-col mx-20">
-              <label className="mb-2" htmlFor="name">
-                Nombre
-              </label>
-              <input
-                className="border rounded-lg p-2 mb-4 "
-                type="text"
-                id="name"
-                placeholder="Tu nombre"
-                required
-              />
-              <label className="mb-2" htmlFor="email">
-                Email
-              </label>
-              <input
-                className="border rounded-lg p-2 mb-4"
-                type="email"
-                id="email"
-                placeholder="Tu email"
-                required
-              />
-              <label className="mb-2" htmlFor="message">
-                Mensaje
-              </label>
-              <textarea
-                className="border rounded-lg p-2 mb-4"
-                id="message"
-                rows="4"
-                placeholder="Tu mensaje"
-                required
-              ></textarea>
-              <button
-                type="submit"
-                className="rounded-lg font-semibold justify-center text-center hover:bg-slate-600 bg-slate-400 p-2 text-white transition ease-in-out delay-150 duration-300"
-              >
-                Enviar
-              </button>
-            </form>
           </div>
         </div>
       </main>

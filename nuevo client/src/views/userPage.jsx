@@ -80,8 +80,9 @@ export default function Usuario() {
                 <p className="text-gray-500 mb-2 md:mb-4">
                   {datosUsuario.Email}
                 </p>
-                <p className="text-sm md:text-base">
-                  Tipo de Diabetes: {user.Type}
+                <p className="text-sm md:text-base ">
+                  Tipo de Diabetes:{" "}
+                  <span className="font-bold">{user.Type}</span>
                 </p>
               </div>
             </div>
@@ -131,11 +132,11 @@ export default function Usuario() {
                           (window.location.href = `/edit/article/${el._id}`)
                         }
                       >
-                        <AiOutlineEdit className="h-8 w-8 text-blue-600" />
+                        <AiOutlineEdit className="h-8 w-8 text-gray-500" />
                       </button>
 
                       <button
-                        className="transform hover:scale-110 transition duration-300"
+                        className="transform hover:scale-110 transition duration-500"
                         onClick={() =>
                           link.delete(el._id).then(() => {
                             setArticles(
@@ -146,7 +147,7 @@ export default function Usuario() {
                           })
                         }
                       >
-                        <AiOutlineDelete className="h-8 w-8 text-red-600" />
+                        <AiOutlineDelete className="h-8 w-8 text-gray-500" />
                       </button>
                     </div>
                   </div>

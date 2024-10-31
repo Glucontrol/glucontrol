@@ -9,6 +9,7 @@ import {
   LuPill,
   LuArrowDownWideNarrow,
   LuFilter,
+  LuTrash,
 } from "react-icons/lu";
 import { PiDrop, PiLightning } from "react-icons/pi";
 import { Footer } from "../components/Footer.jsx";
