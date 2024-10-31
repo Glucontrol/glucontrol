@@ -76,7 +76,7 @@ export const Tarjeta = ({ info }) => {
           </div>
         </div>
         <div className="p-4 flex flex-col">
-          <h2 className="text-lg font-semibold line-clamp-2 mb-2">
+          <h2 className="text-lg font-semibold line-clamp-1 mb-2">
             {info.Titulo}
           </h2>
           <p className="text-sm text-gray-600 mb-2">

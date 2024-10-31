@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import "react-calendar/dist/Calendar.css";
-import { Racha } from "./Racha.jsx";
+import { Racha } from "../components/Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
-import { calcularRacha } from "../views/Racha.jsx";
+import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
 
 const Card = ({ imgSrc, title, description }) => (

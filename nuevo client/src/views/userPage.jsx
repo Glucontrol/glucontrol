@@ -6,7 +6,6 @@ import { UserContext } from "../context/UserContext.jsx";
 import { link } from "../utilities/functions.js";
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 
-
 export default function Usuario() {
   let user = useContext(UserContext);
   console.log(user);
@@ -78,8 +77,13 @@ export default function Usuario() {
                 <h2 className="text-xl md:text-2xl font-semibold">
                   {datosUsuario.Nombre}
                 </h2>
-                <p className="text-gray-500 mb-2 md:mb-4">{datosUsuario.Email}</p>
-                <p className="text-sm md:text-base">Tipo de Diabetes: {user.Type}</p>
+                <p className="text-gray-500 mb-2 md:mb-4">
+                  {datosUsuario.Email}
+                </p>
+                <p className="text-sm md:text-base ">
+                  Tipo de Diabetes:{" "}
+                  <span className="font-bold">{user.Type}</span>
+                </p>
               </div>
             </div>
 
@@ -119,25 +123,31 @@ export default function Usuario() {
                         className="transform hover:scale-110 transition duration-300"
                         href={`./articulo?${el._id}`}
                       >
-                         <AiOutlineEye className="h-8 w-8 text-gray-600" />
+                        <AiOutlineEye className="h-8 w-8 text-gray-600" />
                       </a>
 
                       <button
                         className="transform hover:scale-110 transition duration-300"
-                        onClick={() => (window.location.href = `/edit/article/${el._id}`)}
+                        onClick={() =>
+                          (window.location.href = `/edit/article/${el._id}`)
+                        }
                       >
-                         <AiOutlineEdit className="h-8 w-8 text-blue-600" />
+                        <AiOutlineEdit className="h-8 w-8 text-gray-500" />
                       </button>
 
                       <button
-                        className="transform hover:scale-110 transition duration-300"
+                        className="transform hover:scale-110 transition duration-500"
                         onClick={() =>
                           link.delete(el._id).then(() => {
-                            setArticles(articles.filter((article) => article._id !== el._id));
+                            setArticles(
+                              articles.filter(
+                                (article) => article._id !== el._id
+                              )
+                            );
                           })
                         }
                       >
-                         <AiOutlineDelete className="h-8 w-8 text-red-600" />
+                        <AiOutlineDelete className="h-8 w-8 text-gray-500" />
                       </button>
                     </div>
                   </div>
