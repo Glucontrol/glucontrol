@@ -8,6 +8,8 @@ import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../views/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
+import { DiabetesNews } from "./DiabetesNews.jsx";
+import { NutritionInfo } from "./nutrioninfo.jsx";
 
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -276,6 +278,8 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
+      <DiabetesNews />
+      <NutritionInfo />
       <Footer />
     </>
   );
