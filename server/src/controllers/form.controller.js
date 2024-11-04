@@ -1,4 +1,5 @@
-import { validarJWT } from "../helpers/validarJWT.js";
+import { validarJWT} from "../helpers/validarJWT.js";
+import { generarOID} from "../helpers/generarOID.js";
 import { client } from "../db/database.js";
 const form = {};
 
@@ -82,5 +83,42 @@ export const leerRegistros = async (req, res) => {
     });
   } else {
     res.status(401).send({ error: "Usuario no autenticado" });
+  }
+};
+
+export const deleteRegister = async (req, res) => {
+  const cookie = req.headers.cookie;
+
+  if (!cookie) {
+    return res.status(401).send("No autorizado: falta el token de autenticación");
+  }
+
+  const token = cookie.split("=")[1];
+
+  try {
+    const Usuario = await validarJWT(token);
+    const { _id } = req.params.id || req.body;
+
+    console.log(id, "assakcs")
+
+    if (!id) {
+      return res.status(400).send("Falta el ID del registro");
+    }
+
+    const id = generarOID(_id)
+
+    const resp = await client
+      .db("glucontrol")
+      .collection("registros")
+      .findOneAndDelete({ _id: id, De: Usuario._id });
+
+    if (resp.value) {
+      res.status(200).send("Registro eliminado con éxito");
+    } else {
+      res.status(404).send("Registro no encontrado o sin permisos");
+    }
+  } catch (error) {
+    console.error("Error al eliminar el registro:", error);
+    res.status(500).send("Error interno del servidor");
   }
 };

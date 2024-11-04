@@ -1,4 +1,5 @@
 import {
+  deleteRegister,
   InsulData,
   Insulina,
   leerRegistros,
@@ -9,5 +10,6 @@ router.get("/registrosI", Insulina);
 
 router.post("/insulina", InsulData);
 router.get("/registrosI/:fecha", leerRegistros);
+router.delete("/registrosI/:id", deleteRegister);
 
 export default router;
