@@ -1,5 +1,5 @@
-import { validarJWT} from "../helpers/validarJWT.js";
-import { generarOID} from "../helpers/generarOID.js";
+import { validarJWT } from "../helpers/validarJWT.js";
+import { generarOID } from "../helpers/generarOID.js";
 import { client } from "../db/database.js";
 const form = {};
 
@@ -88,37 +88,26 @@ export const leerRegistros = async (req, res) => {
 
 export const deleteRegister = async (req, res) => {
   const cookie = req.headers.cookie;
-
-  if (!cookie) {
-    return res.status(401).send("No autorizado: falta el token de autenticación");
-  }
-
-  const token = cookie.split("=")[1];
-
-  try {
+  console.log("hola", req.params.id);
+  if (cookie) {
+    const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
-    const { _id } = req.params.id || req.body;
-
-    console.log(id, "assakcs")
-
-    if (!id) {
-      return res.status(400).send("Falta el ID del registro");
-    }
-
-    const id = generarOID(_id)
-
-    const resp = await client
+    console.log(Usuario);
+    const id = generarOID(req.params.id);
+    client
       .db("glucontrol")
       .collection("registros")
-      .findOneAndDelete({ _id: id, De: Usuario._id });
-
-    if (resp.value) {
-      res.status(200).send("Registro eliminado con éxito");
-    } else {
-      res.status(404).send("Registro no encontrado o sin permisos");
-    }
-  } catch (error) {
-    console.error("Error al eliminar el registro:", error);
-    res.status(500).send("Error interno del servidor");
+      .findOneAndDelete({
+        _id: id,
+        De: Usuario._id,
+      })
+      .then((resp) => {
+        console.log("salió", resp);
+        if (resp) {
+          res.send("Articulo Eliminado Con Exito").status(200);
+        } else {
+          res.send("No se ha podido eliminar el Articulo").status(500);
+        }
+      });
   }
 };

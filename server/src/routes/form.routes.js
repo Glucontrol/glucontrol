@@ -10,6 +10,6 @@ router.get("/registrosI", Insulina);
 
 router.post("/insulina", InsulData);
 router.get("/registrosI/:fecha", leerRegistros);
-router.delete("/registrosI/:id", deleteRegister);
+router.delete("/registros/:id", deleteRegister);
 
 export default router;

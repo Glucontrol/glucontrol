@@ -40,18 +40,17 @@ export const Tarjeta = ({ info }) => {
       var icon = "../src/assets/icons/libro.svg";
       break;
   }
-  console.log(info.Categoria);
   return (
     <a
       href={`./articulo?${info._id}`}
-      className={`block w-full rounded-lg max-w-sm mx-auto overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 ${
-        pop ? "opacity-100 scale-100 delay-500" : "opacity-0 scale-95"
+      className={`block w-full rounded-lg max-w-sm mx-auto overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 dark:bg-slate-900 border-gray-950 dark:text-gray-50 ${
+        pop ? "opacity-100 scale-100 " : "opacity-0 scale-95"
       }`}
     >
       <div
         className={`
         flex flex-col rounded-lg shadow-md hover:shadow-xl
-        border ${color.split(" ")[2]} transition-shadow duration-300
+        border dark:border-gray-900 transition-shadow duration-300
       `}
       >
         <div className="relative flex-grow ">
@@ -62,7 +61,7 @@ export const Tarjeta = ({ info }) => {
               className="w-full h-48 object-cover transition-transform duration-300 ease-in-out "
             />
           ) : (
-            <div className="w-full h-48 flex bg-gray-200">
+            <div className="w-full h-48 flex bg-gray-200 dark:bg-gray-700">
               <p className="flex m-auto">No hay imágen</p>
             </div>
           )}
@@ -78,11 +77,7 @@ export const Tarjeta = ({ info }) => {
           </div>
         </div>
         <div className="p-4 flex flex-col">
-<<<<<<< HEAD
-          <h2 className="text-lg font-semibold line-clamp-1 mb-2  text-ellipsis">
-=======
-          <h2 className="text-lg font-semibold line-clamp-1 mb-2">
->>>>>>> b0035bc981657b8ee7df5acf19a40333598febc9
+          <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
             {info.Titulo}
           </h2>
           <p className="text-sm text-gray-600 mb-2">

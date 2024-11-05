@@ -6,6 +6,9 @@ import cloudinary from "cloudinary";
 import cConfig from "../helpers/cloudinary.js";
 
 const Cloudinary = cloudinary.v2;
+import { Resend } from "resend";
+
+const resend = new Resend("re_ZQF7nqyB_BuEZ1QvPRAwB39Z7R9kjZy2e");
 
 // Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 
@@ -48,6 +51,11 @@ export const listar = async (req, res) => {
     .db("glucontrol")
     .collection("articulos")
     .aggregate([
+      {
+        $sort: {
+          _id: -1,
+        },
+      },
       {
         $lookup: {
           from: "usuarios",
@@ -188,7 +196,7 @@ export const edit = async (req, res) => {
   if (cookie) {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
-    doc.Autor = Usuario.Nombre;
+    doc.Autor = Usuario._id;
     console.log("no cambio imagen");
     console.log(doc);
     res.send(

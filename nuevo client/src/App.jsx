@@ -7,7 +7,11 @@ const AppRouter = lazy(() => import("./routes/AppRouter.jsx"));
 function App() {
   const [user, setUser] = useState({ loggedIn: false });
   const [loading, setLoading] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
 
+  darkMode
+    ? document.documentElement.classList.add("dark")
+    : document.documentElement.classList.remove("dark");
   useState(() => {
     link
       .sesion()
