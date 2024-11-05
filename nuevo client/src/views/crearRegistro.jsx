@@ -3,6 +3,7 @@ import { BiArrowBack } from "react-icons/bi";
 import "../style.css";
 import { link } from "../utilities/functions";
 import toast, { Toaster } from "react-hot-toast";
+import {useNavigate}from 'react-router-dom';
 
 export const CrearRegistro = () => {
   // estos son los estads locales para almacenar los valores de los inputs del formulario
@@ -17,6 +18,8 @@ export const CrearRegistro = () => {
   const [notas, setNotas] = useState(""); // Almacena notas o comentarios adicionales
   const [error, setError] = useState(""); // Almacena el mensaje de error si algún campo está incompleto
   const [hba1c, setHbA1c] = useState(""); // Almacena el valor de HbA1c
+
+  const navigate = useNavigate()
 
   // Valida que la dosis de insulina siga el formato adecuado (ej. 10 mg o 5 UI)
   const handleChangeDosis = (value) => {
@@ -57,11 +60,13 @@ export const CrearRegistro = () => {
 
       // API
       link.registerI(formInsulina).then(() => {
-        toast.success("Registro creado con exito");
-        setTimeout(() => {
-          window.location.href = "/registros";
-        }, 1000);
-      });
+        
+          toast.success("Registro creado con éxito");
+          setTimeout(() => {
+            navigate('/registros'); // Redirigir después del toast
+          }, 2000);
+        
+      }); 
     } else if (tipoRegistro === "glucosa") {
       // Validación de campos obligatorios para el registro de glucosa
       if (!glucosa || !fechaRegistro || !estadoFisico || !medicacionAdicional) {
@@ -82,8 +87,13 @@ export const CrearRegistro = () => {
 
       console.log(formGlucosa);
       //  API
-      link.registerI(formGlucosa).then(() => {
-        window.location.href = "/registros";
+      link.registerI(formGlucosa).then((res) => {
+        
+          toast.success("Registro creado con éxito");
+          setTimeout(() => {
+            navigate('/registros'); // Redirigir después del toast
+          }, 1000);
+        
       });
     } else if (tipoRegistro === "hba1c") {
       if (!hba1c || !fechaRegistro) {
@@ -104,7 +114,12 @@ export const CrearRegistro = () => {
       console.log(formHba1c);
       //  API
       link.registerI(formHba1c).then(() => {
-        window.location.href = "/registros";
+      
+          toast.success("Registro creado con éxito");
+          setTimeout(() => {
+            navigate('/registros'); // Redirigir después del toast
+          }, 2000);
+        
       });
     }
   };
@@ -285,7 +300,7 @@ export const CrearRegistro = () => {
                   type="number"
                   id="nivelHba1c"
                   value={hba1c}
-                  onChange={(e) => setHbA1c(e.target.value)}
+                  onChange={(e) => handleChangeHbA1c(e.target.value)}
                   className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Introduce el nivel de HbA1c"
                 />

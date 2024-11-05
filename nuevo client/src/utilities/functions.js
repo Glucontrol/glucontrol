@@ -125,3 +125,20 @@ link.signUp = async (data) => {
     body: data,
   }).then((res) => console.log(res));
 };
+
+link.deleteRegister = async (id) => {
+  try {
+    const response = await fetch(`http://${API_URL}/registrosI/${id}`, {
+      method: "DELETE",
+      credentials: "include"
+    });
+    if (!response.ok) {
+      throw new Error("Error al eliminar el registro");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error; 
+    
+  }
+};

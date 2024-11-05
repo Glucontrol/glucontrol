@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { LuSyringe, LuCalendarCheck, LuClock9 } from "react-icons/lu";
 import { PiDrop, PiLightning } from "react-icons/pi";
+import {link} from '../utilities/functions';
 
 export const Registro = () => {
   const { fecha } = useParams(); // Extraer la fecha de los parámetros
@@ -52,11 +53,12 @@ export const Registro = () => {
           </div>
           <div className="container grid grid-cols-4 mx-4 gap-4 justify-around">
             {Array.isArray(registros) &&
-              registros.map((registro, index) => (
+              registros.map((registro) => (
                 <div
-                  key={index}
+                  key={registro._id}
                   className="bg-white shadow-lg shadow-slate-500 min-h-40 min-w-60 flex flex-col hover:shadow-2xl hover:scale-105 transition-transform duration-200 rounded-lg p-4 space-y-2"
                 >
+                
                   <div className="flex items-center gap-2">
                     <PiLightning className="text-blue-600 w-6 h-6" />
                     <p className="text-lg font-medium">{registro.Tipo}</p>

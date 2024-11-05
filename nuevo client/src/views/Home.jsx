@@ -8,30 +8,33 @@ import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
+import read from "../assets/icons/homeread.svg";
+import gra from "../assets/icons/homegra.svg";
+import care from "../assets/icons/selfcare.svg";
+import {Link } from 'react-router-dom';
 
-const Card = ({ imgSrc, title, description }) => (
-  <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
-    <a href="#">
-      <img
+const Card = ({ imgSrc, title, description, link }) => (
+  <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
+    <Link to={link}>
+    
+    <img
         src={imgSrc}
         alt={title}
-        className="w-full object-cover rounded-md"
+        className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
       />
-    </a>
-    <a href="#">
-      <h4 className="font-bold text-lg md:text-xl mt-2">{title}</h4>
-    </a>
-    <a href="#">
-      <p className="text-gray-600 text-sm md:text-base mt-2">{description}</p>
-    </a>
-    <a
-      href="#"
-      className="text-left font-bold text-black text-md md:text-lg px-3 py-2"
-    >
-      Ver
-    </a>
+    
+    <div className="flex-1 flex flex-col justify-between mt-2"> {/* Esto permite que el contenido se distribuya correctamente */}
+      
+        <h4 className="font-bold text-lg md:text-xl">{title}</h4>
+    
+      
+        <p className="text-gray-600 text-sm md:text-base">{description}</p>
+      
+    </div>
+    </Link>
   </div>
 );
+
 
 const ArticleCard = ({ info }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -247,19 +250,22 @@ export const Home = () => {
               ¿Qué puedo hacer?
             </h4>
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Descubre"
-              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+            link="/registros"
+              imgSrc={care}
+              title="Tu Registro Diario"
+              description="Registrar mis niveles de glucosa e insulina."
             />
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Aprende"
-              description="Conoce más sobre cómo manejar tu condición día a día"
+            link="/articulos"
+              imgSrc={read}
+              title="Cuidado Diario"
+              description="Conocer más sobre cómo cuidar mi salud."
             />
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Comparte"
-              description="Únete a nuestra comunidad y comparte tus experiencias"
+            link="/registros"
+              imgSrc={gra}
+              title="Analiza tu Progreso"
+              description="Descubrir patrones y tendencias de mi salud"
             />
           </div>
 
