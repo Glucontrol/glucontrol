@@ -48,7 +48,7 @@ const CrearArticulo = () => {
   };
 
   return !loading ? (
-    <main className="max-w-4xl mx-auto p-4">
+    <main className="max-w-4xl mx-auto p-4 ">
       <Toaster />
       <div className="flex items-center mb-6">
         <a
@@ -121,21 +121,24 @@ const CrearArticulo = () => {
       </div>
     </main>
   ) : (
-    <main className="max-w-4xl mx-auto p-4">
+    <main className="max-w-4xl mx-auto p-4 dark:bg-slate-700">
+      {document.documentElement.classList.contains("dark")
+        ? document.querySelector("#root").classList.add("bg-slate-800")
+        : console.log("ño")}
       <Toaster />
       <div className="flex items-center mb-6">
         <a
           href="/articulos"
-          className="text-blue-500 hover:text-blue-700 cursor-pointer"
+          className="text-blue-500 hover:text-blue-70 cursor-pointer"
         >
           <BiArrowBack size={24} />
         </a>
-        <h1 className="text-2xl font-bold ml-4">
+        <h1 className="text-2xl font-bold ml-4 dark:text-gray-100">
           {edit ? "Editar Nuevo Artículo" : "Crear Nuevo Artículo"}
         </h1>
       </div>
       <div>
-        <h2 className="text-xl mb-4">
+        <h2 className="text-xl mb-4 dark:text-gray-300">
           Completa con los detalles de tu artículo
         </h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}{" "}

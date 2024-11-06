@@ -55,7 +55,6 @@ export default function Usuario() {
       console.error("Error en la solicitud:", error);
     }
   };
-
   return (
     <>
       <main className="flex min-h-screen flex-col md:flex-row dark:bg-slate-900">
@@ -74,9 +73,18 @@ export default function Usuario() {
                 />
               </div>
               <div className="text-center md:text-left">
-                <h2 className="text-xl md:text-2xl font-semibold">
-                  {datosUsuario.Nombre}
-                </h2>
+                <div className="flex flex-row">
+                  <h2 className="text-xl md:text-2xl font-semibold">
+                    {datosUsuario.Nombre}
+                  </h2>
+                  {!user.isMed ? (
+                    <></>
+                  ) : (
+                    <div className="flex rounded-3xl h-7 mt-1 ml-3 bg-sky-300 text-white w-20">
+                      <h3 className="m-auto">Médico</h3>
+                    </div>
+                  )}
+                </div>
                 <p className="text-gray-500 mb-2 md:mb-4">
                   {datosUsuario.Email}
                 </p>
