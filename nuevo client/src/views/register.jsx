@@ -49,7 +49,13 @@ export const Register = () => {
               e.preventDefault();
               const formData = new FormData(e.target);
               formData.append("Type", type);
-              edit ? link.editProfile(formData) : link.signUp(formData);
+              edit
+                ? link
+                    .editProfile(formData)
+                    .then((res) =>
+                      res ? (window.location.href = "/me") : alert("malió sal")
+                    )
+                : link.signUp(formData);
             }}
             className="space-y-6"
           >
@@ -75,6 +81,29 @@ export const Register = () => {
                 defaultValue={edit ? user.Nombre : ""}
                 className="bg-gray-200 dark:bg-gray-700 border border-gray-300 w-full max-w-xs rounded-lg p-2 text-center text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-sky-500"
               />
+            </div>
+            <div className="flex flex-col items-center">
+              <label
+                htmlFor="Email"
+                className="text-lg text-gray-600 dark:text-gray-300"
+              >
+                Correo Electrónico
+              </label>
+              {edit ? (
+                <input
+                  type="text"
+                  name="Email"
+                  defaultValue={user.Email}
+                  className="bg-gray-200 dark:bg-gray-700 border border-gray-300 w-full max-w-xs rounded-lg p-2 text-center text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-sky-500"
+                  disabled
+                />
+              ) : (
+                <input
+                  type="text"
+                  name="Email"
+                  className="bg-gray-200 dark:bg-gray-700 border border-gray-300 w-full max-w-xs rounded-lg p-2 text-center text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-sky-500"
+                />
+              )}
             </div>
             <div className="flex flex-col items-center">
               <label

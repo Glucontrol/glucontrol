@@ -58,10 +58,10 @@ export default function Usuario() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col md:flex-row">
+      <main className="flex min-h-screen flex-col md:flex-row dark:bg-slate-900">
         <Navbar />
         <div className="flex-1 p-4 md:p-8">
-          <div className="max-w-4xl mx-auto rounded-lg shadow-lg p-4 md:p-8 bg-white">
+          <div className="max-w-4xl mx-auto rounded-lg shadow-lg p-4 md:p-8 bg-white dark:bg-slate-800 dark:text-gray-400">
             <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8">
               Configuración de Usuario
             </h1>
@@ -104,7 +104,7 @@ export default function Usuario() {
                 {articles.map((el) => (
                   <div
                     key={el._id}
-                    className="bg-white text-center rounded-lg shadow-md p-4 hover:bg-gray-100 transition duration-300"
+                    className="bg-white text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
                   >
                     <div className="flex flex-col items-center">
                       {el.urlImg ? (
@@ -114,9 +114,13 @@ export default function Usuario() {
                           className="w-full h-24 md:h-32 rounded-lg object-cover mb-2"
                         />
                       ) : (
-                        <div className="bg-gray-400 w-full h-24 md:h-32 rounded-lg animate-pulse"></div>
+                        <div className="w-full h-24 md:h-32 flex bg-gray-400">
+                          <p className="flex m-auto">No hay imágen</p>
+                        </div>
                       )}
-                      <h1 className="text-md font-semibold">{el.Titulo}</h1>
+                      <h1 className="text-md font-semibold line-clamp-1">
+                        {el.Titulo}
+                      </h1>
                     </div>
                     <div className="flex justify-end mt-4">
                       <a

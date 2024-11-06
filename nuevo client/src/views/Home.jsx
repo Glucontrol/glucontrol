@@ -13,22 +13,28 @@ import care from "../assets/icons/selfcare.svg";
 import read from "../assets/icons/homeread.svg";
 import { NutritionInfo } from "../views/NutrionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
+import care from "../assets/icons/selfcare.svg";
+import {Link } from 'react-router-dom';
 
-const Card = ({ imgSrc, title, description }) => (
-  <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
-    <a href="#">
-      <img
+const Card = ({ imgSrc, title, description, link }) => (
+  <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
+    <Link to={link}>
+    
+    <img
         src={imgSrc}
         alt={title}
         className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
       />
-    </a>
-    <div className="flex-1 flex flex-col justify-between mt-2">
-      {" "}
-      {/* Esto permite que el contenido se distribuya correctamente */}
-      <h4 className="font-bold text-lg md:text-xl">{title}</h4>
-      <p className="text-gray-600 text-sm md:text-base">{description}</p>
+    
+    <div className="flex-1 flex flex-col justify-between mt-2"> {/* Esto permite que el contenido se distribuya correctamente */}
+      
+        <h4 className="font-bold text-lg md:text-xl">{title}</h4>
+    
+      
+        <p className="text-gray-600 text-sm md:text-base">{description}</p>
+      
     </div>
+    </Link>
   </div>
 );
 

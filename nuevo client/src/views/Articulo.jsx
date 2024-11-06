@@ -34,7 +34,8 @@ export const Articulo = () => {
           </h1>
 
           <p className="text-center text-sm text-gray-500 mb-8">
-            Por <span className="font-medium">{contenido.Autor}</span>
+            Por{" "}
+            <span className="font-medium">{contenido.Autor || "Anónimo"} </span>
           </p>
 
           <div

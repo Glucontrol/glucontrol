@@ -149,7 +149,7 @@ const CrearArticulo = () => {
               type="text"
               id="nombreArticulo"
               name="Titulo"
-              defaultValue={`${articulo.Titulo}`}
+              defaultValue={`${edit ? articulo.Titulo : ""}`}
               className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Introduce el nombre del artículo"
             />
@@ -163,7 +163,10 @@ const CrearArticulo = () => {
               className="select w-full rounded-lg focus:outline-none p-2 border border-gray-300 focus:ring-2 focus:ring-blue-500"
               name="Categoria"
             >
-              <option defaultValue={`${articulo.Categoria}`} disabled>
+              <option
+                defaultValue={`${edit ? articulo.Categoria : ""}`}
+                disabled
+              >
                 Selecciona una categoría
               </option>
               <option value="Salud">Salud</option>
@@ -182,12 +185,32 @@ const CrearArticulo = () => {
             <textarea
               id="contenidoArticulo"
               name="Contenido"
-              defaultValue={`${articulo.Contenido}`}
+              defaultValue={`${edit ? articulo.Contenido : ""}`}
               placeholder="Escribe el contenido del artículo..."
               className="w-full h-64 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <input type="file" name="photo" />
+          <input
+            type="file"
+            name="photo"
+            onChange={(e) => {
+              const reader = new FileReader();
+              const file = e.target.files[0];
+              reader.onload = (readerEvent) => {
+                let $img = document.querySelector("#img");
+
+                if (!$img) {
+                  $img = document.createElement("img");
+                }
+
+                $img.src = readerEvent.target.result;
+                $img.style.width = "512px";
+                document.querySelector("form").append($img);
+              };
+
+              reader.readAsDataURL(file);
+            }}
+          />
           <button
             type="submit"
             className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"
