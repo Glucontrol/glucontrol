@@ -3,6 +3,7 @@ import { BiArrowBack } from "react-icons/bi";
 import "../style.css";
 import { link } from "../utilities/functions";
 import toast, { Toaster } from "react-hot-toast";
+import {useNavigate}from 'react-router-dom';
 
 export const CrearRegistro = () => {
   // estos son los estads locales para almacenar los valores de los inputs del formulario
@@ -16,12 +17,21 @@ export const CrearRegistro = () => {
   const [medicacionAdicional, setMedicacionAdicional] = useState(""); // Almacena medicación adicional (si existe)
   const [notas, setNotas] = useState(""); // Almacena notas o comentarios adicionales
   const [error, setError] = useState(""); // Almacena el mensaje de error si algún campo está incompleto
+  const [hba1c, setHbA1c] = useState(""); // Almacena el valor de HbA1c
+
+  const navigate = useNavigate()
 
   // Valida que la dosis de insulina siga el formato adecuado (ej. 10 mg o 5 UI)
   const handleChangeDosis = (value) => {
     const regex = /^\d*(\.\d+)?( mg| UI)?$/;
     if (regex.test(value) || value === "") {
       setDosis(value); // Actualiza la dosis si el valor es válido
+    }
+  };
+  const handleChangeHbA1c = (value) => {
+    const regex = /^\d*(\.\d+)?( mg| UI)?$/;
+    if (regex.test(value) || value === "") {
+      setHbA1c(value); // Actualiza la dosis si el valor es válido
     }
   };
 
@@ -50,11 +60,13 @@ export const CrearRegistro = () => {
 
       // API
       link.registerI(formInsulina).then(() => {
-        toast.success("Registro creado con exito");
-        setTimeout(() => {
-          window.location.href = "/registros";
-        }, 1000);
-      });
+        
+          toast.success("Registro creado con éxito");
+          setTimeout(() => {
+            navigate('/registros'); // Redirigir después del toast
+          }, 2000);
+        
+      }); 
     } else if (tipoRegistro === "glucosa") {
       // Validación de campos obligatorios para el registro de glucosa
       if (!glucosa || !fechaRegistro || !estadoFisico || !medicacionAdicional) {
@@ -75,8 +87,39 @@ export const CrearRegistro = () => {
 
       console.log(formGlucosa);
       //  API
-      link.registerI(formGlucosa).then(() => {
-        window.location.href = "/registros";
+      link.registerI(formGlucosa).then((res) => {
+        
+          toast.success("Registro creado con éxito");
+          setTimeout(() => {
+            navigate('/registros'); // Redirigir después del toast
+          }, 1000);
+        
+      });
+    } else if (tipoRegistro === "hba1c") {
+      if (!hba1c || !fechaRegistro) {
+        setError("Por favor, completa todos los campos obligatorios.");
+        return;
+      }
+
+      setError(""); // Borra los errores previos si la validación es correcta
+
+      const formHba1c = {
+        HbA1c: hba1c,
+        Fecha: fechaRegistro,
+
+        Adicional: notas,
+        TipoRegistro: tipoRegistro,
+      };
+
+      console.log(formHba1c);
+      //  API
+      link.registerI(formHba1c).then(() => {
+      
+          toast.success("Registro creado con éxito");
+          setTimeout(() => {
+            navigate('/registros'); // Redirigir después del toast
+          }, 2000);
+        
       });
     }
   };
@@ -112,6 +155,16 @@ export const CrearRegistro = () => {
             onClick={() => setTipoRegistro("glucosa")}
           >
             Registrar Glucosa
+          </button>
+          <button
+            className={`${
+              tipoRegistro === "hba1c"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
+            } p-2 rounded-lg`}
+            onClick={() => setTipoRegistro("hba1c")}
+          >
+            Registrar HbA1c
           </button>
         </div>
 
@@ -233,6 +286,23 @@ export const CrearRegistro = () => {
                   onChange={(e) => setMedicacionAdicional(e.target.value)}
                   className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Escribe cualquier anotación adicional..."
+                />
+              </div>
+            </>
+          )}
+          {tipoRegistro === "hba1c" && (
+            <>
+              <div className="flex flex-col">
+                <label htmlFor="glucosa" className="mb-2 font-semibold">
+                  Nivel de hemoglobina glucosilada (mg/dL)
+                </label>
+                <input
+                  type="number"
+                  id="nivelHba1c"
+                  value={hba1c}
+                  onChange={(e) => handleChangeHbA1c(e.target.value)}
+                  className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Introduce el nivel de HbA1c"
                 />
               </div>
             </>

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import "react-calendar/dist/Calendar.css";
-import { Racha } from "./Racha.jsx";
+import { Racha } from "../components/Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
-import { calcularRacha } from "../views/Racha.jsx";
+import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
-import { DiabetesNews } from "./DiabetesNews.jsx";
-import { NutritionInfo } from "./nutrioninfo.jsx";
+import { Link } from "react-router-dom";
+import care from "../assets/icons/selfcare.svg";
+import read from "../assets/icons/homeread.svg";
+import { NutritionInfo } from "../views/NutrionInfo.jsx";
+import gra from "../assets/icons/homegra.svg";
 
 const Card = ({ imgSrc, title, description }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -17,21 +20,15 @@ const Card = ({ imgSrc, title, description }) => (
       <img
         src={imgSrc}
         alt={title}
-        className="w-full object-cover rounded-md"
+        className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
       />
     </a>
-    <a href="#">
-      <h4 className="font-bold text-lg md:text-xl mt-2">{title}</h4>
-    </a>
-    <a href="#">
-      <p className="text-gray-600 text-sm md:text-base mt-2">{description}</p>
-    </a>
-    <a
-      href="#"
-      className="text-left font-bold text-black text-md md:text-lg px-3 py-2"
-    >
-      Ver
-    </a>
+    <div className="flex-1 flex flex-col justify-between mt-2">
+      {" "}
+      {/* Esto permite que el contenido se distribuya correctamente */}
+      <h4 className="font-bold text-lg md:text-xl">{title}</h4>
+      <p className="text-gray-600 text-sm md:text-base">{description}</p>
+    </div>
   </div>
 );
 
@@ -249,19 +246,22 @@ export const Home = () => {
               ¿Qué puedo hacer?
             </h4>
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Descubre"
-              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+              link="/registros"
+              imgSrc={care}
+              title="Tu Registro Diario"
+              description="Registrar mis niveles de glucosa e insulina."
             />
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Aprende"
-              description="Conoce más sobre cómo manejar tu condición día a día"
+              link="/articulos"
+              imgSrc={read}
+              title="Cuidado Diario"
+              description="Conocer más sobre cómo cuidar mi salud."
             />
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Comparte"
-              description="Únete a nuestra comunidad y comparte tus experiencias"
+              link="/registros"
+              imgSrc={gra}
+              title="Analiza tu Progreso"
+              description="Descubrir patrones y tendencias de mi salud"
             />
           </div>
 
@@ -278,8 +278,9 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
-      <DiabetesNews />
-      <NutritionInfo />
+      <div className="max-w-3xl mx-auto my-4">
+        <NutritionInfo />
+      </div>
       <Footer />
     </>
   );

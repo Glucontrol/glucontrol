@@ -9,23 +9,39 @@ import {
   LuPill,
   LuArrowDownWideNarrow,
   LuFilter,
+  LuTrash
+  
 } from "react-icons/lu";
 import { PiDrop, PiLightning } from "react-icons/pi";
-import { Footer } from "../components/Footer.jsx";
+import {useNavigate} from 'react-router-dom';
+
 
 export const Registros = () => {
   const [registros, setRegistros] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [filtro, setFiltro] = useState("Todos"); // Estado para el filtro
   const [fecha, setFecha] = useState("Todos");
+  const navigate = useNavigate()
 
   useEffect(() => {
     link.getRegistersI().then((data) => {
+      console.log(data);
       setRegistros(data);
+
       setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
     });
   }, []);
-
+  const handleDelete = async (id) => {
+    try {
+      await link.deleteRegister(id);
+      setRegistros((prevRegistros) => 
+        prevRegistros.filter((registro) => registro._id !== id)
+      );
+    } catch (error) {
+      console.error("Error al eliminar el registro:", error);
+    }
+  };
+ 
   return (
     <>
       <main className="flex mb-8">
@@ -35,7 +51,7 @@ export const Registros = () => {
             <button
               className="px-6 py-3 shadow-lg rounded-full text-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-700 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out border border-indigo-600"
               onClick={() => {
-                window.location.href = "/crearRegistro";
+               navigate('/crearRegistro')
               }}
             >
               Registrar
@@ -53,6 +69,7 @@ export const Registros = () => {
                 <option value="Todos">Todos</option>
                 <option value="Glucosa">Glucosa</option>
                 <option value="Insulina">Insulina</option>
+                <option value="HbA1c">HbA1c</option>
               </select>
             </div>
 
@@ -76,7 +93,7 @@ export const Registros = () => {
               Cargando registros...
             </p>
           ) : registros.length === 0 ? (
-            <p className="text-center text-xl text-gray-500">
+            <p className="text-center text-xl text-gray-500 min-h-full">
               No hay registros disponibles
             </p>
           ) : (
@@ -86,6 +103,7 @@ export const Registros = () => {
                 .filter((registro) => {
                   if (filtro === "Todos") return true;
                   if (filtro === "Glucosa") return registro.Glucosa; // Filtrar por Glucosa
+                  if (filtro === "HbA1c") return registro.HbA1c; // Filtrar por Glucosa
                   if (filtro === "Insulina")
                     return registro.Dosis || registro.Via; // Filtrar por Insulina
                   return true;
@@ -113,24 +131,35 @@ export const Registros = () => {
 
                   return true; // Si no se cumple ninguna condición, no filtrar
                 })
-                .map((registro, index) => (
+                .map((registro) => (
                   <div
-                    key={registro.id || index} // Asegurarse de que el key sea único
+                    key={registro._id} // Asegurarse de que el key sea único
                     className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4"
                   >
+                    <button onClick={() => handleDelete(registro._id)}>
+                        <LuTrash className="text-red-500 w-6 h-6 hover:text-red-700 transition duration-200" />
+                      </button>
                     {registro.Tipo && (
                       <div className="flex items-center gap-2">
                         <PiLightning className="text-indigo-500 w-6 h-6" />
                         <p className="text-base font-semibold text-gray-700">
                           {registro.Tipo}
                         </p>
-                      </div>
+                    </div>
                     )}
                     {registro.Dosis && (
                       <div className="flex items-center gap-2">
                         <PiDrop className="text-indigo-500 w-6 h-6" />
                         <p className="text-base font-semibold text-gray-700">
                           {registro.Dosis}
+                        </p>
+                      </div>
+                    )}
+                    {registro.HbA1c && (
+                      <div className="flex items-center gap-2">
+                        <PiDrop className="text-indigo-500 w-6 h-6" />
+                        <p className="text-base font-semibold text-gray-700">
+                          {registro.HbA1c}
                         </p>
                       </div>
                     )}
@@ -187,7 +216,7 @@ export const Registros = () => {
           )}
         </div>
       </main>
-      <Footer />
+     
     </>
   );
 };

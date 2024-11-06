@@ -86,7 +86,6 @@ export const Login = () => {
                     id="password"
                     name="password"
                     type="password"
-                    required
                     className="w-full border-0 bg-transparent p-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:placeholder-gray-400"
                     placeholder="password"
                     value={password}
