@@ -8,7 +8,10 @@ import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import care from "../assets/icons/selfcare.svg";
 import read from "../assets/icons/homeread.svg";
+import { NutritionInfo } from "../views/nutritionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
 import care from "../assets/icons/selfcare.svg";
 import { Link } from "react-router-dom";
@@ -278,6 +281,9 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
+      <div className="max-w-3xl mx-auto my-4">
+        <NutritionInfo />
+      </div>
       <Footer />
     </>
   );
