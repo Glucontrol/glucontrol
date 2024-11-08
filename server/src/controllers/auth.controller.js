@@ -29,7 +29,6 @@ export const register = async (req, res) => {
       .then((el) => el.url);
     doc.urlImg = await url;
   }
-  doc.Email = "hola@gmail.com";
   doc.Contrasenia = bcrypt.hashSync(doc.Contrasenia, 10);
   console.log(doc);
   client.db("glucontrol").collection("usuarios").insertOne(doc);
@@ -99,9 +98,10 @@ export const eliminar = async (req, res) => {
 };
 
 export const sesion = async (req, res) => {
+  console.log("hola");
   const cookie = req.headers.cookie;
 
-  console.log(cookie);
+  console.log("holiwis", cookie);
   if (cookie) {
     const token = cookie.trim().substr(6, cookie.length - 1);
     validarJWT(token).then((resultado) => {

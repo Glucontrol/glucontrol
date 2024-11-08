@@ -15,13 +15,13 @@ export const Articulo = () => {
 
   return (
     <>
-      <main className="min-h-screen bg-gray-50">
-        <div className="mx-auto max-w-4xl p-6 bg-white shadow-lg rounded-lg my-12">
+      <main className="min-h-screen bg-gray-50 dark:bg-slate-700 p-10">
+        <div className="mx-auto max-w-4xl p-6 bg-white dark:bg-slate-800 shadow-lg rounded-lg ">
           <div className="flex items-center mb-6">
             <a href="/articulos" className="text-blue-500 hover:text-blue-700">
               <BiArrowBack size={24} />
             </a>
-            <h1 className="text-2xl font-bold ml-4">Articulos</h1>
+            <h1 className="text-2xl text-white font-bold ml-4">Articulos</h1>
           </div>
           <img
             src={`${contenido.urlImg}`}
@@ -29,16 +29,17 @@ export const Articulo = () => {
             alt=""
             srcset=""
           />
-          <h1 className="text-center text-4xl font-bold text-gray-800 mt-4 mb-6">
+          <h1 className="text-center text-4xl font-bold text-gray-800 dark:text-gray-100 mt-4 mb-6">
             {contenido.Titulo}
           </h1>
 
-          <p className="text-center text-sm text-gray-500 mb-8">
-            Por <span className="font-medium">{contenido.Autor}</span>
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mb-8">
+            Por{" "}
+            <span className="font-medium">{contenido.Autor || "Anónimo"} </span>
           </p>
 
           <div
-            className="prose max-w-none prose-lg text-gray-700 mx-auto leading-relaxed h-ful"
+            className="prose max-w-none prose-lg text-gray-700 mx-auto dark:text-gray-400 leading-relaxed h-ful"
             dangerouslySetInnerHTML={{
               __html: contenido.Contenido?.replace(/\n/g, "<br>"),
             }}

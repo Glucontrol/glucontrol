@@ -6,6 +6,9 @@ import cloudinary from "cloudinary";
 import cConfig from "../helpers/cloudinary.js";
 
 const Cloudinary = cloudinary.v2;
+import { Resend } from "resend";
+
+const resend = new Resend("re_ZQF7nqyB_BuEZ1QvPRAwB39Z7R9kjZy2e");
 
 // Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
 
@@ -49,6 +52,11 @@ export const listar = async (req, res) => {
     .collection("articulos")
     .aggregate([
       {
+        $sort: {
+          _id: -1,
+        },
+      },
+      {
         $lookup: {
           from: "usuarios",
           localField: "Autor",
@@ -64,6 +72,7 @@ export const listar = async (req, res) => {
           Categoria: 1,
           urlImg: 1,
           Categoria: 1,
+          verified: 1,
           Autor: {
             $getField: {
               field: "Nombre",

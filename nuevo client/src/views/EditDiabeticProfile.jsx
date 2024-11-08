@@ -6,8 +6,6 @@ import * as Toast from "@radix-ui/react-toast";
 import { Plus, Trash } from "lucide-react";
 import { Footer } from "../components/Footer.jsx";
 
-
-
 const Boton = ({ children, onClick, type = "button", className = "" }) => (
   <button
     type={type}

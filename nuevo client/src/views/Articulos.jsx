@@ -3,6 +3,7 @@ import { Tarjeta } from "../components/Tarjeta.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { link } from "../utilities/functions.js";
 import { LuArrowDownWideNarrow, LuFilter, LuSearch } from "react-icons/lu";
+import { Footer } from "../components/Footer.jsx";
 
 export const Articulos = () => {
   const [data, setData] = useState([]);
@@ -64,7 +65,7 @@ export const Articulos = () => {
 
   return (
     <>
-      <main className="flex mb-8">
+      <main className="flex dark:bg-slate-800">
         <Navbar />
         <div className="flex-1 pt-10">
           <div className="flex justify-center mb-10">
@@ -139,6 +140,7 @@ export const Articulos = () => {
           )}
         </div>
       </main>
+      <Footer />
     </>
   );
 };

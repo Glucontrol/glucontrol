@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
+import Chart from "chartjs";
 import {
   LuSyringe,
   LuCalendarCheck,
@@ -9,39 +10,56 @@ import {
   LuPill,
   LuArrowDownWideNarrow,
   LuFilter,
-  LuTrash
-  
+  LuTrash,
 } from "react-icons/lu";
 import { PiDrop, PiLightning } from "react-icons/pi";
-import {useNavigate} from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 export const Registros = () => {
   const [registros, setRegistros] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [filtro, setFiltro] = useState("Todos"); // Estado para el filtro
   const [fecha, setFecha] = useState("Todos");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     link.getRegistersI().then((data) => {
       console.log(data);
       setRegistros(data);
 
-      setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
+      const ctx = document.querySelector("#chart");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [12, 19, 3, 5, 2, 3],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
     });
+    setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
   }, []);
   const handleDelete = async (id) => {
-    try {
-      await link.deleteRegister(id);
-      setRegistros((prevRegistros) => 
+    await link.deleteRegister(id).then((res) => {
+      console.log(res);
+      setRegistros((prevRegistros) =>
         prevRegistros.filter((registro) => registro._id !== id)
       );
-    } catch (error) {
-      console.error("Error al eliminar el registro:", error);
-    }
+    });
   };
- 
+
   return (
     <>
       <main className="flex mb-8">
@@ -51,7 +69,7 @@ export const Registros = () => {
             <button
               className="px-6 py-3 shadow-lg rounded-full text-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-700 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out border border-indigo-600"
               onClick={() => {
-               navigate('/crearRegistro')
+                navigate("/crearRegistro");
               }}
             >
               Registrar
@@ -137,15 +155,15 @@ export const Registros = () => {
                     className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4"
                   >
                     <button onClick={() => handleDelete(registro._id)}>
-                        <LuTrash className="text-red-500 w-6 h-6 hover:text-red-700 transition duration-200" />
-                      </button>
+                      <LuTrash className="text-red-500 w-6 h-6 hover:text-red-700 transition duration-200" />
+                    </button>
                     {registro.Tipo && (
                       <div className="flex items-center gap-2">
                         <PiLightning className="text-indigo-500 w-6 h-6" />
                         <p className="text-base font-semibold text-gray-700">
                           {registro.Tipo}
                         </p>
-                    </div>
+                      </div>
                     )}
                     {registro.Dosis && (
                       <div className="flex items-center gap-2">
@@ -216,7 +234,6 @@ export const Registros = () => {
           )}
         </div>
       </main>
-     
     </>
   );
 };
