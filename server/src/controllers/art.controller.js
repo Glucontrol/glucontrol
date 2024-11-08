@@ -157,7 +157,7 @@ export const deleteArticle = async (req, res) => {
       .collection("articulos")
       .findOneAndDelete({
         _id: id,
-        Autor: Usuario.Nombre,
+        Autor: Usuario._id,
       })
       .then((resp) => {
         if (resp) {
@@ -188,7 +188,7 @@ export const edit = async (req, res) => {
   if (cookie) {
     const token = cookie.split("=")[1];
     const Usuario = await validarJWT(token);
-    doc.Autor = Usuario.Nombre;
+    doc.Autor = Usuario._id;
     console.log("no cambio imagen");
     console.log(doc);
     res.send(
