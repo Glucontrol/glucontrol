@@ -8,32 +8,27 @@ import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
 import care from "../assets/icons/selfcare.svg";
 import read from "../assets/icons/homeread.svg";
 import { NutritionInfo } from "../views/NutrionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
-import care from "../assets/icons/selfcare.svg";
-import {Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Card = ({ imgSrc, title, description, link }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
     <Link to={link}>
-    
-    <img
+      <img
         src={imgSrc}
         alt={title}
         className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
       />
-    
-    <div className="flex-1 flex flex-col justify-between mt-2"> {/* Esto permite que el contenido se distribuya correctamente */}
-      
+
+      <div className="flex-1 flex flex-col justify-between mt-2">
+        {" "}
+        {/* Esto permite que el contenido se distribuya correctamente */}
         <h4 className="font-bold text-lg md:text-xl">{title}</h4>
-    
-      
         <p className="text-gray-600 text-sm md:text-base">{description}</p>
-      
-    </div>
+      </div>
     </Link>
   </div>
 );
@@ -284,8 +279,10 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
-      <div className="max-w-3xl mx-auto my-4">
-        <NutritionInfo />
+      <div className="container mx-auto px-4 md:px-0 md:pl-[220px] lg:pl-[240px]">
+        <div className="max-w-4xl mx-auto">
+          <NutritionInfo />
+        </div>
       </div>
       <Footer />
     </>
