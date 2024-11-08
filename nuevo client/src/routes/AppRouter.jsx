@@ -9,7 +9,7 @@ import { Home } from "../views/Home.jsx";
 import Logout from "../views/Logout.jsx";
 import { CrearRegistro } from "../views/crearRegistro.jsx";
 import { Registros } from "../views/Registros.jsx";
-import { EditDiabeticProfile } from "../views/EditDiabeticProfile";
+
 import { Register } from "../views/register.jsx";
 import PrivateRoutes from "../routes/PrivateRoutes.jsx";
 import { Registro } from "../views/Registro.jsx";
@@ -30,7 +30,7 @@ const AppRouter = () => {
           <Route path="/logout" element={<Logout />} />
           <Route path="/articulo" element={<Articulo />} />
           <Route path="/me" element={<Usuario />}></Route>
-          <Route path="/editProfile" element={<EditDiabeticProfile />}></Route>
+
           <Route path="/home" element={<Home />}></Route>
           <Route path="/crearRegistro" element={<CrearRegistro />}></Route>
           <Route path="/crearArticulo" element={<CrearArticulo />}></Route>

@@ -20,11 +20,13 @@ app.use(express.json()); // express.json para que nuestro servidor pueda reconoc
 import formRouter from "./routes/form.routes.js";
 import artRouter from "./routes/art.routes.js";
 import authRouter from "./routes/auth.routes.js";
+import favRouter from "./routes/fav.routes.js";
 //Requerimos nuestras rutas.
 
 app.use(formRouter);
 app.use(artRouter);
 app.use(authRouter);
+app.use(favRouter);
 
 //Configuramos el puerto al que escuchara nuestro servidor.
 app.listen(port, () => {

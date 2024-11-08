@@ -8,10 +8,8 @@ import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
-import care from "../assets/icons/selfcare.svg";
 import read from "../assets/icons/homeread.svg";
-import { NutritionInfo } from "../views/nutritionInfo.jsx";
+import { NutritionInfo } from "./NutrionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
 import care from "../assets/icons/selfcare.svg";
 import { Link } from "react-router-dom";
@@ -42,10 +40,12 @@ const ArticleCard = ({ info }) => {
     const prevBookmarked = isBookmarked;
     setIsBookmarked(!prevBookmarked);
 
+    console.log(info);
     // Lógica para enviar a la base de datos
     try {
-      const response = await fetch("http://localhost:8080/favoritos", {
+      const response = await fetch("http://localhost:8080/favoritos/1", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -270,6 +270,9 @@ export const Home = () => {
 
           {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-1 mx-4 py-8 ">
+            <NutritionInfo />
+          </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
             <h4 className="text-left font-bold col-span-full mb-1">
@@ -281,9 +284,7 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
-      <div className="max-w-3xl mx-auto my-4">
-        <NutritionInfo />
-      </div>
+      <div className="max-w-3xl mx-auto my-4"></div>
       <Footer />
     </>
   );
