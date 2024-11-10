@@ -23,11 +23,15 @@ export default function Usuario() {
   useEffect(() => {
     fetch("http://localhost:8080/favoritos", {
       credentials: "include",
+      method: "GET",
     })
       .then((res) => res.json())
-      .then((res) => setFavoritos(res));
+      .then((res) => setFavoritos(res)
+    );
+    
   }, []);
-
+  
+  
   const [datosUsuario, setDatosUsuario] = useState({
     Nombre: user.Nombre,
     Email: user.Email,
