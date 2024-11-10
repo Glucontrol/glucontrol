@@ -1,143 +1,224 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer.jsx";
 import { UserContext } from "../context/UserContext.jsx";
+import { link } from "../utilities/functions.js";
+import { AiOutlineEdit, AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 
 export default function Usuario() {
-  const navigate = useNavigate();
-  let user = {};
+  let user = useContext(UserContext);
   console.log(user);
-  setTimeout(() => {
-    console.log("ahi anda");
-  }, 2000 * 2000);
+  const [articles, setArticles] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
+  const [section, setSection] = useState("articulos");
+
+  useEffect(() => {
+    fetch("http://localhost:8080/articles/user", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => setArticles(res));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/favoritos", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => setFavoritos(res));
+  }, []);
+
   const [datosUsuario, setDatosUsuario] = useState({
-    Nombre: user.Nombre || "No especificado",
-    Email: user.Email || "No especificado",
-    Diabetes: user.Type || "No especificado",
-    Edad: user.Age || "No especificado",
-    Peso: user.Weight || "No especificado",
-    Altura: "190",
-    Medicaciones: [
-      { nombre: "Metformina", dosis: "500mg", frecuencia: "2 veces al día" },
-      {
-        nombre: "Insulina",
-        dosis: "10 unidades",
-        frecuencia: "antes de dormir",
-      },
-    ],
-    Citas: [
-      { fecha: "2023-07-15", descripcion: "Chequeo general" },
-      { fecha: "2023-08-01", descripcion: "Análisis de sangre" },
-    ],
+    Nombre: user.Nombre,
+    Email: user.Email,
+    Diabetes: user.Diabetes,
   });
 
-  const actualizarDatosUsuario = (nuevosDatos) => {
-    setDatosUsuario((prevState) => ({
-      ...prevState,
-      ...nuevosDatos,
-    }));
-  };
-
-  const handleEditarPerfil = (e) => {
-    e.preventDefault();
-    navigate("/editProfile", {
-      state: {
-        datosUsuario: datosUsuario,
-      },
-    });
+  const handleSection = (section) => {
+    setSection(section);
   };
 
   return (
     <>
-      <main className="flex min-h-screen">
+      <main className="flex min-h-screen flex-col md:flex-row dark:bg-slate-900">
         <Navbar />
-        <div className="flex-1 p-8">
-          <div className="max-w-4xl mx-auto rounded-lg shadow-lg p-8">
-            <h1 className="text-3xl font-semibold text-center mb-8">
+        <div className="flex-1 p-4 md:p-8">
+          <div className="max-w-4xl mx-auto rounded-lg shadow-lg p-4 md:p-8 bg-white dark:bg-slate-800 dark:text-gray-400">
+            <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8">
               Configuración de Usuario
             </h1>
-            <div className="flex mb-8">
-              <div className="w-32 h-32 rounded-full overflow-hidden mr-8 flex-shrink-0">
+            <div className="flex flex-col md:flex-row items-center mb-6 md:mb-8">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-8 flex-shrink-0">
                 <img
-                  src="/placeholder.svg?height=128&width=128"
+                  src={user.urlImg}
                   className="w-full h-full object-cover"
+                  alt="User profile"
                 />
               </div>
-              <div>
-                <h2 className="text-2xl font-semibold">
-                  {datosUsuario.Nombre}
-                </h2>
-                <p className="text-gray-500 mb-4">{datosUsuario.Email}</p>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
-                  onClick={handleEditarPerfil}
-                >
-                  Editar Perfil
-                </button>
+              <div className="text-center md:text-left">
+                <div className="flex flex-row">
+                  <h2 className="text-xl md:text-2xl font-semibold">
+                    {datosUsuario.Nombre}
+                  </h2>
+                  {!user.isMed ? (
+                    <></>
+                  ) : (
+                    <div className="flex rounded-3xl h-7 mt-1 ml-3 bg-sky-300 text-white w-20">
+                      <h3 className="m-auto">Médico</h3>
+                    </div>
+                  )}
+                </div>
+                <p className="text-gray-500 mb-2 md:mb-4">
+                  {datosUsuario.Email}
+                </p>
+                <p className="text-sm md:text-base ">
+                  Tipo de Diabetes:{" "}
+                  <span className="font-bold">{user.Type}</span>
+                </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-6 mb-8">
-              <InfoItem
-                label="Tipo de Diabetes"
-                value={datosUsuario.Diabetes}
-              />
-              <InfoItem
-                label="Edad"
-                value={`${
-                  user.age ? datosUsuario.Edad + "años" : datosUsuario.Edad
-                } `}
-              />
-              <InfoItem
-                label="Peso"
-                value={`${
-                  user.Weight ? datosUsuario.Peso + "kg" : datosUsuario.Peso
-                } `}
-              />
-              <InfoItem
-                label="Altura"
-                value={`${
-                  user.Height
-                    ? datosUsuario.Altura + "metros"
-                    : datosUsuario.Altura
-                } `}
-              />
+
+            <div className="flex justify-center mb-6">
+              <button
+                className="px-6 py-2 shadow-lg rounded-full text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transform hover:scale-105 transition-all duration-300"
+                onClick={() => (window.location.href = "/edit/user")}
+              >
+                Editar perfil
+              </button>
             </div>
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold mb-4">Medicación actual</h3>
-              <ul className="space-y-2">
-                {datosUsuario.Medicaciones.map((med, index) => (
-                  <li key={index} className="bg-gray-50 p-3 rounded-md">
-                    <span className="font-medium">{med.nombre}</span> -{" "}
-                    {med.dosis} - {med.frecuencia}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Próximas Citas</h3>
-              <ul className="space-y-2">
-                {datosUsuario.Citas.map((cita, index) => (
-                  <li key={index} className="bg-gray-50 p-3 rounded-md">
-                    <span className="font-medium">{cita.fecha}</span> -{" "}
-                    {cita.descripcion}
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+            <section>
+              <div className="flex mb-2 space-x-4 justify-center">
+                <button
+                  className={`px-4 py-2 font-semibold ${
+                    section === "articulos"
+                      ? "text-indigo-600 border-b-2 border-indigo-600"
+                      : "text-gray-600"
+                  }`}
+                  onClick={() => handleSection("articulos")}
+                >
+                  Mis Artículos
+                </button>
+                <button
+                  className={`px-4 py-2 font-semibold ${
+                    section === "favoritos"
+                      ? "text-indigo-600 border-b-2 border-indigo-600"
+                      : "text-gray-600"
+                  }`}
+                  onClick={() => handleSection("favoritos")}
+                >
+                  Favoritos
+                </button>
+              </div>
+
+              {section === "articulos" ? (
+                <div>
+                  <h3 className="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">
+                    Mis Artículos
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {articles.map((el) => (
+                      <div
+                        key={el._id}
+                        className="bg-white text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
+                      >
+                        <div className="flex flex-col items-center">
+                          {el.urlImg ? (
+                            <img
+                              src={el.urlImg}
+                              alt="Artículo"
+                              className="w-full h-24 md:h-32 rounded-lg object-cover mb-2"
+                            />
+                          ) : (
+                            <div className="w-full h-24 md:h-32 flex bg-gray-400">
+                              <p className="flex m-auto">No hay imágen</p>
+                            </div>
+                          )}
+                          <h1 className="text-md font-semibold line-clamp-1">
+                            {el.Titulo}
+                          </h1>
+                        </div>
+                        <div className="flex justify-end mt-4">
+                          <a
+                            className="transform hover:scale-110 transition duration-300"
+                            href={`./articulo?${el._id}`}
+                          >
+                            <AiOutlineEye className="h-8 w-8 text-gray-600" />
+                          </a>
+
+                          <button
+                            className="transform hover:scale-110 transition duration-300"
+                            onClick={() =>
+                              (window.location.href = `/edit/article/${el._id}`)
+                            }
+                          >
+                            <AiOutlineEdit className="h-8 w-8 text-gray-500" />
+                          </button>
+
+                          <button
+                            className="transform hover:scale-110 transition duration-500"
+                            onClick={() =>
+                              link.delete(el._id).then(() => {
+                                setArticles(
+                                  articles.filter(
+                                    (article) => article._id !== el._id
+                                  )
+                                );
+                              })
+                            }
+                          >
+                            <AiOutlineDelete className="h-8 w-8 text-gray-500" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">
+                    Favoritos
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {favoritos.map((el) => (
+                      <div
+                        key={el._id}
+                        className="bg-white text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
+                      >
+                        <div className="flex flex-col items-center">
+                          {el.urlImg ? (
+                            <img
+                              src={el.urlImg}
+                              alt="Favorito"
+                              className="w-full h-24 md:h-32 rounded-lg object-cover mb-2"
+                            />
+                          ) : (
+                            <div className="w-full h-24 md:h-32 flex bg-gray-400">
+                              <p className="flex m-auto">No hay imágen</p>
+                            </div>
+                          )}
+                          <h1 className="text-md font-semibold line-clamp-1">
+                            {el.Titulo}
+                          </h1>
+                        </div>
+                        <div className="flex justify-end mt-4">
+                          <a
+                            className="transform hover:scale-110 transition duration-300"
+                            href={`./articulo?${el._id}`}
+                          >
+                            <AiOutlineEye className="h-8 w-8 text-gray-600" />
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
           </div>
         </div>
       </main>
       <Footer />
     </>
-  );
-}
-
-function InfoItem({ label, value }) {
-  return (
-    <div>
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className="font-medium">{value}</p>
-    </div>
   );
 }

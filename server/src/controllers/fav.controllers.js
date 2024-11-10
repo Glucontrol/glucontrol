@@ -4,21 +4,22 @@ import { validarJWT } from "../helpers/validarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 
 export const agregarFavorito = async (req, res) => {
-  const { token } = req.headers;
-  const { articuloId } = req.body || req.params;
-
+  console.log("llegó");
+  const cookie = req.headers.cookie;
+  const token = cookie.substr(6, cookie.length - 1);
   try {
     const { _id } = await validarJWT(token);
-    const o_id = generarOID(_id);
+    console.log(_id);
 
-    await client.db("glucontrol").collection("favoritos").insertOne({
-      userId: o_id,
-      articuloId: new ObjectId(),
-      fecha: new Date(),
-    });
+    const usuario = await client
+      .db("glucontrol")
+      .collection("usuarios")
+      .findOneAndUpdate({ _id: _id }, { $set: { favoritos2: [] } });
+    console.log("aca", usuario);
 
     res.status(201).send({ message: "Artículo agregado a favoritos" });
   } catch (error) {
+    console.log(error);
     res.status(500).send({ message: "Error al agregar a favoritos", error });
   }
 };

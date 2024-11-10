@@ -1,10 +1,11 @@
-import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
-import { Outlet, Navigate } from "react-router-dom";
-import { link } from "../utilities/functions";
+import { UserContext } from "../context/UserContext";
+import { Navigate, Outlet } from "react-router-dom";
 
 const PublicRoutes = () => {
-  link.sesion().then((res) => console.log("hola", res));
-  return <Outlet />;
+  const user = useContext(UserContext);
+  console.log("publica:", user.loggedIn);
+  return user.loggedIn ? <Navigate to="/home" /> : <Outlet />;
 };
+
 export default PublicRoutes;

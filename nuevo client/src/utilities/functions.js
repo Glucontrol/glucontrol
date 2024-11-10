@@ -76,3 +76,72 @@ link.logOut = async (req, res) => {
     credentials: "include",
   });
 };
+
+link.createArticulo = async (data) => {
+  return fetch(`http://localhost:${API_URL}/articulo`, {
+    method: "POST",
+    credentials: "include",
+    body: data,
+  }).then((res) => res.json());
+};
+
+link.cambiarDatosPerfil = async (datosUsuario) => {
+  return fetch(`http://localhost:${API_URL}/articulo`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(datosUsuario),
+  }).then((res) => res.json());
+};
+
+link.delete = async (id, res) => {
+  return fetch(`http://localhost:${API_URL}/article/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  }).then((res) => (res.status == 200 ? true : false));
+};
+
+link.edit = async (doc, id) => {
+  return fetch(`http://localhost:${API_URL}/article/${id}`, {
+    method: "PATCH",
+    credentials: "include",
+    body: doc,
+  }).then((res) => console.log("editar", res));
+};
+
+link.editProfile = async (data) => {
+  return fetch(`http://localhost:${API_URL}/profile`, {
+    method: "PATCH",
+    credentials: "include",
+    body: data,
+  }).then((res) => (res.ok ? true : false));
+};
+
+link.signUp = async (data) => {
+  return fetch(`http://localhost:${API_URL}/signup`, {
+    method: "POST",
+    body: data,
+  }).then((res) => console.log(res));
+};
+
+link.deleteRegister = async (id) => {
+  console.log("hola");
+  try {
+    const response = await fetch(
+      `http://localhost:${API_URL}/registros/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Error al eliminar el registro");
+    }
+    return await response.text();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

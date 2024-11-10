@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: ["http://localhost:5173"],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
   })
 ); // cors para que nos permita realizar peticiones desde cualquier cliente.
 app.use(morgan("dev")); // morgan para mostrar informacion acerca de las peticiones que llegan a nuestro servidor.
@@ -20,13 +20,13 @@ app.use(express.json()); // express.json para que nuestro servidor pueda reconoc
 import formRouter from "./routes/form.routes.js";
 import artRouter from "./routes/art.routes.js";
 import authRouter from "./routes/auth.routes.js";
-import recRouter from "./routes/rec.routes.js";
+import favRouter from "./routes/fav.routes.js";
 //Requerimos nuestras rutas.
 
 app.use(formRouter);
 app.use(artRouter);
 app.use(authRouter);
-app.use(recRouter);
+app.use(favRouter);
 
 //Configuramos el puerto al que escuchara nuestro servidor.
 app.listen(port, () => {

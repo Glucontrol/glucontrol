@@ -1,6 +1,12 @@
-import React from "react";
+import { useEffect, useState } from "react";
 export const Tarjeta = ({ info }) => {
-  switch (info.categoria) {
+  const [pop, setPop] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setPop(true);
+    }, 200);
+  }, []);
+  switch (info.Categoria) {
     case "Ejercicio":
       var color = "bg-red-200";
       var icon = "../src/assets/icons/ejercicio.svg";
@@ -13,6 +19,22 @@ export const Tarjeta = ({ info }) => {
       var color = "bg-yellow-200";
       var icon = "../src/assets/icons/recetas.svg";
       break;
+    case "Investigación":
+      var color = "bg-blue-200";
+      var icon = "../src/assets/icons/research.svg";
+      break;
+    case "Tecnología":
+      var color = "bg-blue-200";
+      var icon = "../src/assets/icons/tecnologia.svg";
+      break;
+    case "Consejos":
+      var color = "bg-blue-200";
+      var icon = "../src/assets/icons/consejos.svg";
+      break;
+    case "Nutrición":
+      var color = "bg-blue-200";
+      var icon = "../src/assets/icons/nutri.svg";
+      break;
     default:
       var color = "bg-sky-200";
       var icon = "../src/assets/icons/libro.svg";
@@ -20,21 +42,61 @@ export const Tarjeta = ({ info }) => {
   }
   return (
     <a
-      onClick={() => {
-        window.location.href = `./articulo?${info._id}`;
-      }}
+      href={`./articulo?${info._id}`}
+      className={`block w-full rounded-lg max-w-sm mx-auto overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 dark:bg-slate-900 border-gray-950 dark:text-gray-50 ${
+        pop ? "opacity-100 scale-100 " : "opacity-0 scale-95"
+      }`}
     >
       <div
-        className={`tarjeta border-2 mx-5 border-solid  border-gray-200 shadow-lg shadow-gray-300 hover:scale-110 rounded-lg transition ease-in-out duration-200 mt-10`}
+        className={`
+        flex flex-col rounded-lg shadow-md hover:shadow-xl
+        border dark:border-gray-900 transition-shadow duration-300
+      `}
       >
-        <div className="3/4 flex flex-row">
-          <div className="w-80 h-40 flex flex-col align-text-bottom p-2">
-            <h2 className=" font-semibold text-center">{info.Titulo}</h2>
-            <p className="font-normal text-center">{info.Autor}</p>
+        <div className="relative flex-grow ">
+          {info.urlImg ? (
+            <img
+              src={info.urlImg}
+              alt={`${info.Titulo} image`}
+              className="w-full h-48 object-cover transition-transform duration-300 ease-in-out "
+            />
+          ) : (
+            <div className="w-full h-48 flex bg-gray-200 dark:bg-gray-700">
+              <p className="flex m-auto">No hay imágen</p>
+            </div>
+          )}
+          <div
+            className={`absolute top-2 right-2 flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md`}
+          >
+            <img
+              src={icon}
+              className="h-4 w-4"
+              alt=""
+              style={{ filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.25))" }}
+            />
           </div>
-          <div className={`${color} h-auto w-10 `}>
-            <img src={`${icon}`} className="h-10 w-10" alt="" />
+        </div>
+
+        <div className="p-4 flex flex-col">
+          <div className="flex flex-row">
+            <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
+              {info.Titulo}
+            </h2>
+
+            {info.verified ? (
+              <img
+                src="../src/assets/icons/verified.svg"
+                alt=""
+                srcset=""
+                className="relative top-10 left-56"
+              />
+            ) : (
+              <></>
+            )}
           </div>
+          <p className="text-sm text-gray-600 mb-2">
+            {info.Autor || "Anónimo"}
+          </p>
         </div>
       </div>
     </a>

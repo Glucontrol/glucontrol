@@ -2,34 +2,34 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import "react-calendar/dist/Calendar.css";
-import { Racha } from "./Racha.jsx";
+import { Racha } from "../components/Racha.jsx";
 import "../style.css";
 import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
-import { calcularRacha } from "../views/Racha.jsx";
+import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
+import read from "../assets/icons/homeread.svg";
+import { NutritionInfo } from "./NutrionInfo.jsx";
+import gra from "../assets/icons/homegra.svg";
+import care from "../assets/icons/selfcare.svg";
+import { Link } from "react-router-dom";
 
-const Card = ({ imgSrc, title, description }) => (
-  <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
-    <a href="#">
+const Card = ({ imgSrc, title, description, link }) => (
+  <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
+    <Link to={link}>
       <img
         src={imgSrc}
         alt={title}
-        className="w-full object-cover rounded-md"
+        className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
       />
-    </a>
-    <a href="#">
-      <h4 className="font-bold text-lg md:text-xl mt-2">{title}</h4>
-    </a>
-    <a href="#">
-      <p className="text-gray-600 text-sm md:text-base mt-2">{description}</p>
-    </a>
-    <a
-      href="#"
-      className="text-left font-bold text-black text-md md:text-lg px-3 py-2"
-    >
-      Ver
-    </a>
+
+      <div className="flex-1 flex flex-col justify-between mt-2">
+        {" "}
+        {/* Esto permite que el contenido se distribuya correctamente */}
+        <h4 className="font-bold text-lg md:text-xl">{title}</h4>
+        <p className="text-gray-600 text-sm md:text-base">{description}</p>
+      </div>
+    </Link>
   </div>
 );
 
@@ -40,10 +40,12 @@ const ArticleCard = ({ info }) => {
     const prevBookmarked = isBookmarked;
     setIsBookmarked(!prevBookmarked);
 
+    console.log(info);
     // Lógica para enviar a la base de datos
     try {
-      const response = await fetch("http://localhost:8080/favoritos", {
+      const response = await fetch("http://localhost:8080/favoritos/1", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -129,40 +131,6 @@ export const Home = () => {
   const [streak, setStreak] = useState(0);
   const [fechas, setFechas] = useState([]);
 
-  /* useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/registrosI", {
-          method: "GET",
-          credentials: "include", // Para incluir las cookies
-        });
-
-        if (!response.ok) {
-          throw new Error("Error al obtener los registros");
-        }
-
-        const data = await response.json();
-        console.log("Datos recibidos:", data); // Verifica lo que devuelve la API
-
-        // Asegúrate de que la estructura es la esperada
-        const recordsMap = data.reduce((acc, registro) => {
-          const dateString = registro.Fecha.split("T")[0];
-          acc[dateString] = {
-            insulin: registro.Dosis,
-            id: registro._id,
-          };
-
-          return acc;
-        }, {});
-
-        setRecords(recordsMap); // Guardar los registros en el estado
-        console.log("Records actualizados:", recordsMap); // Verifica la estructura de records
-      } catch (error) {
-        console.error("Error al cargar los registros:", error);
-      }
-    };
-    fetchData();
-  }, []); */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -188,6 +156,7 @@ export const Home = () => {
           acc[dateString] = {
             insulin: registro.Dosis,
             id: registro._id,
+            glucosa: registro.Glucosa,
           };
           return acc;
         }, {});
@@ -214,10 +183,12 @@ export const Home = () => {
   const tileClassName = ({ date }) => {
     const dateString = date.toISOString().split("T")[0];
 
-    // Si existe un registro para esa fecha, aplica la clase de fondo
-    if (records[dateString] && records[dateString].insulin) {
-      return "bg-blue-200 text-white"; // Clase para el fondo de la celda
+    if (records[dateString]) {
+      if (records[dateString].insulin || records[dateString].glucosa) {
+        return "bg-blue-200 text-white"; // Celeste si hay insulina
+      }
     }
+
     return ""; // Sin clase si no hay registro
   };
 
@@ -278,24 +249,30 @@ export const Home = () => {
               ¿Qué puedo hacer?
             </h4>
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Descubre"
-              description="Infórmate sobre los últimos avances y tips para cuidar tu salud"
+              link="/registros"
+              imgSrc={care}
+              title="Tu Registro Diario"
+              description="Registrar mis niveles de glucosa e insulina."
             />
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Aprende"
-              description="Conoce más sobre cómo manejar tu condición día a día"
+              link="/articulos"
+              imgSrc={read}
+              title="Cuidado Diario"
+              description="Conocer más sobre cómo cuidar mi salud."
             />
             <Card
-              imgSrc="./assets/img/articulos.svg"
-              title="Comparte"
-              description="Únete a nuestra comunidad y comparte tus experiencias"
+              link="/registros"
+              imgSrc={gra}
+              title="Analiza tu Progreso"
+              description="Descubrir patrones y tendencias de mi salud"
             />
           </div>
 
           {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-1 mx-4 py-8 ">
+            <NutritionInfo />
+          </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-4">
             <h4 className="text-left font-bold col-span-full mb-1">
@@ -307,6 +284,7 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
+      <div className="max-w-3xl mx-auto my-4"></div>
       <Footer />
     </>
   );

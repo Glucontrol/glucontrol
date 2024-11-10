@@ -14,7 +14,7 @@ export const Navbar = () => {
     },
     {
       id: 4,
-      name: `${user.Nombre ? user.Nombre : "Iniciar Sesión"}`,
+      name: "Usuario",
       icon: "account",
       link: "/me",
     },
@@ -30,7 +30,7 @@ export const Navbar = () => {
     <div
       className={`${
         open ? "w-16" : "w-36"
-      }  bg-blend-color-burn border-r-2 flex flex-col items-center duration-300 `}
+      }  bg-blend-color-burn border-r-2 flex flex-col items-center duration-300 dark:bg-slate-700 dark:border-slate-600 `}
       onMouseEnter={() => {
         setOpen(false);
       }}
@@ -38,7 +38,7 @@ export const Navbar = () => {
         setOpen(!open);
       }}
     >
-      <div className="flex flex-col top-20 bottom-36">
+      <div className="flex flex-col top-20 bottom-36 fixed dark:text-gray-300 ">
         <ul className="grid grid-rows-7 relative">
           {Menu.map((el, index) => (
             <a href={el.link} key={index}>
