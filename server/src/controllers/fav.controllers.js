@@ -1,61 +1,60 @@
 import { ObjectId } from "mongodb";
 import { client } from "../db/database.js";
 import { validarJWT } from "../helpers/validarJWT.js";
-import { generarOID } from "../helpers/generarOID.js";
 
 export const agregarFavorito = async (req, res) => {
   console.log("llegó");
   const cookie = req.headers.cookie;
-  const token = cookie.substr(6, cookie.length - 1);
+  const token = cookie.split("=")[1];
+  const { articleId, bookmarked } = req.body; 
   try {
     const { _id } = await validarJWT(token);
-    console.log(_id);
+
+    const update = bookmarked
+      ? { $addToSet: { favoritos: articleId } } 
+      : { $pull: { favoritos: articleId } }; 
 
     const usuario = await client
       .db("glucontrol")
       .collection("usuarios")
-      .findOneAndUpdate({ _id: _id }, { $set: { favoritos2: [] } });
-    console.log("aca", usuario);
+      .findOne({_id:_id})
 
-    res.status(201).send({ message: "Artículo agregado a favoritos" });
+      client
+      .db("glucontrol")
+      .collection("usuarios")
+      .updateOne(
+        {_id:_id}, update
+      )
+    
+    console.log("cambio", usuario);
+
+    res.status(201).send({ message: "Estado de favoritos actualizado" });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Error al agregar a favoritos", error });
+    res.status(500).send({ message: "Error al actualizar favoritos", error });
   }
 };
 
-export const listarFavoritos = async (req, res) => {
-  const { token } = req.headers;
+
+export const obtenerEstadoFavorito = async (req, res) => {
+  const cookie = req.headers.cookie;
+  const token = cookie.split("=")[1];
+  const { articleId }= req.params ;
 
   try {
-    const Usuario = await validarJWT(token);
-    const userId = Usuario._id;
+    const { _id } = await validarJWT(token);
 
-    client.connect();
-
-    const favoritos = await client
+    const usuario = await client
       .db("glucontrol")
-      .collection("favoritos")
-      .aggregate([
-        {
-          $match: { userId: new ObjectId(userId) },
-        },
-        {
-          $lookup: {
-            from: "articulos",
-            localField: "articuloId",
-            foreignField: "_id",
-            as: "articulo",
-          },
-        },
-        {
-          $unwind: "$articulo",
-        },
-      ])
-      .toArray();
+      .collection("usuarios")
+      .findOne({ _id: _id, favoritos: articleId });
 
-    res.send(favoritos);
+    const isBookmarked = usuario ? true : false;
+    res.status(200).send({ isBookmarked });
   } catch (error) {
-    res.status(500).send({ message: "Error al listar favoritos", error });
+    console.log(error);
+    res.status(500).send({ message: "Error al obtener el estado de favorito", error });
   }
 };
+
+

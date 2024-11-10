@@ -1,12 +1,14 @@
 import { Router } from "express";
 import {
   agregarFavorito,
-  listarFavoritos,
+  obtenerEstadoFavorito
 } from "../controllers/fav.controllers.js";
 
 const router = Router();
 
-router.post("/favoritos/:id", agregarFavorito);
-router.get("/favoritos", listarFavoritos);
+router.post("/favoritos", agregarFavorito);
+router.get("/favoritos/:articleId", obtenerEstadoFavorito);
+
+
 
 export default router;
