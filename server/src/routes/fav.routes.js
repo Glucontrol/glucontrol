@@ -1,9 +1,15 @@
 import { Router } from "express";
-import { agregarFavorito, listarFavoritos } from "../controllers/fav.controllers";
+import {
+  agregarFavorito,
+  obtenerEstadoFavorito,
+  listarFavoritos
+} from "../controllers/fav.controllers.js";
 
 const router = Router();
 
-router.post('/favoritos/:id', agregarFavorito);
-router.post('/favoritos', listarFavoritos);
+router.post("/favoritos", agregarFavorito);
+router.get("/favoritos/:articleId", obtenerEstadoFavorito);
+router.get("/favoritos", listarFavoritos);
 
-export default router
+
+export default router;

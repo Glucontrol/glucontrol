@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
-import { Chart } from "chart.js";
+import Chart from "chartjs";
 import {
   LuSyringe,
   LuCalendarCheck,
@@ -154,9 +154,6 @@ export const Registros = () => {
                     key={registro._id} // Asegurarse de que el key sea único
                     className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4"
                   >
-                    <button onClick={() => handleDelete(registro._id)}>
-                      <LuTrash className="text-red-500 w-6 h-6 hover:text-red-700 transition duration-200" />
-                    </button>
                     {registro.Tipo && (
                       <div className="flex items-center gap-2">
                         <PiLightning className="text-indigo-500 w-6 h-6" />
@@ -227,6 +224,11 @@ export const Registros = () => {
                           minute: "2-digit",
                         })}
                       </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => handleDelete(registro._id)}>
+                        <LuTrash className="absolute top-2 right-2 text-indigo-500 w-6 h-6  hover:text-indigo-700 transition duration-200" />
+                      </button>
                     </div>
                   </div>
                 ))}

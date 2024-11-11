@@ -72,6 +72,7 @@ export const listar = async (req, res) => {
           Categoria: 1,
           urlImg: 1,
           Categoria: 1,
+          verified: 1,
           Autor: {
             $getField: {
               field: "Nombre",
@@ -165,7 +166,7 @@ export const deleteArticle = async (req, res) => {
       .collection("articulos")
       .findOneAndDelete({
         _id: id,
-        Autor: Usuario.Nombre,
+        Autor: Usuario._id,
       })
       .then((resp) => {
         if (resp) {

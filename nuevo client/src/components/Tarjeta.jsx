@@ -76,10 +76,24 @@ export const Tarjeta = ({ info }) => {
             />
           </div>
         </div>
+
         <div className="p-4 flex flex-col">
-          <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
-            {info.Titulo}
-          </h2>
+          <div className="flex flex-row">
+            <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
+              {info.Titulo}
+            </h2>
+
+            {info.verified ? (
+              <img
+                src="../src/assets/icons/verified.svg"
+                alt=""
+                srcset=""
+                className="relative top-10 left-56"
+              />
+            ) : (
+              <></>
+            )}
+          </div>
           <p className="text-sm text-gray-600 mb-2">
             {info.Autor || "Anónimo"}
           </p>
