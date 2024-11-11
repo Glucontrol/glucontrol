@@ -40,10 +40,13 @@ const ArticleCard = ({ info }) => {
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/favoritos/${info._id}`, {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          `http://localhost:8080/favoritos/${info._id}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           setIsBookmarked(data.isBookmarked);
@@ -81,57 +84,56 @@ const ArticleCard = ({ info }) => {
       console.log("Artículo marcado/desmarcado con éxito");
     } catch (error) {
       console.error("Error:", error);
-      setIsBookmarked(prevBookmarked)
+      setIsBookmarked(prevBookmarked);
     }
   };
 
   return (
     <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-95 transition ease-in-out duration-200">
-  <div className="relative m-1 h-48 w-full overflow-hidden rounded-t-lg">
-    <img
-      src={info.urlImg}
-      alt={info.title}
-      className="w-full h-full object-cover"
-    />
-    <span className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-      {info.Categoria}
-    </span>
-  </div>
-  
-  <div className="flex flex-col justify-between flex-grow">
-    <div className="flex flex-row justify-around">
-      <a
-        onClick={() => {
-          window.location.href = `./articulo?${info._id}`;
-        }}
-      >
-        <h4 className="text-sm md:text-lg text-black font-bold mt-2">
-          {info.Titulo}
-        </h4>
-      </a>
-      <div onClick={handleBookmarkClick} className="cursor-pointer">
-        {isBookmarked ? (
-          <FaBookmark className="top-3 right-3 mt-4 text-black" />
-        ) : (
-          <FaRegBookmark className="top-3 right-3 mt-4 text-gray-400" />
-        )}
+      <div className="relative m-1 h-48 w-full overflow-hidden rounded-t-lg">
+        <img
+          src={info.urlImg}
+          alt={info.title}
+          className="w-full h-full object-cover"
+        />
+        <span className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+          {info.Categoria}
+        </span>
+      </div>
+
+      <div className="flex flex-col justify-between flex-grow">
+        <div className="flex flex-row justify-around">
+          <a
+            onClick={() => {
+              window.location.href = `./articulo?${info._id}`;
+            }}
+          >
+            <h4 className="text-sm md:text-lg text-black font-bold mt-2">
+              {info.Titulo}
+            </h4>
+          </a>
+          <div onClick={handleBookmarkClick} className="cursor-pointer">
+            {isBookmarked ? (
+              <FaBookmark className="top-3 right-3 mt-4 text-black" />
+            ) : (
+              <FaRegBookmark className="top-3 right-3 mt-4 text-gray-400" />
+            )}
+          </div>
+        </div>
+
+        <div className="mt-auto">
+          <p className="text-black mt-2 text-xs md:text-sm text-center">
+            {info.Autor || "Autor desconocido"}
+          </p>
+          <a
+            href={`./articulo?${info._id}`}
+            className="mt-4 text-center text-blue-600 font-bold text-xs md:text-sm block"
+          >
+            Leer más
+          </a>
+        </div>
       </div>
     </div>
-
-    <div className="mt-auto">
-      <p className="text-black mt-2 text-xs md:text-sm text-center">
-        {info.Autor || "Autor desconocido"}
-      </p>
-      <a
-        href="#"
-        className="mt-4 text-center text-blue-600 font-bold text-xs md:text-sm block"
-      >
-        Leer más
-      </a>
-    </div>
-  </div>
-</div>
-
   );
 };
 
@@ -236,10 +238,12 @@ export const Home = () => {
         <div className="container flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
             <div className="my-5 mx-2 col-span-1 md:col-span-2">
-              <h1 className="text-left font-extrabold m-4 text-2xl md:text-3xl">Un aliado en cada paso de tu camino hacia el bienestar
+              <h1 className="text-left font-extrabold m-4 text-2xl md:text-3xl">
+                Un aliado en cada paso de tu camino hacia el bienestar
               </h1>
               <p className="text-left text-gray-600 w-full m-4">
-                Inspírate a dar pequeños pasos que marcan una gran diferencia en tu salud.
+                Inspírate a dar pequeños pasos que marcan una gran diferencia en
+                tu salud.
               </p>
             </div>
             <div className="my-5 mx-2 col-span-1">
