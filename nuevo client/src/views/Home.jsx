@@ -203,7 +203,7 @@ export const Home = () => {
   return (
     <>
       <Toaster />
-      <main className="flex flex-col md:flex-row">
+      <main className="flex flex-col md:flex-row overflow-hidden">
         <Navbar />
         <div className="container flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
@@ -279,11 +279,7 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
-      <div className="container mx-auto px-4 md:px-0 md:pl-[220px] lg:pl-[240px]">
-        <div className="max-w-4xl mx-auto">
-          <NutritionInfo />
-        </div>
-      </div>
+      <NutritionInfo />
       <Footer />
     </>
   );

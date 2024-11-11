@@ -96,7 +96,7 @@ export const NutritionInfo = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-6">
+    <div className="max-w-3xl p-1 mx-auto">
       <h1 className="text-4xl font-bold text-center mb-8">
         Información Nutricional de Alimentos
       </h1>
