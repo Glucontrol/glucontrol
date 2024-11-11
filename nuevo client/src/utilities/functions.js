@@ -127,7 +127,6 @@ link.signUp = async (data) => {
 };
 
 link.deleteRegister = async (id) => {
-  console.log("hola");
   try {
     const response = await fetch(
       `http://localhost:${API_URL}/registros/${id}`,
