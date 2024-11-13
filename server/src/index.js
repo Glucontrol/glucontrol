@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+
 const port = process.env.URL || 8080;
 //Inicializamos express.
 const app = express();
@@ -18,14 +19,14 @@ app.use(morgan("dev")); // morgan para mostrar informacion acerca de las peticio
 app.use(express.json()); // express.json para que nuestro servidor pueda reconocer los json que recibimos por el body.
 
 import formRouter from "./routes/form.routes.js";
-import artRouter from "./routes/art.routes.js";
-import authRouter from "./routes/auth.routes.js";
+import articlesRoutes from "./routes/art.routes.js";
+import userRoutes from "./routes/auth.routes.js";
 import favRouter from "./routes/fav.routes.js";
 //Requerimos nuestras rutas.
 
 app.use(formRouter);
-app.use(artRouter);
-app.use(authRouter);
+app.use(articlesRoutes);
+app.use(userRoutes);
 app.use(favRouter);
 
 //Configuramos el puerto al que escuchara nuestro servidor.
