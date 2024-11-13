@@ -47,46 +47,45 @@ export const agregar = async (req, res) => {
 };
 
 export const listar = async (req, res) => {
-  try{
-    const articulos = client
-    .db("glucontrol")
-    .collection("articulos")
-    .aggregate([
-      {
-        $sort: {
-          _id: -1,
+  try {
+    const articulos = await client
+      .db("glucontrol")
+      .collection("articulos")
+      .aggregate([
+        {
+          $sort: {
+            _id: -1,
+          },
         },
-      },
-      {
-        $lookup: {
-          from: "usuarios",
-          localField: "Autor",
-          foreignField: "_id",
-          as: "dbBase",
+        {
+          $lookup: {
+            from: "usuarios",
+            localField: "Autor",
+            foreignField: "_id",
+            as: "dbBase",
+          },
         },
-      },
-      {
-        $project: {
-          Titulo: 1,
-          Contenido: 1,
-          Fecha: 1,
-          Categoria: 1,
-          urlImg: 1,
-          Categoria: 1,
-          verified: 1,
-          Autor: {
-            $getField: {
-              field: "Nombre",
-              input: { $arrayElemAt: ["$dbBase", 0] },
+        {
+          $project: {
+            Titulo: 1,
+            Contenido: 1,
+            Fecha: 1,
+            Categoria: 1,
+            urlImg: 1,
+            Categoria: 1,
+            verified: 1,
+            Autor: {
+              $getField: {
+                field: "Nombre",
+                input: { $arrayElemAt: ["$dbBase", 0] },
+              },
             },
           },
         },
-      },
-    ]).then((el)=>el)
-  res.send(await articulos.toArray());
-
-  }catch(error){
-    res.status(500).send(error)
+      ]);
+    res.send(await articulos.toArray());
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
 

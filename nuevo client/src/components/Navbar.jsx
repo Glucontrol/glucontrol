@@ -72,7 +72,7 @@ export const Navbar = () => {
   ) : (
     <div
       className={`${
-        open ? "w-16" : "w-36"
+        open ? "w-16" : "w-44"
       }  bg-blend-color-burn border-r-2 flex flex-col items-center duration-300 dark:bg-slate-700 dark:border-slate-600 `}
       onMouseEnter={() => {
         setOpen(false);
