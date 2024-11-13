@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
-import Chart from "chartjs";
+import { Chart } from "chart.js";
 import {
   LuSyringe,
   LuCalendarCheck,
