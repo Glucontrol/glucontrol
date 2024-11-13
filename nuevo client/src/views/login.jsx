@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaRegEnvelope, FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import Alert from "../components/Alert";
 import { link } from "../utilities/functions";
@@ -45,7 +45,7 @@ export const Login = () => {
               Iniciar Sesión
             </h2>
             <form onSubmit={handleLogin} className="space-y-6">
-              <div>
+              <div className="my">
                 <label
                   htmlFor="text"
                   className="block text-sm font-medium text-gray-700 transition-colors duration-300 dark:text-gray-300"
@@ -53,7 +53,7 @@ export const Login = () => {
                   Nombre de Usuario
                 </label>
                 <div className="mt-1 flex items-center rounded-md border border-gray-300 bg-white transition-colors duration-300 dark:border-gray-600 dark:bg-gray-700">
-                  <FaRegEnvelope className="ml-2 text-gray-400" />
+                  <FaRegUser className="ml-2 text-gray-400" />
                   <input
                     id="email"
                     name="email"
@@ -86,16 +86,7 @@ export const Login = () => {
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-center">
-                <div className="text-sm">
-                  <Link
-                    to="/forgot-password"
-                    className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
-                  >
-                    Olvidé mi contraseña
-                  </Link>
-                </div>
-              </div>
+
               <button
                 type="submit"
                 className={`border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300 w-full `}
@@ -103,28 +94,6 @@ export const Login = () => {
                 Iniciar sesión
               </button>
             </form>
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-gray-500 dark:bg-gray-800 dark:text-gray-400">
-                    O continúa con
-                  </span>
-                </div>
-              </div>
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                {[FaGoogle, FaFacebook, FaApple].map((Icon, index) => (
-                  <button
-                    key={index}
-                    className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-500 shadow-sm transition-colors duration-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
           {/* Panel derecho */}
           <div className="bg-blue-600 p-8 text-white transition-colors duration-300 dark:bg-blue-800 md:w-2/5">

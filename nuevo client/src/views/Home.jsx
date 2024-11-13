@@ -57,13 +57,12 @@ const ArticleCard = ({ info }) => {
     };
 
     fetchBookmarkStatus();
-  }, [info._id]);
+  }, [info._id]); // Dependiendo del ID del artículo
+
   const handleBookmarkClick = async () => {
     const prevBookmarked = isBookmarked;
     setIsBookmarked(!prevBookmarked);
 
-    console.log(info);
-    // Lógica para enviar a la base de datos
     try {
       const response = await fetch("http://localhost:8080/favoritos", {
         method: "POST",
@@ -84,7 +83,7 @@ const ArticleCard = ({ info }) => {
       console.log("Artículo marcado/desmarcado con éxito");
     } catch (error) {
       console.error("Error:", error);
-      setIsBookmarked(prevBookmarked);
+      setIsBookmarked(prevBookmarked); // Revertir el estado en caso de error
     }
   };
 
@@ -249,7 +248,7 @@ export const Home = () => {
             <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
                 <h4 className="text-center font-semibold mb-4">Racha</h4>
-                <Racha value={streak} max={30} />
+                <Racha value={streak} />
               </div>
             </div>
             <div className="my-5 mx-2 col-span-1">
