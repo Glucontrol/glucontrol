@@ -1,34 +1,33 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegEnvelope, FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
+import Alert from "../components/Alert";
 import { link } from "../utilities/functions";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const [password, setPassword] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const [texto, setTexto] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     // Implementa tu lógica de inicio de sesión aquí
     const email = document.querySelector("#email").value;
     const name = document.querySelector("#password").value;
-    link
-      .login(email, name)
-      .then((res) => (res ? (window.location.href = "/home") : alert("Error")));
-  };
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    link.login(email, name).then((res) => {
+      console.log(res);
+      try {
+        if (res.status == 200) {
+          window.location.href = "/home";
+        }
+        setTexto(res.data);
+      } catch (error) {
+      } finally {
+      }
+    });
   };
 
   return (
@@ -41,12 +40,6 @@ export const Login = () => {
               <span className="text-2xl font-bold text-gray-900 transition-colors duration-300 dark:text-white">
                 Glucontrol
               </span>
-              <button
-                onClick={toggleDarkMode}
-                className="rounded-full bg-gray-200 p-2 text-gray-600 transition-colors duration-300 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-              >
-                {darkMode ? "☀️" : "🌙"}
-              </button>
             </div>
             <h2 className="mb-6 text-center text-3xl font-extrabold text-gray-900 transition-colors duration-300 dark:text-white ">
               Iniciar Sesión
@@ -105,7 +98,7 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
-                className="border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300 w-full"
+                className={`border-2 border-slate-400 rounded-full px-12 py-2 inline-block font-semibold hover:bg-slate-500 hover:text-white transition-colors duration-300 w-full `}
               >
                 Iniciar sesión
               </button>
@@ -157,6 +150,7 @@ export const Login = () => {
           </div>
         </div>
       </div>
+      {texto && <Alert prop={{ texto: texto }} />}
     </div>
   );
 };

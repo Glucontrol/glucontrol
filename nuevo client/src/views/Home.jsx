@@ -126,7 +126,7 @@ const ArticleCard = ({ info }) => {
             {info.Autor || "Autor desconocido"}
           </p>
           <a
-            href="#"
+            href={`./articulo?${info._id}`}
             className="mt-4 text-center text-blue-600 font-bold text-xs md:text-sm block"
           >
             Leer más

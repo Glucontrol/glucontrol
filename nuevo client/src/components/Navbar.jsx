@@ -1,12 +1,22 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
-import useMobile from "../utilities/isMobile.jsx"
+import useMobile from "../utilities/isMobile.jsx";
 export const Navbar = () => {
   const user = useContext(UserContext);
 
   const Menu = [
-    { id: 1, name: "Home", icon: "home", link: "/home" },
-    { id: 2, name: "Registros", icon: "register", link: "/registros" },
+    {
+      id: 1,
+      name: "Home",
+      icon: "home",
+      link: "/home",
+    },
+    {
+      id: 2,
+      name: "Registros",
+      icon: "register",
+      link: "/registros",
+    },
     {
       id: 3,
       name: "Articulos",
@@ -20,7 +30,7 @@ export const Navbar = () => {
       link: "/me",
     },
     {
-      name: "Cerrar Sesión",
+      name: "Salir",
       icon: "logout",
       link: "/logout",
     },
@@ -28,26 +38,23 @@ export const Navbar = () => {
   const [open, setOpen] = useState(true);
 
   const [width, setWidth] = useState(window.innerWidth);
-    
+
   function handleWindowSizeChange() {
-  setWidth(window.innerWidth);
-}
-useEffect(() => {
-  window.addEventListener('resize', handleWindowSizeChange);
-  return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
+    setWidth(window.innerWidth);
   }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
 
-}, []);
-
-
-
-  return (
-    (width <= 768) ? <>
-    <div className="fixed bottom-0 flex w-full justify-between bg-white z-10 border border-t-2 ">
-    <ul className="flex flex-row mx-auto gap-28">
+  return width <= 768 ? (
+    <>
+      <div className="fixed bottom-0 flex w-full justify-between bg-white z-10 border border-t-2 ">
+        <ul className="flex flex-row mx-auto gap-28">
           {Menu.map((el, index) => (
-            <a href={el.link} key={index} >
+            <a href={el.link} key={index}>
               <li
                 className={`${
                   el.gap ? "mt-8" : "mt-3"
@@ -55,13 +62,14 @@ useEffect(() => {
                   el.class
                 }  `}
               >
-                <img src={`../src/assets/icons/${el.icon}.svg`} />  
+                <img src={`../src/assets/icons/${el.icon}.svg`} />
               </li>
             </a>
           ))}
         </ul>
-    </div>
-    </> :
+      </div>
+    </>
+  ) : (
     <div
       className={`${
         open ? "w-16" : "w-36"
@@ -73,14 +81,14 @@ useEffect(() => {
         setOpen(!open);
       }}
     >
-      <div className="flex flex-col top-20 bottom-36 fixed dark:text-gray-300 ">
-        <ul className="grid grid-rows-7 gap-y-14 relative">
+      <div className="flex flex-col my-10 fixed dark:text-gray-300 ">
+        <ul className="grid grid-rows-7 gap-y-24 relative">
           {Menu.map((el, index) => (
-            <a href={el.link} key={index} >
+            <a href={el.link} key={index}>
               <li
                 className={`${
                   el.gap ? "mt-8" : "mt-3"
-                } flex h-10 ml-5 hover:scale-110 duration-100 w-full hover:shadow-lg hover:rounded-lg ${
+                } flex h-10 ml-5 hover:scale-110 duration-100 w-full  hover:rounded-lg ${
                   el.class
                 }  `}
               >
@@ -99,7 +107,4 @@ useEffect(() => {
       </div>
     </div>
   );
-
-
-
 };

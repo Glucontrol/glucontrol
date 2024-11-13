@@ -47,7 +47,8 @@ export const agregar = async (req, res) => {
 };
 
 export const listar = async (req, res) => {
-  const articulos = client
+  try{
+    const articulos = client
     .db("glucontrol")
     .collection("articulos")
     .aggregate([
@@ -81,8 +82,12 @@ export const listar = async (req, res) => {
           },
         },
       },
-    ]);
+    ]).then((el)=>el)
   res.send(await articulos.toArray());
+
+  }catch(error){
+    res.status(500).send(error)
+  }
 };
 
 export const leer = async (req, res) => {

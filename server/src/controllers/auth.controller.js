@@ -2,7 +2,6 @@ import { client } from "../db/database.js";
 import bcrypt from "bcrypt";
 import { generarJWT } from "../helpers/generarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
-import { ObjectId } from "mongodb";
 import { validarJWT } from "../helpers/validarJWT.js";
 import fs from "fs";
 import cloudinary from "cloudinary";
@@ -37,6 +36,7 @@ export const register = async (req, res) => {
   });
 };
 
+//Terminao
 export const login = async (req, res) => {
   const { Nombre, Contraseña } = req.body;
   client
@@ -44,33 +44,24 @@ export const login = async (req, res) => {
     .collection("usuarios")
     .findOne({ Nombre: Nombre })
     .then((usuario) => {
-      console.log(usuario);
-      if (usuario) {
-        if (bcrypt.compareSync(Contraseña, usuario.Contrasenia)) {
-          generarJWT({ id: usuario._id }).then((token) => {
-            res.cookie("token", token, {
-              httpOnly: true,
+      try {
+        if (usuario) {
+          if (bcrypt.compareSync(Contraseña, usuario.Contrasenia)) {
+            generarJWT({ id: usuario._id }).then((token) => {
+              res.cookie("token", token, {
+                httpOnly: true,
+              });
+              res.status(200).send("Sesión Iniciada con exito.");
             });
-            res.status(200).send("Authorized");
-          });
+          } else {
+            throw new Error("Las contraseñas no son correctas");
+          }
         } else {
-          res.status(400).send("Bad Login");
+          throw new Error("El usuario no existe");
         }
-      } else {
-        res.status(404).json({ msg: "El usuario no existe" });
+      } catch (error) {
+        res.status(400).send(`${error}`);
       }
-      // bcrypt
-      //   .compareSync(Contraseña, usuario.Contrasenia)
-      //   .then((resultado) => {
-      //     if (resultado) {
-      //       generarJWT({ id: buscarUsuario._id }).then((token) =>
-      //         res.json({ msg: "Inicio de sesión exitoso", token })
-      //       );
-      //     } else {
-      //       return res.status(401).json({
-      //         msg: "El usuario o contraseña no coiciden",
-      //       });
-      //     }
     });
 };
 
@@ -97,8 +88,8 @@ export const eliminar = async (req, res) => {
   }
 };
 
+//Falta
 export const sesion = async (req, res) => {
-  console.log("hola");
   const cookie = req.headers.cookie;
 
   console.log("holiwis", cookie);
@@ -115,9 +106,10 @@ export const sesion = async (req, res) => {
 };
 
 export const logOut = async (req, res) => {
-  res.clearCookie("token").send("hola");
+  res.clearCookie("token").send("");
 };
 
+//
 export const user = async (req, res) => {
   const { user } = req.params;
   const usuario = await client

@@ -24,14 +24,15 @@ link.login = async (Nombre, Contraseña) => {
       "Content-Type": "Application/Json",
     },
     body: JSON.stringify({ Nombre, Contraseña }),
-  }).then((response) => {
-    if (response.status == 200) {
-      console.log("salió bien");
-      return true;
-    } else {
-      return false;
-    }
-  });
+  }).then((response) =>
+    response.text().then((res) => {
+      console.log(res);
+      return {
+        status: response.status,
+        data: res,
+      };
+    })
+  );
 };
 
 link.sesion = async (req, res) => {

@@ -8,16 +8,6 @@ export const Register = () => {
   const user = useContext(UserContext);
   const path = window.location.pathname.split("/");
   const edit = path[1] === "edit";
-  const [preview, setPreview] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -49,13 +39,17 @@ export const Register = () => {
               e.preventDefault();
               const formData = new FormData(e.target);
               formData.append("Type", type);
-              edit
-                ? link
-                    .editProfile(formData)
-                    .then((res) =>
-                      res ? (window.location.href = "/me") : alert("malió sal")
-                    )
-                : link.signUp(formData);
+              try {
+                edit
+                  ? link
+                      .editProfile(formData)
+                      .then((res) =>
+                        res
+                          ? (window.location.href = "/me")
+                          : alert("malió sal")
+                      )
+                  : link.signUp(formData);
+              } catch (error) {}
             }}
             className="space-y-6"
           >
