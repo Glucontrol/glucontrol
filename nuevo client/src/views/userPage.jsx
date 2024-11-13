@@ -26,12 +26,9 @@ export default function Usuario() {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((res) => setFavoritos(res)
-    );
-    
+      .then((res) => setFavoritos(res));
   }, []);
-  
-  
+
   const [datosUsuario, setDatosUsuario] = useState({
     Nombre: user.Nombre,
     Email: user.Email,
@@ -124,7 +121,8 @@ export default function Usuario() {
                     {articles.map((el) => (
                       <div
                         key={el._id}
-                        className="bg-white text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
+                        className="bg-white hover:-translate-y-4
+                        text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
                       >
                         <div className="flex flex-col items-center">
                           {el.urlImg ? (
@@ -187,7 +185,7 @@ export default function Usuario() {
                     {favoritos.map((el) => (
                       <div
                         key={el._id}
-                        className="bg-white text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
+                        className="bg-white text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300 "
                       >
                         <div className="flex flex-col items-center">
                           {el.urlImg ? (

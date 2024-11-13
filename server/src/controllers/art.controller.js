@@ -10,8 +10,6 @@ import { Resend } from "resend";
 
 const resend = new Resend("re_ZQF7nqyB_BuEZ1QvPRAwB39Z7R9kjZy2e");
 
-// Definimos un objeto vacio con el nombre 'export const  (abreviatura de controller).
-
 const API_ENV =
   "CLOUDINARY_URL=cloudinary://848899543485337:GmUUP_OaI0LxaaCpU9ItUfnzpIw@dz8trxow0";
 
@@ -47,52 +45,54 @@ export const agregar = async (req, res) => {
 };
 
 export const listar = async (req, res) => {
-  try{
-    const articulos = client
-    .db("glucontrol")
-    .collection("articulos")
-    .aggregate([
-      {
-        $sort: {
-          _id: -1,
-        },
+  const config = [
+    {
+      $sort: {
+        _id: -1,
       },
-      {
-        $lookup: {
-          from: "usuarios",
-          localField: "Autor",
-          foreignField: "_id",
-          as: "dbBase",
-        },
+    },
+    {
+      $lookup: {
+        from: "usuarios",
+        localField: "Autor",
+        foreignField: "_id",
+        as: "dbBase",
       },
-      {
-        $project: {
-          Titulo: 1,
-          Contenido: 1,
-          Fecha: 1,
-          Categoria: 1,
-          urlImg: 1,
-          Categoria: 1,
-          verified: 1,
-          Autor: {
-            $getField: {
-              field: "Nombre",
-              input: { $arrayElemAt: ["$dbBase", 0] },
-            },
+    },
+    {
+      $project: {
+        Titulo: 1,
+        Contenido: 1,
+        Fecha: 1,
+        Categoria: 1,
+        urlImg: 1,
+        Categoria: 1,
+        verified: 1,
+        Autor: {
+          $getField: {
+            field: "Nombre",
+            input: { $arrayElemAt: ["$dbBase", 0] },
           },
         },
       },
-    ]).then((el)=>el)
-  res.send(await articulos.toArray());
-
-  }catch(error){
-    res.status(500).send(error)
+    },
+  ];
+  try {
+    const articulos = client
+      .db("glucontrol")
+      .collection("articulos")
+      .aggregate(config)
+      .toArray()
+      .then((array) => {
+        res.send(array);
+      });
+  } catch (err) {
+    res.status(500).send(err);
   }
 };
 
 export const leer = async (req, res) => {
   const { id } = req.params;
-
   const o_id = generarOID(id);
   const articulos = client
     .db("glucontrol")
@@ -142,45 +142,33 @@ export const leer = async (req, res) => {
 };
 
 export const buscarPorUsuario = async (req, res) => {
-  const cookie = req.headers.cookie;
-  if (cookie) {
-    const token = cookie.split("=")[1];
-    const Usuario = await validarJWT(token);
-    console.log("id", Usuario._id);
-    const Articles = client
+  try {
+    client
       .db("glucontrol")
       .collection("articulos")
-      .find({ Autor: Usuario._id });
-    res.send(await Articles.toArray());
-  } else {
-    res.send("Fallo en la autorización").status(400);
+      .find({ Autor: req.user._id })
+      .toArray()
+      .then((articles) => res.status(200).send(articles));
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
 
 export const deleteArticle = async (req, res) => {
-  const cookie = req.headers.cookie;
-  console.log("hola", req.params.id);
-  if (cookie) {
-    const token = cookie.split("=")[1];
-    const Usuario = await validarJWT(token);
-    console.log(Usuario);
-    const id = generarOID(req.params.id);
-    console.log(id);
-    client
-      .db("glucontrol")
-      .collection("articulos")
-      .findOneAndDelete({
-        _id: id,
-        Autor: Usuario._id,
-      })
-      .then((resp) => {
-        if (resp) {
-          res.send("Articulo Eliminado Con Exito").status(200);
-        } else {
-          res.send("No se ha podido eliminar el Articulo").status(500);
-        }
-      });
-  }
+  client
+    .db("glucontrol")
+    .collection("articulos")
+    .findOneAndDelete({
+      _id: id,
+      Autor: req.user._id,
+    })
+    .then((resp) => {
+      if (resp) {
+        res.send("Articulo Eliminado Con Exito").status(200);
+      } else {
+        res.send("No se ha podido eliminar el Articulo").status(500);
+      }
+    });
 };
 
 export const edit = async (req, res) => {

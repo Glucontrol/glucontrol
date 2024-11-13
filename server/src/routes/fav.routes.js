@@ -2,14 +2,13 @@ import { Router } from "express";
 import {
   agregarFavorito,
   obtenerEstadoFavorito,
-  listarFavoritos
+  listarFavoritos,
 } from "../controllers/fav.controllers.js";
-
+import verifyUser from "../middlewares/getUser.js";
 const router = Router();
 
-router.post("/favoritos", agregarFavorito);
-router.get("/favoritos/:articleId", obtenerEstadoFavorito);
-router.get("/favoritos", listarFavoritos);
-
+router.post("/favoritos", verifyUser, agregarFavorito);
+router.get("/favoritos/:articleId", verifyUser, obtenerEstadoFavorito);
+router.get("/favoritos", verifyUser, listarFavoritos);
 
 export default router;
