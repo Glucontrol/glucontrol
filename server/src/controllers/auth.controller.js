@@ -90,19 +90,7 @@ export const eliminar = async (req, res) => {
 
 //Falta
 export const sesion = async (req, res) => {
-  const cookie = req.headers.cookie;
-
-  console.log("holiwis", cookie);
-  if (cookie) {
-    const token = cookie.trim().substr(6, cookie.length - 1);
-    validarJWT(token).then((resultado) => {
-      resultado
-        ? res.send(resultado).status(200)
-        : res.status(400).send({ loggedIn: false });
-    });
-  } else {
-    res.status(404).send({ loggedIn: false });
-  }
+  res.send(req.user);
 };
 
 export const logOut = async (req, res) => {

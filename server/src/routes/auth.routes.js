@@ -9,6 +9,7 @@ import {
   datosUsuario,
   edit,
 } from "../controllers/auth.controller.js";
+import verifyUser from "../middlewares/getUser.js";
 import multer from "multer";
 
 import { Router } from "express";
@@ -30,7 +31,7 @@ router.post("/admin/:user", user);
 //Para eliminar algún pobre diablo
 router.post("/admin", eliminar);
 //Ver si está el usuario iniciada
-router.get("/sesion", sesion);
+router.get("/sesion", verifyUser, sesion);
 // Exportamos las rutas
 router.delete("/logout", logOut);
 router.put("/me", datosUsuario);

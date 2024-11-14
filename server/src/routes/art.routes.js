@@ -6,6 +6,7 @@ import {
   deleteArticle,
   edit,
 } from "../controllers/art.controller.js";
+import verifyUser from "../middlewares/getUser.js";
 
 import multer from "multer";
 
@@ -18,7 +19,7 @@ const router = Router();
 //Ver todos los articulos
 router.get("/articulos", listar);
 //Buscar por usuario
-router.get("/articles/user", buscarPorUsuario);
+router.get("/articles/user", verifyUser, buscarPorUsuario);
 //Leer un articulo
 router.get("/articulo/:id", leer);
 //Agregar un articulo
