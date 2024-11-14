@@ -4,7 +4,12 @@ import { generarOID } from "../helpers/generarOID.js";
 
 const verifyUser = async (req, res, next) => {
   const { cookie } = req.headers;
-  let token = cookie.includes(";") ? cookie.split(";")[0] : cookie.substr(6);
+  let token = "";
+  if (cookie) {
+    token = cookie.includes(";") ? cookie.split(";")[0] : cookie.substr(6);
+    console.log(token);
+  }
+
   try {
     generarOID(jwt.verify(token, "mysecret").id)
       .then((o_id) =>
