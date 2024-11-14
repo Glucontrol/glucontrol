@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
+import useBookmark from "../utilities/useBookmark";
+
 export const Tarjeta = ({ info }) => {
+  const [isBookmarked, toggleBookmark] = useBookmark(info._id);
+
   const [pop, setPop] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setPop(true);
     }, 200);
   }, []);
+
   switch (info.Categoria) {
     case "Ejercicio":
       var color = "bg-red-200";
@@ -40,6 +46,7 @@ export const Tarjeta = ({ info }) => {
       var icon = "../src/assets/icons/libro.svg";
       break;
   }
+
   return (
     <a
       href={`./articulo?${info._id}`}
@@ -48,56 +55,63 @@ export const Tarjeta = ({ info }) => {
       }`}
     >
       <div
-        className={`
-        flex flex-col rounded-lg shadow-md hover:shadow-xl
-        border dark:border-gray-900 transition-shadow duration-300
-      `}
+        className={`flex flex-col rounded-lg shadow-md hover:shadow-xl border dark:border-gray-900 transition-shadow duration-300`}
       >
-        <div className="relative flex-grow ">
+        <div className="relative flex-grow">
           {info.urlImg ? (
             <img
               src={info.urlImg}
               alt={`${info.Titulo} image`}
-              className="w-full h-48 object-cover transition-transform duration-300 ease-in-out "
+              className="w-full h-48 object-cover transition-transform duration-300 ease-in-out"
             />
           ) : (
             <div className="w-full h-48 flex bg-gray-200 dark:bg-gray-700">
               <p className="flex m-auto">No hay imágen</p>
             </div>
           )}
-          <div
-            className={`absolute top-2 right-2 flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md`}
-          >
-            <img
-              src={icon}
-              className="h-4 w-4"
-              alt=""
-              style={{ filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.25))" }}
-            />
-          </div>
-        </div>
-
-        <div className="p-4 flex flex-col">
-          <div className="flex flex-row">
-            <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
-              {info.Titulo}
-            </h2>
-
-            {info.verified ? (
+          <div className="absolute top-2 right-2 flex flex-col items-center space-y-2">
+            <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md">
               <img
-                src="../src/assets/icons/verified.svg"
+                src={icon}
+                className="h-4 w-4"
                 alt=""
-                srcset=""
-                className="relative top-10 left-56"
+                style={{ filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.25))" }}
               />
-            ) : (
-              <></>
-            )}
+            </div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                toggleBookmark();
+              }}
+              className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md"
+            >
+              {isBookmarked ? (
+                <FaBookmark className="text-[#0000F5]" />
+              ) : (
+                <FaRegBookmark className="text-[#0000F5]" />
+              )}
+            </button>
           </div>
-          <p className="text-sm text-gray-600 mb-2">
-            {info.Autor || "Anónimo"}
-          </p>
         </div>
+      </div>
+
+      <div className="p-4 flex flex-col">
+        <div className="flex flex-row">
+          <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
+            {info.Titulo}
+          </h2>
+
+          {info.verified ? (
+            <img
+              src="../src/assets/icons/verified.svg"
+              alt=""
+              className="relative top-10 left-56"
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+        <p className="text-sm text-gray-600 mb-2">{info.Autor || "Anónimo"}</p>
       </div>
     </a>
   );

@@ -20,7 +20,6 @@ export const agregarFavorito = async (req, res) => {
 
 export const obtenerEstadoFavorito = async (req, res) => {
   const { articleId } = req.params;
-
   try {
     const usuario = await client
       .db("glucontrol")
@@ -38,6 +37,7 @@ export const obtenerEstadoFavorito = async (req, res) => {
 };
 
 export const listarFavoritos = async (req, res) => {
+  console.log("hola", req.user);
   try {
     if (!req.user || !Array.isArray(req.user.favoritos)) {
       return res.status(404).send({
@@ -53,7 +53,7 @@ export const listarFavoritos = async (req, res) => {
       .aggregate([
         {
           $match: {
-            _id: { $in: favoritosIds },
+            _id: { $in: await favoritosIds },
           },
         },
         {
