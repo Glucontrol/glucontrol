@@ -13,13 +13,22 @@ export const Articulos = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    link.articulos().then((response) => {
-      setData(response);
-      setIsLoading(false);
-    });
+    link
+      .articulos()
+      .then((response) => {
+        setData(Array.isArray(response) ? response : []);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al cargar los artículos:", error);
+        setData([]);
+        setIsLoading(false);
+      });
   }, []);
 
   const filtrarArticulos = () => {
+    if (!Array.isArray(data)) return [];
+
     return data
       .filter((articulo) => {
         if (filtroTema === "Todos") return true;

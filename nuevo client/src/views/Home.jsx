@@ -8,11 +8,11 @@ import { Footer } from "../components/Footer.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { calcularRacha } from "../components/Racha.jsx";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
-import care from "../assets/icons/selfcare.svg";
 import read from "../assets/icons/homeread.svg";
 import { NutritionInfo } from "./NutrionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
+import care from "../assets/icons/selfcare.svg";
+import { Link } from "react-router-dom";
 
 const Card = ({ imgSrc, title, description, link }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -20,12 +20,10 @@ const Card = ({ imgSrc, title, description, link }) => (
       <img
         src={imgSrc}
         alt={title}
-        className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
+        className="w-full h-48 object-cover rounded-md"
       />
 
       <div className="flex-1 flex flex-col justify-between mt-2">
-        {" "}
-        {/* Esto permite que el contenido se distribuya correctamente */}
         <h4 className="font-bold text-lg md:text-xl">{title}</h4>
         <p className="text-gray-600 text-sm md:text-base">{description}</p>
       </div>
@@ -36,7 +34,6 @@ const Card = ({ imgSrc, title, description, link }) => (
 const ArticleCard = ({ info }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  // Obtener el estado inicial al cargar el componente
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       try {
@@ -58,12 +55,12 @@ const ArticleCard = ({ info }) => {
 
     fetchBookmarkStatus();
   }, [info._id]);
+
   const handleBookmarkClick = async () => {
     const prevBookmarked = isBookmarked;
     setIsBookmarked(!prevBookmarked);
 
     console.log(info);
-    // Lógica para enviar a la base de datos
     try {
       const response = await fetch("http://localhost:8080/favoritos", {
         method: "POST",
@@ -146,29 +143,30 @@ export const Articulos = () => {
       .then((response) => setData(response));
   }, []);
 
-  const articulos = data
-    .slice(0, 4)
-    .map((el) => <ArticleCard key={el._id} info={el} />);
+  // Verificar si data es un array antes de usar slice
+  const articulos = Array.isArray(data)
+    ? data.slice(0, 4).map((el) => <ArticleCard key={el._id} info={el} />)
+    : [];
 
   return <>{articulos}</>;
 };
 
 export const Home = () => {
   const [date, setDate] = useState(new Date());
-  const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
+  const [records, setRecords] = useState({});
   const [streak, setStreak] = useState(0);
   const [fechas, setFechas] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dateString = date.toISOString().split("T")[0]; // Fecha en formato YYYY-MM-DD
-        console.log("Fetching data for date:", dateString); // Verificar la fecha solicitada
+        const dateString = date.toISOString().split("T")[0];
+        console.log("Fetching data for date:", dateString);
         const response = await fetch(`http://localhost:8080/registrosI`, {
           method: "GET",
-          credentials: "include", // Para incluir las cookies
+          credentials: "include",
           headers: {
-            "Cache-Control": "no-cache", // Evitar que se use una respuesta cacheada
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -177,7 +175,7 @@ export const Home = () => {
         }
 
         const data = await response.json();
-        console.log("Datos recibidos para la fecha:", dateString, data); // Verifica la respuesta del servidor
+        console.log("Datos recibidos para la fecha:", dateString, data);
 
         const recordsMap = data.reduce((acc, registro) => {
           const dateString = registro.Fecha.split("T")[0];
@@ -189,12 +187,11 @@ export const Home = () => {
           return acc;
         }, {});
 
-        setRecords(recordsMap); // Guardar los registros en el estado
-        console.log("Records actualizados para la fecha:", recordsMap); // Verifica la estructura de records
+        setRecords(recordsMap);
+        console.log("Records actualizados para la fecha:", recordsMap);
         const fetchedDates = Object.keys(recordsMap).sort();
         setFechas(fetchedDates);
 
-        // Llamamos a la función calcularRacha y actualizamos el estado
         const nuevaRacha = calcularRacha(recordsMap);
         setStreak(nuevaRacha);
       } catch (error) {
@@ -202,22 +199,23 @@ export const Home = () => {
       }
     };
 
-    fetchData(); // Ejecutar el fetch cuando cambia la fecha
-  }, [date]); // Asegúrate de que el useEffect se dispare al cambiar la fecha
+    fetchData();
+  }, [date]);
 
   const onChange = (newDate) => {
     setDate(newDate);
   };
+
   const tileClassName = ({ date }) => {
     const dateString = date.toISOString().split("T")[0];
 
     if (records[dateString]) {
       if (records[dateString].insulin || records[dateString].glucosa) {
-        return "bg-blue-200 text-white"; // Celeste si hay insulina
+        return "bg-blue-200 text-white";
       }
     }
 
-    return ""; // Sin clase si no hay registro
+    return "";
   };
 
   const handleDateClick = (value) => {
@@ -233,7 +231,7 @@ export const Home = () => {
   return (
     <>
       <Toaster />
-      <main className="flex flex-col md:flex-row overflow-hidden">
+      <main className="flex flex-col md:flex-row">
         <Navbar />
         <div className="container flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
@@ -266,10 +264,8 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
-          {/* Sección de Cards */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2">
             <h4 className="text-left font-bold col-span-full mb-4">
               ¿Qué puedo hacer?
@@ -294,7 +290,6 @@ export const Home = () => {
             />
           </div>
 
-          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-1 mx-4 py-8 ">
             <NutritionInfo />
@@ -310,6 +305,7 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
         </div>
       </main>
+      <div className="max-w-3xl mx-auto my-4"></div>
       <Footer />
     </>
   );
