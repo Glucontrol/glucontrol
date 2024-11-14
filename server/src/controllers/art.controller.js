@@ -8,11 +8,6 @@ import cConfig from "../helpers/cloudinary.js";
 const Cloudinary = cloudinary.v2;
 import { Resend } from "resend";
 
-const resend = new Resend("re_ZQF7nqyB_BuEZ1QvPRAwB39Z7R9kjZy2e");
-
-const API_ENV =
-  "CLOUDINARY_URL=cloudinary://848899543485337:GmUUP_OaI0LxaaCpU9ItUfnzpIw@dz8trxow0";
-
 Cloudinary.config(cConfig);
 
 export const agregar = async (req, res) => {
@@ -29,19 +24,11 @@ export const agregar = async (req, res) => {
       .then((el) => el.url);
     doc.urlImg = await url;
   }
-  const cookie = req.headers.cookie;
-  if (cookie) {
-    const token = cookie.split("=")[1];
-    const Usuario = await validarJWT(token);
-    doc.Autor = Usuario._id;
-
-    console.log(doc);
-    res.send(
-      await client.db("glucontrol").collection("articulos").insertOne(doc)
-    );
-  } else {
-    res.send("Fallo en la autorización").status(400);
-  }
+  client
+    .db("glucontrol")
+    .collection("articulos")
+    .insertOne(doc)
+    .then((resp) => res.status(200).send(resp));
 };
 
 export const listar = async (req, res) => {
@@ -78,7 +65,7 @@ export const listar = async (req, res) => {
     },
   ];
   try {
-    const articulos = client
+    client
       .db("glucontrol")
       .collection("articulos")
       .aggregate(config)
@@ -92,52 +79,47 @@ export const listar = async (req, res) => {
 };
 
 export const leer = async (req, res) => {
-  const { id } = req.params;
-  const o_id = generarOID(id);
-  const articulos = client
-    .db("glucontrol")
-    .collection("articulos")
-    .aggregate([
-      {
-        $match: {
-          _id: o_id,
-        },
-      },
-      {
-        $lookup: {
-          from: "usuarios",
-          localField: "Autor",
-          foreignField: "_id",
-          as: "dbBase",
-        },
-      },
-      {
-        $project: {
-          Titulo: 1,
-          Contenido: 1,
-          Fecha: 1,
-          Categoria: 1,
-          urlImg: 1,
-          Autor: {
-            $getField: {
-              field: "Nombre",
-              input: { $arrayElemAt: ["$dbBase", 0] },
+  try {
+    generarOID(req.params.id)
+      .then((o_id) =>
+        client
+          .db("glucontrol")
+          .collection("articulos")
+          .aggregate([
+            {
+              $match: {
+                _id: o_id,
+              },
             },
-          },
-        },
-      },
-    ]);
-  const articulo = await articulos.toArray();
-  if (articulos) {
-    console.log(articulo[0]);
-    res.send(articulo[0]);
-  } else {
-    res
-      .status(404)
-      .send({ Titulo: "Error", Contenido: "No sé encontró el articulo" });
-  }
-  if (!o_id) {
-    res.send({ Titulo: "Error:ID no valido", Contenido: "ID no Valido" });
+            {
+              $lookup: {
+                from: "usuarios",
+                localField: "Autor",
+                foreignField: "_id",
+                as: "dbBase",
+              },
+            },
+            {
+              $project: {
+                Titulo: 1,
+                Contenido: 1,
+                Fecha: 1,
+                Categoria: 1,
+                urlImg: 1,
+                Autor: {
+                  $getField: {
+                    field: "Nombre",
+                    input: { $arrayElemAt: ["$dbBase", 0] },
+                  },
+                },
+              },
+            },
+          ])
+      )
+      .toArray()
+      .then((array) => res.status(200).send(array[0]));
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
 

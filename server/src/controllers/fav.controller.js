@@ -1,6 +1,4 @@
-import { ObjectId } from "mongodb";
 import { client } from "../db/database.js";
-import { validarJWT } from "../helpers/validarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 
 export const agregarFavorito = async (req, res) => {
@@ -49,7 +47,7 @@ export const listarFavoritos = async (req, res) => {
     }
 
     const favoritosIds = req.user.favoritos.map((id) => generarOID(id));
-    const articulos = await client
+    client
       .db("glucontrol")
       .collection("articulos")
       .aggregate([
