@@ -13,6 +13,7 @@ import { NutritionInfo } from "./NutrionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
 import care from "../assets/icons/selfcare.svg";
 import { Link } from "react-router-dom";
+import useBookmark from "../utilities/useBookmark.js";
 
 const Card = ({ imgSrc, title, description, link }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -32,57 +33,7 @@ const Card = ({ imgSrc, title, description, link }) => (
 );
 
 const ArticleCard = ({ info }) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
-  useEffect(() => {
-    const fetchBookmarkStatus = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/favoritos/${info._id}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setIsBookmarked(data.isBookmarked);
-        }
-      } catch (error) {
-        console.error("Error al obtener el estado de favorito:", error);
-      }
-    };
-
-    fetchBookmarkStatus();
-  }, [info._id]); // Dependiendo del ID del artículo
-
-  const handleBookmarkClick = async () => {
-    const prevBookmarked = isBookmarked;
-    setIsBookmarked(!prevBookmarked);
-
-    try {
-      const response = await fetch("http://localhost:8080/favoritos", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          articleId: info._id,
-          bookmarked: !prevBookmarked,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error al marcar el artículo: ${response.statusText}`);
-      }
-
-      console.log("Artículo marcado/desmarcado con éxito");
-    } catch (error) {
-      console.error("Error:", error);
-      setIsBookmarked(prevBookmarked); // Revertir el estado en caso de error
-    }
-  };
+  const [isBookmarked, toggleBookmark] = useBookmark(info._id);
 
   return (
     <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-95 transition ease-in-out duration-200">
@@ -108,7 +59,7 @@ const ArticleCard = ({ info }) => {
               {info.Titulo}
             </h4>
           </a>
-          <div onClick={handleBookmarkClick} className="cursor-pointer">
+          <div onClick={toggleBookmark} className="cursor-pointer">
             {isBookmarked ? (
               <FaBookmark className="top-3 right-3 mt-4 text-black" />
             ) : (

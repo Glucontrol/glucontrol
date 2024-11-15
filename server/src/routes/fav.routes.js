@@ -4,11 +4,12 @@ import {
   obtenerEstadoFavorito,
   listarFavoritos,
 } from "../controllers/fav.controller.js";
+import getUsers from "../middlewares/getUser.js";
 
 const router = Router();
 
-router.post("/favoritos", agregarFavorito);
-router.get("/favoritos/:articleId", obtenerEstadoFavorito);
-router.get("/favoritos", listarFavoritos);
+router.post("/favoritos", getUsers, agregarFavorito);
+router.get("/favoritos/:articleId", getUsers, obtenerEstadoFavorito);
+router.get("/favoritos", getUsers, listarFavoritos);
 
 export default router;

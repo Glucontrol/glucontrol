@@ -81,25 +81,21 @@ export const leerRegistros = async (req, res) => {
 export const deleteRegister = async (req, res) => {
   const cookie = req.headers.cookie;
   console.log("hola", req.params.id);
-  if (cookie) {
-    const token = cookie.split("=")[1];
-    const Usuario = await validarJWT(token);
-    console.log(Usuario);
-    const id = generarOID(req.params.id);
-    client
-      .db("glucontrol")
-      .collection("registros")
-      .findOneAndDelete({
-        _id: id,
-        De: Usuario._id,
-      })
-      .then((resp) => {
-        console.log("salió", resp);
-        if (resp) {
-          res.send("Articulo Eliminado Con Exito").status(200);
-        } else {
-          res.send("No se ha podido eliminar el Articulo").status(500);
-        }
-      });
-  }
+
+  const id = generarOID(req.params.id);
+  client
+    .db("glucontrol")
+    .collection("registros")
+    .findOneAndDelete({
+      _id: id,
+      De: req.user._id,
+    })
+    .then((resp) => {
+      console.log("salió", resp);
+      if (resp) {
+        res.send("Articulo Eliminado Con Exito").status(200);
+      } else {
+        res.send("No se ha podido eliminar el Articulo").status(500);
+      }
+    });
 };

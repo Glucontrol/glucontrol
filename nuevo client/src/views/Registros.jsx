@@ -152,8 +152,15 @@ export default function Registros() {
                 .map((registro) => (
                   <div
                     key={registro._id} // Asegurarse de que el key sea único
-                    className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4"
+                    className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4 relative"
                   >
+                    <button
+                      onClick={() => handleDelete(registro._id)}
+                      className="absolute top-2 right-2 text-indigo-500 w-6 h-6 hover:text-indigo-700 transition duration-200"
+                    >
+                      <LuTrash />
+                    </button>
+
                     {registro.Tipo && (
                       <div className="flex items-center gap-2">
                         <PiLightning className="text-indigo-500 w-6 h-6" />
@@ -162,6 +169,7 @@ export default function Registros() {
                         </p>
                       </div>
                     )}
+
                     {registro.Dosis && (
                       <div className="flex items-center gap-2">
                         <PiDrop className="text-indigo-500 w-6 h-6" />
@@ -224,11 +232,6 @@ export default function Registros() {
                           minute: "2-digit",
                         })}
                       </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button onClick={() => handleDelete(registro._id)}>
-                        <LuTrash className="absolute top-2 right-2 text-indigo-500 w-6 h-6  hover:text-indigo-700 transition duration-200" />
-                      </button>
                     </div>
                   </div>
                 ))}

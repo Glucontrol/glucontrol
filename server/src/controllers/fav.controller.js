@@ -1,6 +1,4 @@
-import { ObjectId } from "mongodb";
 import { client } from "../db/database.js";
-import { validarJWT } from "../helpers/validarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 
 export const agregarFavorito = async (req, res) => {
@@ -29,11 +27,14 @@ export const agregarFavorito = async (req, res) => {
 
 export const obtenerEstadoFavorito = async (req, res) => {
   const { articleId } = req.params;
+<<<<<<< HEAD
 
   if (!req.user || !req.user._id) {
     return res.status(401).send({ mensaje: "Usuario no autenticado" });
   }
 
+=======
+>>>>>>> fa333b8d197db9f5de3b7d0ccab2bb7730c7a7d7
   try {
     const usuario = await client
       .db("glucontrol")
@@ -54,22 +55,33 @@ export const obtenerEstadoFavorito = async (req, res) => {
 };
 
 export const listarFavoritos = async (req, res) => {
+<<<<<<< HEAD
   if (!req.user || !Array.isArray(req.user.favoritos)) {
     return res.status(404).send({
       mensaje:
         "No se encontraron favoritos para este usuario o favoritos no es un arreglo.",
     });
   }
+=======
+  console.log("hola", req.user);
+  try {
+    if (!req.user || !Array.isArray(req.user.favoritos)) {
+      return res.status(404).send({
+        message:
+          "No se encontraron favoritos para este usuario o favoritos no es un arreglo.",
+      });
+    }
+>>>>>>> fa333b8d197db9f5de3b7d0ccab2bb7730c7a7d7
 
   try {
     const favoritosIds = req.user.favoritos.map((id) => generarOID(id));
-    const articulos = await client
+    client
       .db("glucontrol")
       .collection("articulos")
       .aggregate([
         {
           $match: {
-            _id: { $in: favoritosIds },
+            _id: { $in: await favoritosIds },
           },
         },
         {

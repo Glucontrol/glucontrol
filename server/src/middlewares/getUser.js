@@ -4,13 +4,11 @@ import { generarOID } from "../helpers/generarOID.js";
 
 const verifyUser = async (req, res, next) => {
   const { cookie } = req.headers;
-
-  if (!cookie) {
-    return res.status(400).json({ error: "No cookie provided" });
+  let token = "";
+  if (cookie) {
+    token = cookie.includes(";") ? cookie.split(";")[0] : cookie.substr(6);
+    console.log(token);
   }
-
-  // Extraemos el token de la cookie
-  let token = cookie.includes(";") ? cookie.split(";")[0] : cookie.substr(6);
 
   try {
     // Verificamos el token y obtenemos el id
