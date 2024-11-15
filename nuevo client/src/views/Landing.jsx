@@ -9,7 +9,7 @@ import { FcSurvey } from "react-icons/fc";
 import people from "../assets/icons/people.svg";
 import email from "../assets/icons/emails.svg";
 
-export const Landing = () => {
+export default function Landing() {
   useEffect(() => {
     AOS.init({ duration: 1000 }); // Inicializa AOS y establece la duración de las animaciones
   }, []);
@@ -132,4 +132,4 @@ export const Landing = () => {
       <Footer />
     </>
   );
-};
+}

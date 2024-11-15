@@ -3,7 +3,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { link } from "../utilities/functions";
 import { UserContext } from "../context/UserContext";
 
-export const Register = () => {
+export default function Register() {
   const [type, setType] = useState();
   const user = useContext(UserContext);
   const path = window.location.pathname.split("/");
@@ -142,4 +142,4 @@ export const Register = () => {
       </div>
     </main>
   );
-};
+}

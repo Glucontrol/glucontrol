@@ -5,7 +5,7 @@ import { link } from "../utilities/functions.js";
 import { LuArrowDownWideNarrow, LuFilter, LuSearch } from "react-icons/lu";
 import { Footer } from "../components/Footer.jsx";
 
-export const Articulos = () => {
+export default function Articulos() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filtroTema, setFiltroTema] = useState("Todos");
@@ -152,4 +152,4 @@ export const Articulos = () => {
       <Footer />
     </>
   );
-};
+}

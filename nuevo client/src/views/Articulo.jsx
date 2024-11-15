@@ -5,7 +5,7 @@ import { link } from "../utilities/functions.js";
 import { LuChevronsRight } from "react-icons/lu";
 import { BiArrowBack } from "react-icons/bi";
 
-export const Articulo = () => {
+export default function Articulo() {
   const url = useLocation().search.slice(1);
   const [contenido, setContenido] = useState({});
 
@@ -48,4 +48,4 @@ export const Articulo = () => {
       </main>
     </>
   );
-};
+}

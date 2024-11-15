@@ -15,7 +15,7 @@ import {
 import { PiDrop, PiLightning } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 
-export const Registros = () => {
+export default function Registros() {
   const [registros, setRegistros] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [filtro, setFiltro] = useState("Todos"); // Estado para el filtro
@@ -238,4 +238,4 @@ export const Registros = () => {
       </main>
     </>
   );
-};
+}

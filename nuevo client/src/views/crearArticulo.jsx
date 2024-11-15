@@ -4,7 +4,7 @@ import "../style.css";
 import { link } from "../utilities/functions.js";
 import toast, { Toaster } from "react-hot-toast";
 
-const CrearArticulo = () => {
+export default function CrearArticulo() {
   const path = window.location.pathname.split("/");
   const edit = path[1] == "edit" ? true : false;
   const article = path[3];
@@ -224,6 +224,6 @@ const CrearArticulo = () => {
       </div>
     </main>
   );
-};
+}
 
 export { CrearArticulo };

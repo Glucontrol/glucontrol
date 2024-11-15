@@ -5,7 +5,7 @@ import { link } from "../utilities/functions";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-export const CrearRegistro = () => {
+export default function CrearRegistro() {
   // estos son los estads locales para almacenar los valores de los inputs del formulario
   const [tipoRegistro, setTipoRegistro] = useState("insulina"); // Controla si se está registrando insulina o glucosa
   const [dosis, setDosis] = useState(""); // Almacena la dosis de insulina
@@ -336,4 +336,4 @@ export const CrearRegistro = () => {
       </div>
     </main>
   );
-};
+}

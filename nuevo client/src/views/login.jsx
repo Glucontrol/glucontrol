@@ -5,7 +5,7 @@ import { MdLockOutline } from "react-icons/md";
 import Alert from "../components/Alert";
 import { link } from "../utilities/functions";
 
-export const Login = () => {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [password, setPassword] = useState("");
@@ -122,4 +122,4 @@ export const Login = () => {
       {texto && <Alert prop={{ texto: texto }} />}
     </div>
   );
-};
+}

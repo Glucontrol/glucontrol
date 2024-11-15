@@ -4,20 +4,34 @@ import { generarOID } from "../helpers/generarOID.js";
 
 const verifyUser = async (req, res, next) => {
   const { cookie } = req.headers;
+
+  if (!cookie) {
+    return res.status(400).json({ error: "No cookie provided" });
+  }
+
+  // Extraemos el token de la cookie
   let token = cookie.includes(";") ? cookie.split(";")[0] : cookie.substr(6);
+
   try {
-    generarOID(jwt.verify(token, "mysecret").id)
-      .then((o_id) =>
-        client.db("glucontrol").collection("usuarios").findOne({ _id: o_id })
-      )
-      .then(async (resp) => {
-        if (resp) {
-          req.user = resp;
-          next();
-        }
-      });
+    // Verificamos el token y obtenemos el id
+    const decoded = jwt.verify(token, "mysecret");
+    const o_id = await generarOID(decoded.id);
+
+    // Buscamos al usuario en la base de datos
+    const user = await client
+      .db("glucontrol")
+      .collection("usuarios")
+      .findOne({ _id: o_id });
+
+    if (user) {
+      req.user = user;
+      return next(); // Si el usuario es encontrado, continuamos con el siguiente middleware
+    } else {
+      return res.status(404).json({ error: "User not found" });
+    }
   } catch (err) {
-    res.status(500).send(err);
+    console.error(err);
+    res.status(500).json({ error: "Error verifying user" });
   }
 };
 
