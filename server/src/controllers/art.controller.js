@@ -3,10 +3,18 @@ import fs from "fs";
 import { validarJWT } from "../helpers/validarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
 import cloudinary from "cloudinary";
+import { Resend } from "resend";
 import cConfig from "../helpers/cloudinary.js";
 
 const Cloudinary = cloudinary.v2;
-import { Resend } from "resend";
+const resend = new Resend("re_G56Hxu31_PFB4Wvm8TY3HZBFVuqmaufCk");
+
+resend.emails.send({
+  from: "glucontrol@resend.dev",
+  to: "ezequielafeita@gmail.com",
+  subject: "Hello World",
+  html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
+});
 
 Cloudinary.config(cConfig);
 
@@ -80,45 +88,45 @@ export const listar = async (req, res) => {
 
 export const leer = async (req, res) => {
   try {
-    generarOID(req.params.id)
-      .then((o_id) =>
-        client
-          .db("glucontrol")
-          .collection("articulos")
-          .aggregate([
-            {
-              $match: {
-                _id: o_id,
-              },
+    generarOID(req.params.id).then((o_id) =>
+      client
+        .db("glucontrol")
+        .collection("articulos")
+        .aggregate([
+          {
+            $match: {
+              _id: o_id,
             },
-            {
-              $lookup: {
-                from: "usuarios",
-                localField: "Autor",
-                foreignField: "_id",
-                as: "dbBase",
-              },
+          },
+          {
+            $lookup: {
+              from: "usuarios",
+              localField: "Autor",
+              foreignField: "_id",
+              as: "dbBase",
             },
-            {
-              $project: {
-                Titulo: 1,
-                Contenido: 1,
-                Fecha: 1,
-                Categoria: 1,
-                urlImg: 1,
-                Autor: {
-                  $getField: {
-                    field: "Nombre",
-                    input: { $arrayElemAt: ["$dbBase", 0] },
-                  },
+          },
+          {
+            $project: {
+              Titulo: 1,
+              Contenido: 1,
+              Fecha: 1,
+              Categoria: 1,
+              urlImg: 1,
+              Autor: {
+                $getField: {
+                  field: "Nombre",
+                  input: { $arrayElemAt: ["$dbBase", 0] },
                 },
               },
             },
-          ])
-      )
-      .toArray()
-      .then((array) => res.status(200).send(array[0]));
+          },
+        ])
+        .toArray()
+        .then((array) => res.status(200).send(array[0]))
+    );
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 };

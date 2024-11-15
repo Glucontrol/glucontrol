@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
+import Calendar from "../components/Calendar";
 
 import {
   LuSyringe,
@@ -20,6 +21,7 @@ export const Registros = () => {
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [filtro, setFiltro] = useState("Todos"); // Estado para el filtro
   const [fecha, setFecha] = useState("Todos");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,6 +77,8 @@ export const Registros = () => {
               Registrar
             </button>
           </div>
+
+          <Calendar />
 
           <div className="flex justify-center  items-center mb-6 gap-4 p-4">
             <div className="flex items-center gap-2">

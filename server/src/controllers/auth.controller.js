@@ -2,7 +2,6 @@ import { client } from "../db/database.js";
 import bcrypt from "bcrypt";
 import { generarJWT } from "../helpers/generarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
-import { validarJWT } from "../helpers/validarJWT.js";
 import fs from "fs";
 import cloudinary from "cloudinary";
 
@@ -137,10 +136,6 @@ export const datosUsuario = async (req, res) => {
 };
 
 export const edit = async (req, res) => {
-  const { cookie } = req.headers;
-
-  const token = await validarJWT(cookie.substr(6, cookie.length));
-
   const doc = req.body;
   if (doc.Contrasenia.trim() == "") {
     delete doc.Contrasenia;
@@ -160,6 +155,6 @@ export const edit = async (req, res) => {
   client
     .db("glucontrol")
     .collection("usuarios")
-    .findOneAndUpdate({ _id: token._id }, { $set: doc });
+    .findOneAndUpdate({ _id: req.user._id }, { $set: doc });
   res.send("hola");
 };

@@ -9,10 +9,10 @@ import {
   datosUsuario,
   edit,
 } from "../controllers/auth.controller.js";
-import verifyUser from "../middlewares/getUser.js";
 import multer from "multer";
 
 import { Router } from "express";
+import verifyUser from "../middlewares/getUser.js";
 const router = Router();
 const upload = multer({
   dest: "./src/uploads/",
@@ -20,7 +20,7 @@ const upload = multer({
 // Creamos una ruta /register con el metodo 'POST' ya que recibiremos datos desde el cliente a traves de este metodo.
 router.post("/signup", upload.single("profile"), register);
 
-router.patch("/profile", upload.single("profile"), edit);
+router.patch("/profile", upload.single("profile"), verifyUser, edit);
 
 // Lo mismo que el registro pero con el login.
 router.post("/login", login);

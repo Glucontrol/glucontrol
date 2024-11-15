@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { LuSyringe, LuCalendarCheck, LuClock9 } from "react-icons/lu";
 import { PiDrop, PiLightning } from "react-icons/pi";
-import {link} from '../utilities/functions';
+import { link } from "../utilities/functions";
 
 export const Registro = () => {
   const { fecha } = useParams(); // Extraer la fecha de los parámetros
@@ -26,7 +26,6 @@ export const Registro = () => {
           );
           const data = await response.json();
 
-          console.log("aca", data); // Verificar el formato de los datos
           if (Array.isArray(data)) {
             setRegistros(data);
           } else {
@@ -45,7 +44,7 @@ export const Registro = () => {
 
   return (
     <>
-      <main className="flex">
+      <main className="flex h-full w-full">
         <Navbar />
         <div className="flex-1 pt-10">
           <div className="flex justify-center mb-10">
@@ -58,7 +57,6 @@ export const Registro = () => {
                   key={registro._id}
                   className="bg-white shadow-lg shadow-slate-500 min-h-40 min-w-60 flex flex-col hover:shadow-2xl hover:scale-105 transition-transform duration-200 rounded-lg p-4 space-y-2"
                 >
-                
                   <div className="flex items-center gap-2">
                     <PiLightning className="text-blue-600 w-6 h-6" />
                     <p className="text-lg font-medium">{registro.Tipo}</p>

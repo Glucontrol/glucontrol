@@ -42,7 +42,7 @@ export const InsulData = async (req, res) => {
           HbA1c,
           Via: Via,
           Adicional: Adicional,
-          De: resultado._id,
+          De: req.user._id,
           TipoRegistro: TipoRegistro,
           Glucosa: Glucosa,
           EstadoFisico: EstadoFisico,
@@ -79,23 +79,23 @@ export const leerRegistros = async (req, res) => {
 };
 
 export const deleteRegister = async (req, res) => {
-  const cookie = req.headers.cookie;
   console.log("hola", req.params.id);
 
-  const id = generarOID(req.params.id);
-  client
-    .db("glucontrol")
-    .collection("registros")
-    .findOneAndDelete({
-      _id: id,
-      De: req.user._id,
-    })
-    .then((resp) => {
-      console.log("salió", resp);
-      if (resp) {
-        res.send("Articulo Eliminado Con Exito").status(200);
-      } else {
-        res.send("No se ha podido eliminar el Articulo").status(500);
-      }
-    });
+  const id = generarOID(req.params.id).then((o_id) => {
+    client
+      .db("glucontrol")
+      .collection("registros")
+      .findOneAndDelete({
+        _id: o_id,
+        De: req.user._id,
+      })
+      .then((resp) => {
+        console.log("salió", resp);
+        if (resp) {
+          res.send("Articulo Eliminado Con Exito").status(200);
+        } else {
+          res.send("No se ha podido eliminar el Articulo").status(500);
+        }
+      });
+  });
 };

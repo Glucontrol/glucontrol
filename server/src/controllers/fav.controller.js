@@ -1,5 +1,6 @@
 import { client } from "../db/database.js";
 import { generarOID } from "../helpers/generarOID.js";
+import { ObjectId } from "mongodb";
 
 export const agregarFavorito = async (req, res) => {
   const { articleId, bookmarked } = req.body;
@@ -37,46 +38,48 @@ export const obtenerEstadoFavorito = async (req, res) => {
 };
 
 export const listarFavoritos = async (req, res) => {
-  console.log("hola", req.user);
-  try {
-    if (!req.user || !Array.isArray(req.user.favoritos)) {
-      return res.status(404).send({
-        message:
-          "No se encontraron favoritos para este usuario o favoritos no es un arreglo.",
-      });
-    }
+  const usuario = await client
+    .db("glucontrol")
+    .collection("usuarios")
+    .findOne({ _id: req.user._id });
 
-    const favoritosIds = req.user.favoritos.map((id) => generarOID(id));
-    client
-      .db("glucontrol")
-      .collection("articulos")
-      .aggregate([
-        {
-          $match: {
-            _id: { $in: await favoritosIds },
-          },
-        },
-        {
-          $sort: {
-            _id: -1,
-          },
-        },
-        {
-          $project: {
-            Titulo: 1,
-            Contenido: 1,
-            Fecha: 1,
-            Categoria: 1,
-            urlImg: 1,
-            verified: 1,
-            Autor: 1,
-          },
-        },
-      ])
-      .toArray()
-      .then((array) => res.status(201).send(array));
-  } catch (error) {
-    console.error("Error al listar favoritos:", error);
-    res.status(500).send({ message: "Error al obtener favoritos", error });
+  if (!usuario || !Array.isArray(usuario.favoritos)) {
+    return res.status(404).send({
+      message:
+        "No se encontraron favoritos para este usuario o favoritos no es un arreglo.",
+    });
   }
+
+  const favoritosIds = usuario.favoritos.map((id) =>
+    ObjectId.createFromHexString(id)
+  );
+  const articulos = await client
+    .db("glucontrol")
+    .collection("articulos")
+    .aggregate([
+      {
+        $match: {
+          _id: { $in: favoritosIds },
+        },
+      },
+      {
+        $sort: {
+          _id: -1,
+        },
+      },
+      {
+        $project: {
+          Titulo: 1,
+          Contenido: 1,
+          Fecha: 1,
+          Categoria: 1,
+          urlImg: 1,
+          verified: 1,
+          Autor: 1,
+        },
+      },
+    ])
+    .toArray();
+  console.log("Artículos favoritos:", articulos);
+  res.status(200).send(articulos);
 };
