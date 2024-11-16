@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import toast, { Toaster } from "react-hot-toast";
 
 export const Racha = ({ value }) => {
+  const [pop, setPop] = useState(false);
+  useEffect(() => setPop(true), []);
+
   return (
-    <div style={{ width: 150, height: 150 }}>
+    <div
+      style={{ width: 150, height: 150 }}
+      className={`${pop ? "scale-100" : "scale-0"} duration-500 delay-100`}
+    >
       <CircularProgressbar
         value={(value / 90) * 100} // Convertir la racha actual a porcentaje sobre 10 días
         text={`${value} días`} // Mostrar el total de días de racha alcanzados

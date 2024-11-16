@@ -107,6 +107,7 @@ export const Home = () => {
   const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
   const [streak, setStreak] = useState(0);
   const [fechas, setFechas] = useState([]);
+  const [pop, setPop] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -179,6 +180,8 @@ export const Home = () => {
     }
   };
 
+  useEffect(() => setPop(true), []);
+
   return (
     <>
       <Toaster />
@@ -186,7 +189,11 @@ export const Home = () => {
         <Navbar />
         <div className="container flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
-            <div className="my-5 mx-2 col-span-1 md:col-span-2">
+            <div
+              className={`my-5 mx-2 col-span-1 md:col-span-2 duration-300 ${
+                pop ? "translate-y-0 opacity-100" : " translate-y-32 opacity-0"
+              }`}
+            >
               <h1 className="text-left font-extrabold m-4 text-2xl md:text-3xl">
                 Un aliado en cada paso de tu camino hacia el bienestar
               </h1>
@@ -197,7 +204,13 @@ export const Home = () => {
             </div>
             <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
-                <h4 className="text-center font-semibold mb-4">Racha</h4>
+                <h4
+                  className={`text-center font-semibold mb-4 duration-1000 delay-75 ${
+                    pop ? "translate-y-0" : "-translate-y-28"
+                  }`}
+                >
+                  Racha
+                </h4>
                 <Racha value={streak} />
               </div>
             </div>
@@ -219,8 +232,16 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           {/* Sección de Cards */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2">
-            <h4 className="text-left font-bold col-span-full mb-4">
+          <div
+            className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2 duration-1000 delay-750 ${
+              pop ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <h4
+              className={`text-left font-bold col-span-full duration-1000 delay-1000 mb-4 ${
+                pop ? "opacity-100" : "opacity-0"
+              } `}
+            >
               ¿Qué puedo hacer?
             </h4>
             <Card

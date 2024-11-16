@@ -8,6 +8,7 @@ import { AiOutlineEdit, AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 export default function Usuario() {
   let user = useContext(UserContext);
   console.log(user);
+  const [pop, setPop] = useState(false);
   const [articles, setArticles] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const [section, setSection] = useState("articulos");
@@ -27,6 +28,8 @@ export default function Usuario() {
     })
       .then((res) => res.json())
       .then((res) => setFavoritos(res));
+
+    setPop(true);
   }, []);
 
   const [datosUsuario, setDatosUsuario] = useState({
@@ -49,22 +52,36 @@ export default function Usuario() {
               Configuración de Usuario
             </h1>
             <div className="flex flex-col md:flex-row items-center mb-6 md:mb-8">
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-8 flex-shrink-0">
+              <div
+                className={`w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-8 duration-500 delay-75 flex-shrink-0 ${
+                  pop ? "opacity-100" : "opacity-0"
+                }`}
+              >
                 <img
                   src={user.urlImg}
-                  className="w-full h-full object-cover"
+                  className={`mx-auto object-cover duration-300 w-full h-full`}
                   alt="User profile"
                 />
               </div>
               <div className="text-center md:text-left">
                 <div className="flex flex-row">
-                  <h2 className="text-xl md:text-2xl font-semibold">
+                  <h2
+                    className={`text-xl md:text-2xl duration-300 delay-150 font-semibold ${
+                      pop
+                        ? "translate-y-0 opacity-100"
+                        : "-translate-y-1 opacity-0"
+                    }`}
+                  >
                     {datosUsuario.Nombre}
                   </h2>
                   {!user.isMed ? (
                     <></>
                   ) : (
-                    <div className="flex rounded-3xl h-7 mt-1 ml-3 bg-sky-300 text-white w-20">
+                    <div
+                      className={`flex rounded-3xl h-7 mt-1 ml-3 duration-1000 bg-sky-300 text-white w-20 ${
+                        pop ? "scale-100 opacity-100" : "scale-125 opacity-35"
+                      }`}
+                    >
                       <h3 className="m-auto">Médico</h3>
                     </div>
                   )}
@@ -121,8 +138,8 @@ export default function Usuario() {
                     {articles.map((el) => (
                       <div
                         key={el._id}
-                        className="bg-white hover:-translate-y-4
-                        text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300"
+                        className={`bg-white hover:-translate-y-4
+                        text-center rounded-lg shadow-md p-4 dark:bg-slate-600 transition duration-300 `}
                       >
                         <div className="flex flex-col items-center">
                           {el.urlImg ? (
