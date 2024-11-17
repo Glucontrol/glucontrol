@@ -24,9 +24,9 @@ router.get("/articles/user", verifyUser, buscarPorUsuario);
 router.get("/articulo/:id", leer);
 //Agregar un articulo
 
-router.post("/articulo", upload.single("photo"), agregar);
+router.post("/articulo", upload.single("photo"), verifyUser, agregar);
 //Editar Articulo
-router.patch("/article/:id", upload.single("photo"), edit);
+router.patch("/article/:id", upload.single("photo"), verifyUser, edit);
 
 router.delete("/article/:id", deleteArticle);
 export default router;
