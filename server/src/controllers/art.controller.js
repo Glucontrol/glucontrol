@@ -20,6 +20,8 @@ Cloudinary.config(cConfig);
 
 export const agregar = async (req, res) => {
   let doc = req.body;
+  doc.Autor = req.user._id;
+  console.log(doc);
   if (req.file) {
     fs.renameSync(
       `${req.file.path}`,
@@ -145,6 +147,9 @@ export const buscarPorUsuario = async (req, res) => {
 };
 
 export const deleteArticle = async (req, res) => {
+  const id = await generarOID(req.params.id);
+
+  console.log(id);
   client
     .db("glucontrol")
     .collection("articulos")

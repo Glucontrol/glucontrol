@@ -12,7 +12,6 @@ export const CrearRegistro = () => {
   const [tipoInsulina, setTipoInsulina] = useState(""); // Almacena el tipo de insulina seleccionado
   const [viaAdministracion, setViaAdministracion] = useState(""); // Almacena la vía de administración de la insulina
   const [glucosa, setGlucosa] = useState(""); // Almacena el nivel de glucosa
-  const [fechaRegistro, setFechaRegistro] = useState(""); // Almacena la fecha y hora del registro
   const [estadoFisico, setEstadoFisico] = useState(""); // Almacena el estado físico seleccionado
   const [medicacionAdicional, setMedicacionAdicional] = useState(""); // Almacena medicación adicional (si existe)
   const [notas, setNotas] = useState(""); // Almacena notas o comentarios adicionales
@@ -38,9 +37,11 @@ export const CrearRegistro = () => {
   // Maneja el envío del formulario tanto para el registro de insulina como de glucosa
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const fechaRegistro = new Date().toISOString();
     if (tipoRegistro === "insulina") {
       // Validación de campos obligatorios para el registro de insulina
-      if (!tipoInsulina || !dosis || !viaAdministracion || !fechaRegistro) {
+      if (!tipoInsulina || !dosis || !viaAdministracion) {
         setError("Por favor, completa todos los campos obligatorios.");
         return;
       }
@@ -275,7 +276,7 @@ export const CrearRegistro = () => {
                 </label>
                 <input
                   type="text"
-                  id="nmedicacionAdicional"
+                  id="medicacionAdicional"
                   value={medicacionAdicional}
                   onChange={(e) => setMedicacionAdicional(e.target.value)}
                   className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -312,17 +313,6 @@ export const CrearRegistro = () => {
               onChange={(e) => setNotas(e.target.value)}
               className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Escribe cualquier anotación adicional..."
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <label className="mb-2 font-semibold">Fecha y hora</label>
-            <input
-              type="datetime-local"
-              id="fechaRegistro"
-              name="fechaRegistro"
-              className="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => setFechaRegistro(e.target.value)}
             />
           </div>
 

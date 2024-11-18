@@ -222,16 +222,20 @@ export const Registros = () => {
                         </p>
                       </div>
                     )}
-                    <div className="flex items-center gap-2">
-                      <LuCalendarCheck className="text-indigo-500 w-6 h-6" />
-                      <p className="text-base font-semibold text-gray-700">
-                        {registro.Fecha.split("T")[0]}
-                      </p>
-                    </div>
+                    {registro.Fecha && (
+                      <div className="flex items-center gap-2">
+                        <LuCalendarCheck className="text-indigo-500 w-6 h-6" />
+                        <p className="text-base font-semibold text-gray-700">
+                          {new Date(registro.Fecha).toLocaleDateString("es-ES")}
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-2">
                       <LuClock9 className="text-indigo-500 w-6 h-6" />
                       <p className="text-base font-semibold text-gray-700">
                         {new Date(registro.Fecha).toLocaleTimeString([], {
+                          timeZone: "America/Argentina/Buenos_Aires", // Ajusta según tu zona horaria
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
