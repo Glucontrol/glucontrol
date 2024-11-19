@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import "react-calendar/dist/Calendar.css";
 import { Racha } from "../components/Racha.jsx";
@@ -14,6 +13,7 @@ import gra from "../assets/icons/homegra.svg";
 import care from "../assets/icons/selfcare.svg";
 import { Link } from "react-router-dom";
 import useBookmark from "../utilities/useBookmark.js";
+import Calendar from "../components/Calendar.jsx";
 
 const Card = ({ imgSrc, title, description, link }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -217,13 +217,7 @@ export const Home = () => {
             <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
                 <h4 className="mb-4 text-center font-semibold">Tu actividad</h4>
-                <Calendar
-                  onChange={onChange}
-                  value={date}
-                  className={"shadow-2xl shadow-gray-400"}
-                  tileClassName={tileClassName}
-                  onClickDay={handleDateClick}
-                />
+                <Calendar />
               </div>
             </div>
           </div>

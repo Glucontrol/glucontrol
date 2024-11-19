@@ -44,7 +44,7 @@ const Calendar = ({ onClick, props }) => {
   }, [month]);
 
   return (
-    <div className="calendar  w-1/4 mx-auto flex flex-col">
+    <div className="calendar  w-full mx-auto flex flex-col">
       <div className="calendar__header flex flex-row p-3 justify-between shadow-lg rounded-xl font-light text-xl text-center mb-2">
         <input
           type="button"

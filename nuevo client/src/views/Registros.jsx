@@ -77,26 +77,9 @@ export const Registros = () => {
               Registrar
             </button>
           </div>
-
-          <Line
-            data={{
-              labels: ["Enero", "Febrero", "Marzo", "Abril"],
-              datasets: [
-                {
-                  label: "Ventas",
-                  data: [12, 19, 3, 5],
-                  borderColor: "rgba(255, 99, 132, 1)",
-                  backgroundColor: "rgba(255, 99, 132, 0.2)",
-                  pointBackgroundColor: "rgba(255, 99, 132, 1)",
-                  pointBorderColor: "rgba(255, 99, 132, 1)",
-                  pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
-                  pointHoverBorderColor: "rgba(255, 99, 132, 1)",
-                },
-              ],
-            }}
-          />
-          <Calendar props={month} onClick={setMonth} />
-          {month}
+          <div className="w-2/3 mx-auto">
+            <Calendar props={month} onClick={setMonth} />
+          </div>
 
           <div className="flex justify-center  items-center mb-6 gap-4 p-4">
             <div className="flex items-center gap-2">
