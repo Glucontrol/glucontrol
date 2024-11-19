@@ -93,7 +93,12 @@ export const sesion = async (req, res) => {
 };
 
 export const logOut = async (req, res) => {
-  res.clearCookie("token").send("");
+  try {
+    res.clearCookie("token");
+    res.status(200).send("Se ha cerrado la sesión");
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
 //
@@ -103,7 +108,6 @@ export const user = async (req, res) => {
     .db("glucontrol")
     .collection("usuarios")
     .findOne({ Nombre: user });
-  console.log(usuario);
   res.send(usuario);
 };
 

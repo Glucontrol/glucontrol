@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { useNavigate } from "react-router-dom";
 
 const LogOut = () => {
-  link.logOut();
+  const [logged, setLogged] = useState(true);
+
+  useEffect(() => {
+    link.logOut().then((el) => console.log(el.json()));
+  }, []);
 
   return (
     <main className="flex flex-col items-center space-y-4">
-      <h1>Nos vemos pronto</h1>
-      <p>Redirigiendo al inicio en 3 segundos...</p>
+      <h3>Glucontrol te espera pronto</h3>
     </main>
   );
 };

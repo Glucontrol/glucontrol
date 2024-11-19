@@ -4,6 +4,26 @@ import { Navbar } from "../components/Navbar";
 import Calendar from "../components/Calendar";
 
 import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+  LineController,
+  Title,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title
+);
+import { Line } from "react-chartjs-2";
+
+import {
   LuSyringe,
   LuCalendarCheck,
   LuClock9,
@@ -17,6 +37,7 @@ import { PiDrop, PiLightning } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 
 export const Registros = () => {
+  const [month, setMonth] = useState(1);
   const [registros, setRegistros] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [filtro, setFiltro] = useState("Todos"); // Estado para el filtro
@@ -28,29 +49,8 @@ export const Registros = () => {
     link.getRegistersI().then((data) => {
       console.log(data);
       setRegistros(data);
-
-      const ctx = document.querySelector("#chart");
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
     });
+
     setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
   }, []);
   const handleDelete = async (id) => {
@@ -78,7 +78,25 @@ export const Registros = () => {
             </button>
           </div>
 
-          <Calendar />
+          <Line
+            data={{
+              labels: ["Enero", "Febrero", "Marzo", "Abril"],
+              datasets: [
+                {
+                  label: "Ventas",
+                  data: [12, 19, 3, 5],
+                  borderColor: "rgba(255, 99, 132, 1)",
+                  backgroundColor: "rgba(255, 99, 132, 0.2)",
+                  pointBackgroundColor: "rgba(255, 99, 132, 1)",
+                  pointBorderColor: "rgba(255, 99, 132, 1)",
+                  pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
+                  pointHoverBorderColor: "rgba(255, 99, 132, 1)",
+                },
+              ],
+            }}
+          />
+          <Calendar props={month} onClick={setMonth} />
+          {month}
 
           <div className="flex justify-center  items-center mb-6 gap-4 p-4">
             <div className="flex items-center gap-2">

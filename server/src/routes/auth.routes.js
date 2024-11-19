@@ -27,9 +27,8 @@ router.post("/login", login);
 //Este es para ver todos los usuarios
 router.get("/admin", selectall);
 //Para ver un usuario en especifico
-router.post("/admin/:user", user);
-//Para eliminar algún pobre diablo
-router.post("/admin", eliminar);
+router.post("/admin/:user", verifyUser, user);
+router.delete("/admin/:user", eliminar);
 //Ver si está el usuario iniciada
 router.get("/sesion", verifyUser, sesion);
 // Exportamos las rutas

@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 
-const port = process.env.URL || 8080;
-//Inicializamos express.
 const app = express();
+//Inicializamos express.
+const port = process.env.URL || 8080;
 
 //Aplicamos los middlewares.
 app.use(
