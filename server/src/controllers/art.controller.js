@@ -198,3 +198,18 @@ export const edit = async (req, res) => {
     res.send("Fallo en la autorización").status(400);
   }
 };
+
+export const verificarArticulo = async (req, res) => {
+  const id = await generarOID(req.params.id);
+  client
+    .db("glucontrol")
+    .collection("articulos")
+    .findOneAndUpdate({ _id: id }, { $set: { verified: true } })
+    .then((resp) => {
+      if (resp) {
+        res.send("Articulo Verificado Con Exito").status(200);
+      } else {
+        res.send("No se ha podido verificar el Articulo").status(500);
+      }
+    });
+};

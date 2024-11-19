@@ -145,3 +145,21 @@ link.deleteRegister = async (id) => {
     throw error;
   }
 };
+
+link.validarArticulo = async (id) => {
+  try {
+    return await fetch(`http://localhost:${API_URL}/articulo/${id}`, {
+      method: "PATCH",
+      credentials: "include",
+    }).then((res) =>
+      res.text().then((resp) => {
+        return {
+          text: resp,
+          status: res.status,
+        };
+      })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

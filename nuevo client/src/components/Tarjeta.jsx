@@ -70,6 +70,15 @@ export const Tarjeta = ({ info }) => {
             </div>
           )}
           <div className="absolute top-2 right-2 flex flex-col items-center space-y-2">
+            {info.verified && (
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white  shadow-md">
+                <img
+                  src="../src/assets/icons/verified.svg"
+                  alt="Verificado"
+                  className="w-4 h-4"
+                />
+              </div>
+            )}
             <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md">
               <img
                 src={icon}
@@ -93,25 +102,17 @@ export const Tarjeta = ({ info }) => {
             </button>
           </div>
         </div>
-      </div>
+        <div className="p-4 flex flex-col">
+          <div className="flex items-center">
+            <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
+              {info.Titulo}
+            </h2>
+          </div>
 
-      <div className="p-4 flex flex-col">
-        <div className="flex flex-row">
-          <h2 className="text-lg font-semibold line-clamp-1 mb-2 text-ellipsis">
-            {info.Titulo}
-          </h2>
-
-          {info.verified ? (
-            <img
-              src="../src/assets/icons/verified.svg"
-              alt=""
-              className="relative top-10 left-56"
-            />
-          ) : (
-            <></>
-          )}
+          <p className="text-sm text-gray-600 mb-2">
+            {info.Autor || "Anónimo"}
+          </p>
         </div>
-        <p className="text-sm text-gray-600 mb-2">{info.Autor || "Anónimo"}</p>
       </div>
     </a>
   );
