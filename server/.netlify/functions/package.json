@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "n": "node --watch ./src/index.js",
-    "base": "./db/crearBase.js"
+    "dev": "node --watch /.netlify/functions/index.js",
+    "start": "node /.netlify/functions/index.js",
+    "build": "netlify deploy --prod"
   },
   "author": "",
   "license": "ISC",

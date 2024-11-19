@@ -1,0 +1,4 @@
+[build]
+    functions = "/server/.netlify/functions"
+    publish = "/client/"
+    nodeLinker = "node-modules"
