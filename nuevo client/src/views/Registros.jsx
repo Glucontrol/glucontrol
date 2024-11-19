@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
 import Calendar from "../components/Calendar";
-import toast, { Toaster } from "react-hot-toast";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -110,24 +110,9 @@ export const Registros = () => {
               Registrar
             </button>
           </div>
-
-          <Line
-            data={{
-              labels: ["Enero", "Febrero", "Marzo", "Abril"],
-              datasets: [
-                {
-                  label: "Ventas",
-                  data: [12, 19, 3, 5],
-                  borderColor: "rgba(255, 99, 132, 1)",
-                  backgroundColor: "rgba(255, 99, 132, 0.2)",
-                  pointBackgroundColor: "rgba(255, 99, 132, 1)",
-                  pointBorderColor: "rgba(255, 99, 132, 1)",
-                  pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
-                  pointHoverBorderColor: "rgba(255, 99, 132, 1)",
-                },
-              ],
-            }}
-          />
+          <div className="w-1/2 mx-auto">
+            <Chart />
+          </div>
           <Calendar props={month} onClick={setMonth} />
           {month}
 
