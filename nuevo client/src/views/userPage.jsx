@@ -4,6 +4,7 @@ import { Footer } from "../components/Footer.jsx";
 import { UserContext } from "../context/UserContext.jsx";
 import { link } from "../utilities/functions.js";
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Usuario() {
   let user = useContext(UserContext);
@@ -32,6 +33,52 @@ export default function Usuario() {
     setPop(true);
   }, []);
 
+  const handleDelete = async (el) => {
+    toast(
+      (t) => (
+        <div className="flex flex-col items-center justify-centerspace-y-4">
+          <p className="text-gray-800 font-medium py-2 text-center">
+            ¿Estás seguro de que deseas eliminar este registro?
+          </p>
+          <div className="flex justify-end space-x-4">
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={async () => {
+                try {
+                  toast.dismiss(t.id);
+                  const isDeleted = await link.delete(el._id);
+                  if (isDeleted) {
+                    setArticles((prevArticles) =>
+                      prevArticles.filter((article) => article._id !== el._id)
+                    );
+                    toast.success("Artículo eliminado correctamente");
+                  } else {
+                    throw new Error("Error al eliminar el artículo");
+                  }
+                } catch (error) {
+                  toast.error("No se pudo eliminar el artículo");
+                  console.error(error);
+                }
+              }}
+              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 2000,
+        position: "top-center",
+      }
+    );
+  };
+
   const [datosUsuario, setDatosUsuario] = useState({
     Nombre: user.Nombre,
     Email: user.Email,
@@ -44,6 +91,7 @@ export default function Usuario() {
 
   return (
     <>
+      <Toaster />
       <main className="flex min-h-screen flex-col md:flex-row dark:bg-slate-900">
         <Navbar />
         <div className="flex-1 p-4 md:p-8">
@@ -176,15 +224,7 @@ export default function Usuario() {
 
                           <button
                             className="transform hover:scale-110 transition duration-500"
-                            onClick={() =>
-                              link.delete(el._id).then(() => {
-                                setArticles(
-                                  articles.filter(
-                                    (article) => article._id !== el._id
-                                  )
-                                );
-                              })
-                            }
+                            onClick={() => handleDelete(el)}
                           >
                             <AiOutlineDelete className="h-8 w-8 text-gray-500" />
                           </button>

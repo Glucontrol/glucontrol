@@ -1,25 +1,113 @@
 import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 
-const Calendar = () => {
+const Calendar = ({ onClick, props }) => {
   const [registros, setRegistros] = useState([]);
-  const Fechas = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+  const Months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
+  let date = new Date();
+  const [month, setMonth] = useState(date.getMonth());
+  const [year, setYear] = useState(date.getFullYear());
+  const [days, setDays] = useState([]);
 
   useEffect(() => {
-    link.getRegistersI().then((array) => setRegistros(array));
-    console.log(registros);
+    link.getRegistersI().then((array) => {
+      let toRegistros = [];
+      array.forEach((element) => {
+        let fecha = element.Fecha.split("T", 2);
+        let parts = fecha[0].split("-", 3);
+        let elDate = new Date(parts[0], parts[1] - 1, parts[2]);
+        toRegistros.push(elDate);
+      });
+      setRegistros(toRegistros);
+    });
   }, []);
 
+  useEffect(() => {
+    let arr = [];
+    for (let i = 1; i <= new Date(year, month + 1, 0).getDate(); i++) {
+      arr.push(i);
+    }
+    setDays(arr);
+  }, [month]);
+
   return (
-    <div className="calendar shadow-lg w-1/4 mx-auto flex flex-col">
-      <div className="calendar__header bg-gray-50 font-light text-xl text-center mb-2">
-        <h1 className="text-3xl font-semibold">Enerinho</h1>
+    <div className="calendar  w-1/4 mx-auto flex flex-col">
+      <div className="calendar__header flex flex-row p-3 justify-between shadow-lg rounded-xl font-light text-xl text-center mb-2">
+        <input
+          type="button"
+          value="<"
+          className="font-bold cursor-pointer hover:scale-125 duration-150"
+          onClick={() => {
+            if (month > 0) {
+              setMonth(month - 1);
+            } else {
+              setMonth(11);
+              setYear(year - 1);
+            }
+          }}
+        />
+        <h1 className="text-xl font-semibold">
+          {Months[month]} - {year}
+        </h1>
+        <input
+          type="button"
+          value=">"
+          className="font-bold cursor-pointer hover:scale-125 duration-150"
+          onClick={() => {
+            if (month < 11) {
+              setMonth(month + 1);
+            } else {
+              setMonth(0);
+              setYear(year + 1);
+            }
+          }}
+        />
       </div>
       <div className="calendar_body bg-slate-200 grid grid-cols-7 grid-rows-4 text-center rounded-lg">
-        {Fechas.map((fecha) => {})}
+        {days.map((day, index) => {
+          const thatDay = new Date(year, month, day);
+          const hasRegister = registros.find((el) => {
+            return el.toDateString() == thatDay.toDateString();
+          });
+          const prevRegister = registros.find((el) => {
+            return (
+              el.toDateString() == new Date(year, month, day - 1).toDateString()
+            );
+          });
+          const nextRegister = registros.find((el) => {
+            return (
+              el.toDateString() == new Date(year, month, day + 1).toDateString()
+            );
+          });
+
+          return (
+            <div
+              className={`hover:-translate-y-1 ${
+                !nextRegister ? "rounded-e-lg" : ""
+              } ${
+                !prevRegister ? "rounded-s-lg" : ""
+              }  hover:bg-slate-400 duration-200 cursor-pointer hover:shadow-md  ${
+                hasRegister ? "bg-sky-200 hover:bg-sky-300" : "bg-slate-200"
+              }`}
+              key={index}
+            >
+              {day}
+            </div>
+          );
+        })}
         {/* <div className="hover:bg-gray-100 hover:-translate-y-1 hover:shadow-md duration-500 h-8  cursor-pointer">
           <span>1</span>
           </div>
