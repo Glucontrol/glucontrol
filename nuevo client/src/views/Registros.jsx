@@ -2,26 +2,8 @@ import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
 import Calendar from "../components/Calendar";
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  PointElement,
-  LineController,
-  Title,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title
-);
-import { Line } from "react-chartjs-2";
+import Chart from "../components/Chart";
+import Toaster, { toast } from "react-hot-toast";
 
 import {
   LuSyringe,
@@ -110,7 +92,7 @@ export const Registros = () => {
               Registrar
             </button>
           </div>
-          <div className="w-1/3 mx-auto">
+          <div className="w-1/3 mx-auto mb-10">
             <Calendar props={month} onClick={setMonth} />
           </div>
           <div className="w-1/2 mx-auto">

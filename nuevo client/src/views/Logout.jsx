@@ -8,9 +8,9 @@ const LogOut = () => {
   useEffect(() => {
     link.logOut().then((el) => {
       setLogged(false);
-      setTimeout(() => {
+      /* setTimeout(() => {
         window.location.href = "./";
-      }, 5000);
+      }, 5000); */
     });
   }, []);
 
@@ -21,8 +21,12 @@ const LogOut = () => {
           <h1 className="text-3xl font-bold">Cerrando Sesión</h1>
         </div>
       ) : (
-        <div>
-          <h1 className="text-3xl font-bold">Sesión Cerrada</h1>
+        <div
+          className="
+      flex flex-col justify-center items-center min-h-screen"
+        >
+          <h1 className="text-3xl font-bold mb-6">Nos vemos pronto</h1>
+          <img src={`../src/assets/icons/gato.svg`} alt="" />
         </div>
       )}
     </main>

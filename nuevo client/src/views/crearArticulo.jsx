@@ -35,7 +35,9 @@ const CrearArticulo = () => {
       } else {
         formData.append("Fecha", new Date().toISOString());
         console.log(formData);
-        await link.createArticulo(formData);
+        await link
+          .createArticulo(formData)
+          .then((res) => (res ? (window.location.href = "/articulos") : false));
       }
       toast.success("Artículo creado exitosamente!"); // Notificación de éxito
     } catch (err) {
