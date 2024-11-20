@@ -20,6 +20,7 @@ export const Racha = ({ value }) => {
           textColor: `#4db8ff`, // Color del texto
           trailColor: "#d6d6d6", // Color de la parte no completada
         })}
+        backgroundPadding={40}
       />
     </div>
   );

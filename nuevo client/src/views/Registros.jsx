@@ -58,12 +58,12 @@ export const Registros = () => {
               Registrar
             </button>
           </div>
+          <div className="w-1/3 mx-auto">
+            <Calendar props={month} onClick={setMonth} />
+          </div>
           <div className="w-1/2 mx-auto">
             <Chart />
           </div>
-          <Calendar props={month} onClick={setMonth} />
-          {month}
-
           <div className="flex justify-center  items-center mb-6 gap-4 p-4">
             <div className="flex items-center gap-2">
               <LuArrowDownWideNarrow className="text-xl text-indigo-600" />

@@ -28,5 +28,5 @@ router.post("/articulo", upload.single("photo"), verifyUser, agregar);
 //Editar Articulo
 router.patch("/article/:id", upload.single("photo"), verifyUser, edit);
 
-router.delete("/article/:id", deleteArticle);
+router.delete("/article/:id", verifyUser, deleteArticle);
 export default router;

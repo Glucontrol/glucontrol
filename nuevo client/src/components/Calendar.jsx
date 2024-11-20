@@ -44,8 +44,8 @@ const Calendar = ({ onClick, props }) => {
   }, [month]);
 
   return (
-    <div className="calendar  w-1/4 mx-auto flex flex-col">
-      <div className="calendar__header flex flex-row p-3 justify-between shadow-lg rounded-xl font-light text-xl text-center mb-2">
+    <div className="calendar  w-full mx-auto flex flex-col border rounded-md border-gray-300 shadow-lg">
+      <div className="calendar__header flex flex-row p-3 justify-between shadow-lg  font-light text-xl text-center mb-2">
         <input
           type="button"
           value="<"
@@ -76,7 +76,7 @@ const Calendar = ({ onClick, props }) => {
           }}
         />
       </div>
-      <div className="calendar_body bg-slate-200 grid grid-cols-7 grid-rows-4 text-center rounded-lg">
+      <div className="calendar_body grid grid-cols-7 grid-rows-4 text-center rounded-lg ">
         {days.map((day, index) => {
           const thatDay = new Date(year, month, day);
           const hasRegister = registros.find((el) => {
@@ -100,7 +100,7 @@ const Calendar = ({ onClick, props }) => {
               } ${
                 !prevRegister ? "rounded-s-lg" : ""
               }  hover:bg-slate-400 duration-200 cursor-pointer hover:shadow-md  ${
-                hasRegister ? "bg-sky-200 hover:bg-sky-300" : "bg-slate-200"
+                hasRegister ? "bg-sky-200 hover:bg-sky-300" : "rounded-lg"
               }`}
               key={index}
             >

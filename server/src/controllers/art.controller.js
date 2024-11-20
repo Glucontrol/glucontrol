@@ -31,6 +31,7 @@ export const agregar = async (req, res) => {
       })
       .then((el) => el.url);
     doc.urlImg = await url;
+    doc.Autor = req.user._id;
   }
   client
     .db("glucontrol")
@@ -145,14 +146,16 @@ export const buscarPorUsuario = async (req, res) => {
 };
 
 export const deleteArticle = async (req, res) => {
+  const o_id = await generarOID(req.params.id);
   client
     .db("glucontrol")
     .collection("articulos")
     .findOneAndDelete({
-      _id: id,
+      _id: o_id,
       Autor: req.user._id,
     })
     .then((resp) => {
+      console.log(resp);
       if (resp) {
         res.send("Articulo Eliminado Con Exito").status(200);
       } else {
@@ -176,20 +179,13 @@ export const edit = async (req, res) => {
     doc.urlImg = await url;
   }
   const o_id = generarOID(req.params.id);
-  const cookie = req.headers.cookie;
-  if (cookie) {
-    const token = cookie.split("=")[1];
-    const Usuario = await validarJWT(token);
-    doc.Autor = Usuario._id;
-    console.log("no cambio imagen");
-    console.log(doc);
-    res.send(
-      await client
-        .db("glucontrol")
-        .collection("articulos")
-        .findOneAndUpdate({ _id: o_id }, { $set: doc })
-    );
-  } else {
-    res.send("Fallo en la autorización").status(400);
-  }
+  doc.Autor = req.user._id;
+  console.log("no cambio imagen");
+  console.log(doc);
+  res.send(
+    await client
+      .db("glucontrol")
+      .collection("articulos")
+      .findOneAndUpdate({ _id: o_id }, { $set: doc })
+  );
 };
