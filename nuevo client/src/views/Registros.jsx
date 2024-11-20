@@ -2,7 +2,26 @@ import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
 import Calendar from "../components/Calendar";
-import Chart from "../components/Chart";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+  LineController,
+  Title,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title
+);
+import { Line } from "react-chartjs-2";
 
 import {
   LuSyringe,
@@ -35,16 +54,49 @@ export const Registros = () => {
     setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
   }, []);
   const handleDelete = async (id) => {
-    await link.deleteRegister(id).then((res) => {
-      console.log(res);
-      setRegistros((prevRegistros) =>
-        prevRegistros.filter((registro) => registro._id !== id)
-      );
-    });
+    toast(
+      (t) => (
+        <div className="flex flex-col items-center justify-centerspace-y-4">
+          <p className="text-gray-800 font-medium py-2 text-center">
+            ¿Estás seguro de que deseas eliminar este registro?
+          </p>
+          <div className="flex justify-end space-x-4">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id); // Cerrar el toast
+              }}
+              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id); // Cerrar el toast
+                await link.deleteRegister(id).then((res) => {
+                  console.log(res);
+                  setRegistros((prevRegistros) =>
+                    prevRegistros.filter((registro) => registro._id !== id)
+                  );
+                  toast.success("Registro eliminado con éxito");
+                });
+              }}
+              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 5000, // Tiempo antes de que se cierre automáticamente
+        position: "top-center",
+      }
+    );
   };
 
   return (
     <>
+      <Toaster />
       <main className="flex mb-8">
         <Navbar />
         <div className="flex-1 pt-10">
@@ -206,16 +258,20 @@ export const Registros = () => {
                         </p>
                       </div>
                     )}
-                    <div className="flex items-center gap-2">
-                      <LuCalendarCheck className="text-indigo-500 w-6 h-6" />
-                      <p className="text-base font-semibold text-gray-700">
-                        {registro.Fecha.split("T")[0]}
-                      </p>
-                    </div>
+                    {registro.Fecha && (
+                      <div className="flex items-center gap-2">
+                        <LuCalendarCheck className="text-indigo-500 w-6 h-6" />
+                        <p className="text-base font-semibold text-gray-700">
+                          {new Date(registro.Fecha).toLocaleDateString("es-ES")}
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-2">
                       <LuClock9 className="text-indigo-500 w-6 h-6" />
                       <p className="text-base font-semibold text-gray-700">
                         {new Date(registro.Fecha).toLocaleTimeString([], {
+                          timeZone: "America/Argentina/Buenos_Aires", // Ajusta según tu zona horaria
                           hour: "2-digit",
                           minute: "2-digit",
                         })}

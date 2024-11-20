@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LogOut = () => {
   const [logged, setLogged] = useState(true);

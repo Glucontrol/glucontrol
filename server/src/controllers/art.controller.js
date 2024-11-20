@@ -20,6 +20,8 @@ Cloudinary.config(cConfig);
 
 export const agregar = async (req, res) => {
   let doc = req.body;
+  doc.Autor = req.user._id;
+  console.log(doc);
   if (req.file) {
     fs.renameSync(
       `${req.file.path}`,
@@ -188,4 +190,19 @@ export const edit = async (req, res) => {
       .collection("articulos")
       .findOneAndUpdate({ _id: o_id }, { $set: doc })
   );
+};
+
+export const verificarArticulo = async (req, res) => {
+  const id = await generarOID(req.params.id);
+  client
+    .db("glucontrol")
+    .collection("articulos")
+    .findOneAndUpdate({ _id: id }, { $set: { verified: true } })
+    .then((resp) => {
+      if (resp) {
+        res.send("Articulo Verificado Con Exito").status(200);
+      } else {
+        res.send("No se ha podido verificar el Articulo").status(500);
+      }
+    });
 };

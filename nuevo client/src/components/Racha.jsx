@@ -14,7 +14,7 @@ export const Racha = ({ value }) => {
     >
       <CircularProgressbar
         value={(value / 90) * 100} // Convertir la racha actual a porcentaje sobre 10 días
-        text={`${value} días`} // Mostrar el total de días de racha alcanzados
+        text={value > 1 ? `${value} días` : `${value} día`} // Mostrar el total de días de racha alcanzados
         styles={buildStyles({
           pathColor: `#4db8ff`, // Color de la barra de progreso
           textColor: `#4db8ff`, // Color del texto
