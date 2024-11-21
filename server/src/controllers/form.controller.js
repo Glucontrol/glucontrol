@@ -55,27 +55,16 @@ export const InsulData = async (req, res) => {
 
 export const leerRegistros = async (req, res) => {
   const fecha = req.params.fecha; // Fecha en formato YYYY-MM-DD
-  const cookie = req.headers.cookie;
-
-  if (cookie) {
-    const token = cookie.substr(6, cookie.length - 1);
-    validarJWT(token).then((resultado) => {
-      client
-        .db("glucontrol")
-        .collection("registros")
-        .find({
-          Fecha: { $regex: `^${fecha}` }, // Usar regex para que coincida solo la parte de la fecha
-          De: resultado._id,
-        })
-        .toArray()
-        .then((peticion) => res.send(peticion))
-        .catch((error) =>
-          res.status(500).send({ error: "Error en la consulta" })
-        );
-    });
-  } else {
-    res.status(401).send({ error: "Usuario no autenticado" });
-  }
+  client
+    .db("glucontrol")
+    .collection("registros")
+    .find({
+      Fecha: { $regex: `^${fecha}` }, // Usar regex para que coincida solo la parte de la fecha
+      De: req.user._id,
+    })
+    .toArray()
+    .then((peticion) => res.send(peticion))
+    .catch((error) => res.status(500).send({ error: "Error en la consulta" }));
 };
 
 export const deleteRegister = async (req, res) => {

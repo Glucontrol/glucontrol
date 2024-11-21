@@ -7,14 +7,6 @@ import { Resend } from "resend";
 import cConfig from "../helpers/cloudinary.js";
 
 const Cloudinary = cloudinary.v2;
-const resend = new Resend("re_G56Hxu31_PFB4Wvm8TY3HZBFVuqmaufCk");
-
-resend.emails.send({
-  from: "glucontrol@resend.dev",
-  to: "ezequielafeita@gmail.com",
-  subject: "Hello World",
-  html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
-});
 
 Cloudinary.config(cConfig);
 

@@ -3,7 +3,8 @@ import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
 import Calendar from "../components/Calendar";
 import Chart from "../components/Chart";
-import Toaster, { toast } from "react-hot-toast";
+import Notificar from "../components/Notificar";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   LuSyringe,
@@ -44,23 +45,28 @@ export const Registros = () => {
           </p>
           <div className="flex justify-end space-x-4">
             <button
-              onClick={() => {
-                toast.dismiss(t.id); // Cerrar el toast
-              }}
+              onClick={() => toast.dismiss(t.id)}
               className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md"
             >
               Cancelar
             </button>
             <button
               onClick={async () => {
-                toast.dismiss(t.id); // Cerrar el toast
-                await link.deleteRegister(id).then((res) => {
-                  console.log(res);
-                  setRegistros((prevRegistros) =>
-                    prevRegistros.filter((registro) => registro._id !== id)
-                  );
-                  toast.success("Registro eliminado con éxito");
-                });
+                try {
+                  toast.dismiss(t.id);
+                  const isDeleted = await link.deleteRegister(id);
+                  if (isDeleted) {
+                    setRegistros((prevArticles) =>
+                      prevArticles.filter((article) => article._id !== id)
+                    );
+                    toast.success("Artículo eliminado correctamente");
+                  } else {
+                    throw new Error("Error al eliminar el artículo");
+                  }
+                } catch (error) {
+                  toast.error("No se pudo eliminar el artículo");
+                  console.error(error);
+                }
               }}
               className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
             >
@@ -70,7 +76,7 @@ export const Registros = () => {
         </div>
       ),
       {
-        duration: 5000, // Tiempo antes de que se cierre automáticamente
+        duration: 2000,
         position: "top-center",
       }
     );
@@ -93,6 +99,7 @@ export const Registros = () => {
             </button>
           </div>
           <div className="w-1/3 mx-auto mb-10">
+            <Notificar />
             <Calendar props={month} onClick={setMonth} />
           </div>
           <div className="w-1/2 mx-auto">

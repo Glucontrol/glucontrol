@@ -22,12 +22,14 @@ import formRouter from "./routes/form.routes.js";
 import articlesRoutes from "./routes/art.routes.js";
 import userRoutes from "./routes/auth.routes.js";
 import favRouter from "./routes/fav.routes.js";
+import notificationRouter from "./routes/notifications.routes.js";
 //Requerimos nuestras rutas.
 
 app.use(formRouter);
 app.use(articlesRoutes);
 app.use(userRoutes);
 app.use(favRouter);
+app.use(notificationRouter);
 
 //Configuramos el puerto al que escuchara nuestro servidor.
 app.listen(port, () => {

@@ -163,3 +163,18 @@ link.validarArticulo = async (id) => {
     console.log(error);
   }
 };
+
+link.newGmail = async (date) => {
+  try {
+    return fetch(`http://localhost:${API_URL}/newgmail`, {
+      method: "POST",
+      body: JSON.stringify({ fecha: date }),
+      credentials: "include",
+      headers: {
+        "Content-Type": "ApPlicaTion/JSON",
+      },
+    }).then((respuesta) => respuesta.text());
+  } catch (err) {
+    console.log(err);
+  }
+};

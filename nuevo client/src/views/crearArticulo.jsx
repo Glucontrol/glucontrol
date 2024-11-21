@@ -191,27 +191,7 @@ const CrearArticulo = () => {
               className="w-full h-64 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <input
-            type="file"
-            name="photo"
-            onChange={(e) => {
-              const reader = new FileReader();
-              const file = e.target.files[0];
-              reader.onload = (readerEvent) => {
-                let $img = document.querySelector("#img");
-
-                if (!$img) {
-                  $img = document.createElement("img");
-                }
-
-                $img.src = readerEvent.target.result;
-                $img.style.width = "512px";
-                document.querySelector("form").append($img);
-              };
-
-              reader.readAsDataURL(file);
-            }}
-          />
+          <input type="file" name="photo" />
           <button
             type="submit"
             className="bg-blue-400 text-white w-1/3 mt-16 p-2 rounded-lg hover:bg-blue-600 hover:text-white"

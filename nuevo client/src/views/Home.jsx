@@ -173,7 +173,10 @@ export const Home = () => {
   const handleDateClick = (value) => {
     const dateString = value.toISOString().split("T")[0];
 
-    if (records[dateString] && records[dateString].insulin) {
+    if (
+      (records[dateString] && records[dateString].insulin) ||
+      records[dateString].glucosa
+    ) {
       window.location.href = `./Registro/${dateString}`;
     } else {
       return toast.error("No hay registros para esta fecha:(");

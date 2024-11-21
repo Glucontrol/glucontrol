@@ -8,9 +8,9 @@ const LogOut = () => {
   useEffect(() => {
     link.logOut().then((el) => {
       setLogged(false);
-      /* setTimeout(() => {
+      setTimeout(() => {
         window.location.href = "./";
-      }, 5000); */
+      }, 5000);
     });
   }, []);
 
