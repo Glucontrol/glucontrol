@@ -26,7 +26,6 @@ export default function Registro() {
           );
           const data = await response.json();
 
-          console.log("aca", data); // Verificar el formato de los datos
           if (Array.isArray(data)) {
             setRegistros(data);
           } else {
@@ -45,7 +44,7 @@ export default function Registro() {
 
   return (
     <>
-      <main className="flex">
+      <main className="flex h-full w-full">
         <Navbar />
         <div className="flex-1 pt-10">
           <div className="flex justify-center mb-10">

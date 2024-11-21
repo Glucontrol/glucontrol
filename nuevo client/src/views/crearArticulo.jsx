@@ -38,10 +38,6 @@ export default function CrearArticulo() {
         await link.createArticulo(formData);
       }
       toast.success("Artículo creado exitosamente!"); // Notificación de éxito
-
-      setTimeout(() => {
-        window.location.href = "/articulos";
-      }, 1000);
     } catch (err) {
       toast.error("Hubo un error al crear el artículo."); // Notificación de error
     }

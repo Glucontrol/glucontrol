@@ -3,7 +3,6 @@ import { Tarjeta } from "../components/Tarjeta.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 import { link } from "../utilities/functions.js";
 import { LuArrowDownWideNarrow, LuFilter, LuSearch } from "react-icons/lu";
-import { Footer } from "../components/Footer.jsx";
 
 export default function Articulos() {
   const [data, setData] = useState([]);
@@ -149,7 +148,6 @@ export default function Articulos() {
           )}
         </div>
       </main>
-      <Footer />
     </>
   );
 }

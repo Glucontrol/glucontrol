@@ -21,10 +21,12 @@ const Card = ({ imgSrc, title, description, link }) => (
       <img
         src={imgSrc}
         alt={title}
-        className="w-full h-48 object-cover rounded-md"
+        className="w-full h-48 object-cover rounded-md" // Establecer altura fija para la imagen
       />
 
       <div className="flex-1 flex flex-col justify-between mt-2">
+        {" "}
+        {/* Esto permite que el contenido se distribuya correctamente */}
         <h4 className="font-bold text-lg md:text-xl">{title}</h4>
         <p className="text-gray-600 text-sm md:text-base">{description}</p>
       </div>
@@ -93,30 +95,30 @@ export const Articulos = () => {
       .then((response) => setData(response));
   }, []);
 
-  // Verificar si data es un array antes de usar slice
-  const articulos = Array.isArray(data)
-    ? data.slice(0, 4).map((el) => <ArticleCard key={el._id} info={el} />)
-    : [];
+  const articulos = data
+    .slice(0, 4)
+    .map((el) => <ArticleCard key={el._id} info={el} />);
 
   return <>{articulos}</>;
 };
 
 export const Home = () => {
   const [date, setDate] = useState(new Date());
-  const [records, setRecords] = useState({});
+  const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
   const [streak, setStreak] = useState(0);
   const [fechas, setFechas] = useState([]);
+  const [pop, setPop] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dateString = date.toISOString().split("T")[0];
-        console.log("Fetching data for date:", dateString);
+        const dateString = date.toISOString().split("T")[0]; // Fecha en formato YYYY-MM-DD
+        console.log("Fetching data for date:", dateString); // Verificar la fecha solicitada
         const response = await fetch(`http://localhost:8080/registrosI`, {
           method: "GET",
-          credentials: "include",
+          credentials: "include", // Para incluir las cookies
           headers: {
-            "Cache-Control": "no-cache",
+            "Cache-Control": "no-cache", // Evitar que se use una respuesta cacheada
           },
         });
 
@@ -125,7 +127,7 @@ export const Home = () => {
         }
 
         const data = await response.json();
-        console.log("Datos recibidos para la fecha:", dateString, data);
+        console.log("Datos recibidos para la fecha:", dateString, data); // Verifica la respuesta del servidor
 
         const recordsMap = data.reduce((acc, registro) => {
           const dateString = registro.Fecha.split("T")[0];
@@ -137,11 +139,12 @@ export const Home = () => {
           return acc;
         }, {});
 
-        setRecords(recordsMap);
-        console.log("Records actualizados para la fecha:", recordsMap);
+        setRecords(recordsMap); // Guardar los registros en el estado
+        console.log("Records actualizados para la fecha:", recordsMap); // Verifica la estructura de records
         const fetchedDates = Object.keys(recordsMap).sort();
         setFechas(fetchedDates);
 
+        // Llamamos a la función calcularRacha y actualizamos el estado
         const nuevaRacha = calcularRacha(recordsMap);
         setStreak(nuevaRacha);
       } catch (error) {
@@ -149,23 +152,22 @@ export const Home = () => {
       }
     };
 
-    fetchData();
-  }, [date]);
+    fetchData(); // Ejecutar el fetch cuando cambia la fecha
+  }, [date]); // Asegúrate de que el useEffect se dispare al cambiar la fecha
 
   const onChange = (newDate) => {
     setDate(newDate);
   };
-
   const tileClassName = ({ date }) => {
     const dateString = date.toISOString().split("T")[0];
 
     if (records[dateString]) {
       if (records[dateString].insulin || records[dateString].glucosa) {
-        return "bg-blue-200 text-white";
+        return "bg-blue-200 text-white"; // Celeste si hay insulina
       }
     }
 
-    return "";
+    return ""; // Sin clase si no hay registro
   };
 
   const handleDateClick = (value) => {
@@ -178,6 +180,8 @@ export const Home = () => {
     }
   };
 
+  useEffect(() => setPop(true), []);
+
   return (
     <>
       <Toaster />
@@ -185,7 +189,11 @@ export const Home = () => {
         <Navbar />
         <div className="container flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
-            <div className="my-5 mx-2 col-span-1 md:col-span-2">
+            <div
+              className={`my-5 mx-2 col-span-1 md:col-span-2 duration-300 ${
+                pop ? "translate-y-0 opacity-100" : " translate-y-32 opacity-0"
+              }`}
+            >
               <h1 className="text-left font-extrabold m-4 text-2xl md:text-3xl">
                 Un aliado en cada paso de tu camino hacia el bienestar
               </h1>
@@ -196,7 +204,13 @@ export const Home = () => {
             </div>
             <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
-                <h4 className="text-center font-semibold mb-4">Racha</h4>
+                <h4
+                  className={`text-center font-semibold mb-4 duration-1000 delay-75 ${
+                    pop ? "translate-y-0" : "-translate-y-28"
+                  }`}
+                >
+                  Racha
+                </h4>
                 <Racha value={streak} />
               </div>
             </div>
@@ -214,10 +228,20 @@ export const Home = () => {
             </div>
           </div>
 
+          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2">
-            <h4 className="text-left font-bold col-span-full mb-4">
+          {/* Sección de Cards */}
+          <div
+            className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2 duration-1000 delay-750 ${
+              pop ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <h4
+              className={`text-left font-bold col-span-full duration-1000 delay-1000 mb-4 ${
+                pop ? "opacity-100" : "opacity-0"
+              } `}
+            >
               ¿Qué puedo hacer?
             </h4>
             <Card
@@ -240,6 +264,7 @@ export const Home = () => {
             />
           </div>
 
+          {/* Separador */}
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-1 mx-4 py-8 ">
             <NutritionInfo />

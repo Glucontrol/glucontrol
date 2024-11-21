@@ -1,11 +1,32 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
+import { Link } from "react-router-dom";
+
 const LogOut = () => {
-  link.logOut();
+  const [logged, setLogged] = useState(true);
+
+  useEffect(() => {
+    link.logOut().then((el) => {
+      setLogged(false);
+      setTimeout(() => {
+        window.location.href = "./";
+      }, 5000);
+    });
+  }, []);
+
   return (
-    <>
-      <h1>Cerrar Sesión</h1>
-    </>
+    <main className="flex flex-col items-center space-y-4">
+      {logged ? (
+        <div className="flex flex-col items-center space-y-4">
+          <h1 className="text-3xl font-bold">Cerrando Sesión</h1>
+        </div>
+      ) : (
+        <div>
+          <h1 className="text-3xl font-bold">Sesión Cerrada</h1>
+        </div>
+      )}
+    </main>
   );
 };
+
 export default LogOut;
