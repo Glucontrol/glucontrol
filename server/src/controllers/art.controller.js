@@ -172,16 +172,15 @@ export const edit = async (req, res) => {
       .then((el) => el.url);
     doc.urlImg = await url;
   }
-  const o_id = generarOID(req.params.id);
   doc.Autor = req.user._id;
-  console.log("no cambio imagen");
-  console.log(doc);
-  res.send(
-    await client
-      .db("glucontrol")
-      .collection("articulos")
-      .findOneAndUpdate({ _id: o_id }, { $set: doc })
-  );
+  generarOID(req.params.id).then((o_id) => {
+    res.send(
+      client
+        .db("glucontrol")
+        .collection("articulos")
+        .findOneAndUpdate({ _id: o_id }, { $set: doc })
+    );
+  });
 };
 
 export const verificarArticulo = async (req, res) => {
