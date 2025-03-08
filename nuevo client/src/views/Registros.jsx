@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { link } from "../utilities/functions";
 import { Navbar } from "../components/Navbar";
+import Calendar from "../components/Calendar";
+import Chart from "../components/Chart";
+import Notificar from "../components/Notificar";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   LuSyringe,
@@ -16,52 +20,71 @@ import { PiDrop, PiLightning } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 
 export const Registros = () => {
+  const [month, setMonth] = useState(1);
   const [registros, setRegistros] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Estado de carga
   const [filtro, setFiltro] = useState("Todos"); // Estado para el filtro
   const [fecha, setFecha] = useState("Todos");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     link.getRegistersI().then((data) => {
       console.log(data);
       setRegistros(data);
-
-      const ctx = document.querySelector("#chart");
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
     });
+
     setIsLoading(false); // Detener el estado de carga cuando se obtienen los datos
   }, []);
   const handleDelete = async (id) => {
-    await link.deleteRegister(id).then((res) => {
-      console.log(res);
-      setRegistros((prevRegistros) =>
-        prevRegistros.filter((registro) => registro._id !== id)
-      );
-    });
+    toast(
+      (t) => (
+        <div className="flex flex-col items-center justify-centerspace-y-4">
+          <p className="text-gray-800 font-medium py-2 text-center">
+            ¿Estás seguro de que deseas eliminar este registro?
+          </p>
+          <div className="flex justify-end space-x-4">
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={async () => {
+                try {
+                  toast.dismiss(t.id);
+                  const isDeleted = await link.deleteRegister(id);
+                  if (isDeleted) {
+                    setRegistros((prevArticles) =>
+                      prevArticles.filter((article) => article._id !== id)
+                    );
+                    toast.success("Artículo eliminado correctamente");
+                  } else {
+                    throw new Error("Error al eliminar el artículo");
+                  }
+                } catch (error) {
+                  toast.error("No se pudo eliminar el artículo");
+                  console.error(error);
+                }
+              }}
+              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 2000,
+        position: "top-center",
+      }
+    );
   };
 
   return (
     <>
+      <Toaster />
       <main className="flex mb-8">
         <Navbar />
         <div className="flex-1 pt-10">
@@ -75,7 +98,13 @@ export const Registros = () => {
               Registrar
             </button>
           </div>
-
+          <div className="w-1/3 mx-auto mb-10">
+            <Notificar />
+            <Calendar props={month} onClick={setMonth} />
+          </div>
+          <div className="w-1/2 mx-auto">
+            <Chart />
+          </div>
           <div className="flex justify-center  items-center mb-6 gap-4 p-4">
             <div className="flex items-center gap-2">
               <LuArrowDownWideNarrow className="text-xl text-indigo-600" />
@@ -152,8 +181,15 @@ export const Registros = () => {
                 .map((registro) => (
                   <div
                     key={registro._id} // Asegurarse de que el key sea único
-                    className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4"
+                    className="bg-white shadow-md hover:shadow-lg shadow-gray-400 border border-gray-200 min-h-40 min-w-60 flex flex-col hover:scale-105 hover:bg-indigo-50 transition-all duration-300 ease-in-out rounded-xl p-6 space-y-4 relative"
                   >
+                    <button
+                      onClick={() => handleDelete(registro._id)}
+                      className="absolute top-2 right-2 text-indigo-500 w-6 h-6 hover:text-indigo-700 transition duration-200"
+                    >
+                      <LuTrash />
+                    </button>
+
                     {registro.Tipo && (
                       <div className="flex items-center gap-2">
                         <PiLightning className="text-indigo-500 w-6 h-6" />
@@ -162,6 +198,7 @@ export const Registros = () => {
                         </p>
                       </div>
                     )}
+
                     {registro.Dosis && (
                       <div className="flex items-center gap-2">
                         <PiDrop className="text-indigo-500 w-6 h-6" />
@@ -210,25 +247,24 @@ export const Registros = () => {
                         </p>
                       </div>
                     )}
-                    <div className="flex items-center gap-2">
-                      <LuCalendarCheck className="text-indigo-500 w-6 h-6" />
-                      <p className="text-base font-semibold text-gray-700">
-                        {registro.Fecha.split("T")[0]}
-                      </p>
-                    </div>
+                    {registro.Fecha && (
+                      <div className="flex items-center gap-2">
+                        <LuCalendarCheck className="text-indigo-500 w-6 h-6" />
+                        <p className="text-base font-semibold text-gray-700">
+                          {new Date(registro.Fecha).toLocaleDateString("es-ES")}
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-2">
                       <LuClock9 className="text-indigo-500 w-6 h-6" />
                       <p className="text-base font-semibold text-gray-700">
                         {new Date(registro.Fecha).toLocaleTimeString([], {
+                          timeZone: "America/Argentina/Buenos_Aires", // Ajusta según tu zona horaria
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
                       </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button onClick={() => handleDelete(registro._id)}>
-                        <LuTrash className="absolute top-2 right-2 text-indigo-500 w-6 h-6  hover:text-indigo-700 transition duration-200" />
-                      </button>
                     </div>
                   </div>
                 ))}

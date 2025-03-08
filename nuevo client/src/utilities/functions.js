@@ -24,14 +24,15 @@ link.login = async (Nombre, Contraseña) => {
       "Content-Type": "Application/Json",
     },
     body: JSON.stringify({ Nombre, Contraseña }),
-  }).then((response) => {
-    if (response.status == 200) {
-      console.log("salió bien");
-      return true;
-    } else {
-      return false;
-    }
-  });
+  }).then((response) =>
+    response.text().then((res) => {
+      console.log(res);
+      return {
+        status: response.status,
+        data: res,
+      };
+    })
+  );
 };
 
 link.sesion = async (req, res) => {
@@ -127,7 +128,6 @@ link.signUp = async (data) => {
 };
 
 link.deleteRegister = async (id) => {
-  console.log("hola");
   try {
     const response = await fetch(
       `http://localhost:${API_URL}/registros/${id}`,
@@ -143,5 +143,38 @@ link.deleteRegister = async (id) => {
   } catch (error) {
     console.error(error);
     throw error;
+  }
+};
+
+link.validarArticulo = async (id) => {
+  try {
+    return await fetch(`http://localhost:${API_URL}/articulo/${id}`, {
+      method: "PATCH",
+      credentials: "include",
+    }).then((res) =>
+      res.text().then((resp) => {
+        return {
+          text: resp,
+          status: res.status,
+        };
+      })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+link.newGmail = async (date) => {
+  try {
+    return fetch(`http://localhost:${API_URL}/newgmail`, {
+      method: "POST",
+      body: JSON.stringify({ fecha: date }),
+      credentials: "include",
+      headers: {
+        "Content-Type": "ApPlicaTion/JSON",
+      },
+    }).then((respuesta) => respuesta.text());
+  } catch (err) {
+    console.log(err);
   }
 };

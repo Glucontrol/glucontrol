@@ -1,8 +1,8 @@
 import { ObjectId } from "mongodb";
-export const generarOID = (oid) => {
-    if (ObjectId.isValid(oid)) {
-        return ObjectId.createFromHexString(oid)
-    }else{
-        return false
-    }
-}
+export const generarOID = async (req, res) => {
+  if (ObjectId.isValid(req)) {
+    return ObjectId.createFromHexString(req);
+  } else {
+    return false;
+  }
+};

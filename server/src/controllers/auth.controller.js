@@ -2,8 +2,6 @@ import { client } from "../db/database.js";
 import bcrypt from "bcrypt";
 import { generarJWT } from "../helpers/generarJWT.js";
 import { generarOID } from "../helpers/generarOID.js";
-import { ObjectId } from "mongodb";
-import { validarJWT } from "../helpers/validarJWT.js";
 import fs from "fs";
 import cloudinary from "cloudinary";
 
@@ -37,6 +35,7 @@ export const register = async (req, res) => {
   });
 };
 
+//Terminao
 export const login = async (req, res) => {
   const { Nombre, Contraseña } = req.body;
   client
@@ -44,33 +43,24 @@ export const login = async (req, res) => {
     .collection("usuarios")
     .findOne({ Nombre: Nombre })
     .then((usuario) => {
-      console.log(usuario);
-      if (usuario) {
-        if (bcrypt.compareSync(Contraseña, usuario.Contrasenia)) {
-          generarJWT({ id: usuario._id }).then((token) => {
-            res.cookie("token", token, {
-              httpOnly: true,
+      try {
+        if (usuario) {
+          if (bcrypt.compareSync(Contraseña, usuario.Contrasenia)) {
+            generarJWT({ id: usuario._id }).then((token) => {
+              res.cookie("token", token, {
+                httpOnly: true,
+              });
+              res.status(200).send("Sesión Iniciada con exito.");
             });
-            res.status(200).send("Authorized");
-          });
+          } else {
+            throw new Error("Las contraseñas no son correctas");
+          }
         } else {
-          res.status(400).send("Bad Login");
+          throw new Error("El usuario no existe");
         }
-      } else {
-        res.status(404).json({ msg: "El usuario no existe" });
+      } catch (error) {
+        res.status(400).send(`${error}`);
       }
-      // bcrypt
-      //   .compareSync(Contraseña, usuario.Contrasenia)
-      //   .then((resultado) => {
-      //     if (resultado) {
-      //       generarJWT({ id: buscarUsuario._id }).then((token) =>
-      //         res.json({ msg: "Inicio de sesión exitoso", token })
-      //       );
-      //     } else {
-      //       return res.status(401).json({
-      //         msg: "El usuario o contraseña no coiciden",
-      //       });
-      //     }
     });
 };
 
@@ -97,34 +87,27 @@ export const eliminar = async (req, res) => {
   }
 };
 
+//Falta
 export const sesion = async (req, res) => {
-  console.log("hola");
-  const cookie = req.headers.cookie;
-
-  console.log("holiwis", cookie);
-  if (cookie) {
-    const token = cookie.trim().substr(6, cookie.length - 1);
-    validarJWT(token).then((resultado) => {
-      resultado
-        ? res.send(resultado).status(200)
-        : res.status(400).send({ loggedIn: false });
-    });
-  } else {
-    res.status(404).send({ loggedIn: false });
-  }
+  res.send(req.user);
 };
 
 export const logOut = async (req, res) => {
-  res.clearCookie("token").send("hola");
+  try {
+    res.clearCookie("token");
+    res.status(200).send("Se ha cerrado la sesión");
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
+//
 export const user = async (req, res) => {
   const { user } = req.params;
   const usuario = await client
     .db("glucontrol")
     .collection("usuarios")
     .findOne({ Nombre: user });
-  console.log(usuario);
   res.send(usuario);
 };
 
@@ -157,10 +140,6 @@ export const datosUsuario = async (req, res) => {
 };
 
 export const edit = async (req, res) => {
-  const { cookie } = req.headers;
-
-  const token = await validarJWT(cookie.substr(6, cookie.length));
-
   const doc = req.body;
   if (doc.Contrasenia.trim() == "") {
     delete doc.Contrasenia;
@@ -180,6 +159,6 @@ export const edit = async (req, res) => {
   client
     .db("glucontrol")
     .collection("usuarios")
-    .findOneAndUpdate({ _id: token._id }, { $set: doc });
+    .findOneAndUpdate({ _id: req.user._id }, { $set: doc });
   res.send("hola");
 };

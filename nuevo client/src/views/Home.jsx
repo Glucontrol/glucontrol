@@ -13,6 +13,7 @@ import { NutritionInfo } from "./NutrionInfo.jsx";
 import gra from "../assets/icons/homegra.svg";
 import care from "../assets/icons/selfcare.svg";
 import { Link } from "react-router-dom";
+import useBookmark from "../utilities/useBookmark.js";
 
 const Card = ({ imgSrc, title, description, link }) => (
   <div className="flex flex-col border-2 rounded-lg p-4 h-80 shadow-lg shadow-gray-400 hover:scale-105 transition ease-in-out duration-200">
@@ -34,77 +35,53 @@ const Card = ({ imgSrc, title, description, link }) => (
 );
 
 const ArticleCard = ({ info }) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
-  const handleBookmarkClick = async () => {
-    const prevBookmarked = isBookmarked;
-    setIsBookmarked(!prevBookmarked);
-
-    console.log(info);
-    // Lógica para enviar a la base de datos
-    try {
-      const response = await fetch("http://localhost:8080/favoritos/1", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          articleId: info._id,
-          bookmarked: !prevBookmarked,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error al marcar el artículo: ${response.statusText}`);
-      }
-
-      console.log("Artículo marcado/desmarcado con éxito");
-    } catch (error) {
-      console.error("Error:", error);
-      setIsBookmarked(prevBookmarked);
-    }
-  };
+  const [isBookmarked, toggleBookmark] = useBookmark(info._id);
 
   return (
     <div className="flex flex-col border-2 rounded-lg p-4 min-h-48 shadow-lg shadow-gray-400 hover:scale-95 transition ease-in-out duration-200">
-      <div className="relative m-1">
+      <div className="relative m-1 h-48 w-full overflow-hidden rounded-t-lg">
         <img
-          src="https://images.pexels.com/photos/28403274/pexels-photo-28403274/free-photo-of-fresas.jpeg"
+          src={info.urlImg}
           alt={info.title}
-          className="rounded-t-lg object-cover w-full max-h-96"
+          className="w-full h-full object-cover"
         />
-        <span className="block absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-          salud
+        <span className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+          {info.Categoria}
         </span>
       </div>
-      <div className="flex flex-row justify-around">
-        <a
-          onClick={() => {
-            window.location.href = `./articulo?${info._id}`;
-          }}
-        >
-          <h4 className="text-sm md:text-lg text-black font-bold mt-2">
-            {info.Titulo}
-          </h4>
-        </a>
-        <div onClick={handleBookmarkClick} className="cursor-pointer">
-          {isBookmarked ? (
-            <FaBookmark className="top-3 right-3 mt-4 text-black" />
-          ) : (
-            <FaRegBookmark className="top-3 right-3 mt-4 text-gray-400" />
-          )}
+
+      <div className="flex flex-col justify-between flex-grow">
+        <div className="flex flex-row justify-around">
+          <a
+            onClick={() => {
+              window.location.href = `./articulo?${info._id}`;
+            }}
+          >
+            <h4 className="text-sm md:text-lg text-black font-bold mt-2">
+              {info.Titulo}
+            </h4>
+          </a>
+          <div onClick={toggleBookmark} className="cursor-pointer">
+            {isBookmarked ? (
+              <FaBookmark className="top-3 right-3 mt-4 text-black" />
+            ) : (
+              <FaRegBookmark className="top-3 right-3 mt-4 text-gray-400" />
+            )}
+          </div>
+        </div>
+
+        <div className="mt-auto">
+          <p className="text-black mt-2 text-xs md:text-sm text-center">
+            {info.Autor || "Autor desconocido"}
+          </p>
+          <a
+            href={`./articulo?${info._id}`}
+            className="mt-4 text-center text-blue-600 font-bold text-xs md:text-sm block"
+          >
+            Leer más
+          </a>
         </div>
       </div>
-      <p className="text-black mt-2 text-xs md:text-sm text-center">
-        {info.Autor}
-      </p>
-      <a
-        href="#"
-        className="mt-4 text-center text-blue-600 font-bold text-xs md:text-sm"
-      >
-        Leer más
-      </a>
     </div>
   );
 };
@@ -130,6 +107,7 @@ export const Home = () => {
   const [records, setRecords] = useState({}); // Cambiar a un objeto vacío
   const [streak, setStreak] = useState(0);
   const [fechas, setFechas] = useState([]);
+  const [pop, setPop] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -195,12 +173,17 @@ export const Home = () => {
   const handleDateClick = (value) => {
     const dateString = value.toISOString().split("T")[0];
 
-    if (records[dateString] && records[dateString].insulin) {
+    if (
+      (records[dateString] && records[dateString].insulin) ||
+      records[dateString].glucosa
+    ) {
       window.location.href = `./Registro/${dateString}`;
     } else {
       return toast.error("No hay registros para esta fecha:(");
     }
   };
+
+  useEffect(() => setPop(true), []);
 
   return (
     <>
@@ -209,21 +192,29 @@ export const Home = () => {
         <Navbar />
         <div className="container flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-around m-10">
-            <div className="my-5 mx-2 col-span-1 md:col-span-2">
-              <h1 className="text-left font-bold m-4 text-2xl md:text-3xl">
-                ¡Bienvenido!
+            <div
+              className={`my-5 mx-2 col-span-1 md:col-span-2 duration-300 ${
+                pop ? "translate-y-0 opacity-100" : " translate-y-32 opacity-0"
+              }`}
+            >
+              <h1 className="text-left font-extrabold m-4 text-2xl md:text-3xl">
+                Un aliado en cada paso de tu camino hacia el bienestar
               </h1>
-              <p className="text-left text-gray-600 w-full mt-4 mb-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                accusamus error vel modi explicabo? Minus nihil maxime facilis
-                fugit hic at est, facere temporibus consectetur magnam
-                laudantium beatae officia libero.
+              <p className="text-left text-gray-600 w-full m-4">
+                Inspírate a dar pequeños pasos que marcan una gran diferencia en
+                tu salud.
               </p>
             </div>
             <div className="my-5 mx-2 col-span-1">
               <div className="flex flex-col items-center justify-center">
-                <h4 className="text-center font-semibold mb-4">Racha</h4>
-                <Racha value={streak} max={30} />
+                <h4
+                  className={`text-center font-semibold mb-4 duration-1000 delay-75 ${
+                    pop ? "translate-y-0" : "-translate-y-28"
+                  }`}
+                >
+                  Racha
+                </h4>
+                <Racha value={streak} />
               </div>
             </div>
             <div className="my-5 mx-2 col-span-1">
@@ -244,8 +235,16 @@ export const Home = () => {
           <div className="bg-gray-200 w-full h-0.5 m-6"></div>
 
           {/* Sección de Cards */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2">
-            <h4 className="text-left font-bold col-span-full mb-4">
+          <div
+            className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mx-4 my-2 duration-1000 delay-750 ${
+              pop ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <h4
+              className={`text-left font-bold col-span-full duration-1000 delay-1000 mb-4 ${
+                pop ? "opacity-100" : "opacity-0"
+              } `}
+            >
               ¿Qué puedo hacer?
             </h4>
             <Card
