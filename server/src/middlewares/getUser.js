@@ -4,7 +4,7 @@ import { generarOID } from "../helpers/generarOID.js";
 
 const getCookie = (cookie) => {
   if (cookie) {
-    const cookies = cookie.includes(";") ? cookie.split(";") : cookie.substr(6);
+    const cookies  = cookie.includes(";") ? cookie.split(";") : cookie.substr(6);
     const token = cookies.find((el)=>el.includes("token") ? el : false)
     return token.substr(7)
   }

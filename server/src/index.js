@@ -35,3 +35,6 @@ app.use(notificationRouter);
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);
 });
+app.get("/",()=>{
+  console.log("hola mundo")
+})

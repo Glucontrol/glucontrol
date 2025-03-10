@@ -11,11 +11,11 @@ function cliente() {
   });
 }
 
-async function run() {
-  const client = cliente();
-  await client.connect();
-}
 //Esto es para testear si funca la base de datos
-run();
+// async function run() {
+//   const client = cliente();
+//   await client.connect();
+// }
+// run();
 // Exportamos la funcion para realizar la conexion desde cualquier archivo.
 export const client = cliente();
